@@ -1,0 +1,1356 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"fet",
+				"fetchSession	*map[string]interface{} ƒ"
+			],
+			[
+				"p",
+				"Println	n int, err error ƒ"
+			],
+			[
+				"N",
+				"ErrNoRows	error ν"
+			],
+			[
+				"template",
+				"templateDir"
+			],
+			[
+				"L",
+				"ListingSummaries"
+			],
+			[
+				"lis",
+				"listingSummary"
+			],
+			[
+				"Catg",
+				"Categories"
+			],
+			[
+				"render",
+				"rendererOptions"
+			],
+			[
+				"GST",
+				"GSTRate"
+			],
+			[
+				"doc",
+				"docSummaries"
+			],
+			[
+				"Fetch",
+				"FetchDocument"
+			],
+			[
+				"D",
+				"DocumentAndChildren"
+			],
+			[
+				"Mo",
+				"ModalTrigger"
+			],
+			[
+				"set",
+				"setCurrentDoc"
+			],
+			[
+				"stat",
+				"staticHandler"
+			],
+			[
+				"glp",
+				"glyph"
+			],
+			[
+				"Qu",
+				"QuestionInfo2"
+			],
+			[
+				"re",
+				"render"
+			],
+			[
+				"co",
+				"completeTitle"
+			],
+			[
+				"get",
+				"getAnswersDBSearch"
+			],
+			[
+				"ifr",
+				"iframeClasses"
+			],
+			[
+				"Answers",
+				"AnswersDB"
+			],
+			[
+				"ans",
+				"showAnswersDB"
+			],
+			[
+				"subsec",
+				"subsectionResponse"
+			],
+			[
+				"us",
+				"userPresent"
+			],
+			[
+				"pre",
+				"precence"
+			],
+			[
+				"gl",
+				"glyphClasses"
+			],
+			[
+				"current",
+				"currentSection"
+			],
+			[
+				"navigateT",
+				"setNavigateToNodeNumber"
+			],
+			[
+				"ques",
+				"questionResponse"
+			],
+			[
+				"filtre",
+				"filteredResponses"
+			],
+			[
+				"for",
+				"forceUpdate"
+			],
+			[
+				"question",
+				"questionsClass"
+			],
+			[
+				"match",
+				"matchEdition"
+			],
+			[
+				"filter",
+				"filterChanged"
+			],
+			[
+				"fi",
+				"filteredResponses"
+			],
+			[
+				"subse",
+				"subsections"
+			],
+			[
+				"qu",
+				"questionResponses"
+			],
+			[
+				"Filtered",
+				"filteredResponses"
+			],
+			[
+				"sub",
+				"subSection"
+			],
+			[
+				"use",
+				"useWorkflow"
+			],
+			[
+				"m",
+				"message"
+			],
+			[
+				"se",
+				"severity"
+			],
+			[
+				"load",
+				"loadProjectId"
+			],
+			[
+				"lo",
+				"loadProjectId"
+			],
+			[
+				"cur",
+				"current_user"
+			],
+			[
+				"sele",
+				"selectedSection"
+			],
+			[
+				"auto",
+				"autoExpandSelectionParents"
+			],
+			[
+				"transition",
+				"transitionEnded"
+			],
+			[
+				"React",
+				"ReactTransitionGroup"
+			],
+			[
+				"Re",
+				"ReactTransitionGroup"
+			],
+			[
+				"q",
+				"questionNum"
+			],
+			[
+				"nav",
+				"navigateToDOMNode"
+			],
+			[
+				"na",
+				"navigateToQuestion"
+			],
+			[
+				"res",
+				"resolveSectionQuestion"
+			],
+			[
+				"fin",
+				"findSectionQuestionNumbered"
+			],
+			[
+				"pro",
+				"projects"
+			],
+			[
+				"BU",
+				"ButtonGroup"
+			],
+			[
+				"Bu",
+				"ButtonGroup"
+			],
+			[
+				"Pro",
+				"ProjectPage"
+			],
+			[
+				"pr",
+				"projects"
+			],
+			[
+				"project_q",
+				"get_project_questionnaire"
+			],
+			[
+				"preserve",
+				"preserveCommentsRegEx"
+			],
+			[
+				"check",
+				"check_view_scores	function"
+			],
+			[
+				"sc",
+				"scoreset_id	statement"
+			],
+			[
+				"HTTPB",
+				"HTTPBadRequest	class"
+			],
+			[
+				"Cl",
+				"ClientOutOfDate	class"
+			],
+			[
+				"Quest",
+				"QuestionInstance	class"
+			],
+			[
+				"Que",
+				"QuestionInstance	class"
+			],
+			[
+				"sco",
+				"scoreable_filter	function"
+			],
+			[
+				"cla",
+				"classmethod	class"
+			],
+			[
+				"response",
+				"responseJSON"
+			],
+			[
+				"Not",
+				"NotLoggedIn"
+			],
+			[
+				"fetch",
+				"fetch_issue	function"
+			],
+			[
+				"project",
+				"project_and_participant	param"
+			],
+			[
+				"project_section_",
+				"project_section_question"
+			],
+			[
+				"quest",
+				"question_instance	param"
+			],
+			[
+				"I",
+				"IssueAttachment	class"
+			],
+			[
+				"a",
+				"attachment_b"
+			],
+			[
+				"Issue",
+				"IssueAttachment	class"
+			],
+			[
+				"Score",
+				"ScoreComment	class"
+			],
+			[
+				"c",
+				"comment_time"
+			],
+			[
+				"No",
+				"NoResultFound	class"
+			],
+			[
+				"add",
+				"addComment"
+			],
+			[
+				"sec",
+				"section_b"
+			],
+			[
+				"Sec",
+				"SectionPermission	class"
+			],
+			[
+				"scoreset",
+				"scoreset_id	param"
+			],
+			[
+				"proj",
+				"project_section_question	param"
+			],
+			[
+				"sect",
+				"sections_question_scores"
+			],
+			[
+				"score",
+				"scoreset_id"
+			],
+			[
+				"Lacks",
+				"LacksPermission	class"
+			],
+			[
+				"scoreD",
+				"scored_answered_project	param"
+			],
+			[
+				"particip",
+				"Participant	class"
+			],
+			[
+				"s",
+				"section_a"
+			],
+			[
+				"han",
+				"handler_module	param"
+			],
+			[
+				"ada",
+				"adaptor_module	param"
+			],
+			[
+				"adp",
+				"adaptor_module	param"
+			],
+			[
+				"per",
+				"permTree"
+			],
+			[
+				"n",
+				"nunjucks"
+			],
+			[
+				"par",
+				"params"
+			],
+			[
+				"propert",
+				"property	New Property"
+			],
+			[
+				"property",
+				"property	class"
+			],
+			[
+				"tree",
+				"treeNodes"
+			],
+			[
+				"pare",
+				"parent_id"
+			],
+			[
+				"proje",
+				"projectId"
+			],
+			[
+				"Rou",
+				"RoutingError	class"
+			],
+			[
+				"is",
+				"isinstance	function"
+			],
+			[
+				"row",
+				"rowspan"
+			],
+			[
+				"que",
+				"question_def	statement"
+			],
+			[
+				"u",
+				"url"
+			],
+			[
+				"prop",
+				"property	class"
+			],
+			[
+				"toc",
+				"to_dict"
+			],
+			[
+				"reg",
+				"regexp	statement"
+			],
+			[
+				"path",
+				"path_info	statement"
+			],
+			[
+				"ag",
+				"arg_name	param"
+			],
+			[
+				"hand",
+				"handler_suffix	statement"
+			],
+			[
+				"ex",
+				"extract_handler_name	function"
+			],
+			[
+				"scor",
+				"score_doc	param"
+			],
+			[
+				"user",
+				"user_id	statement"
+			],
+			[
+				"section",
+				"section_id	statement"
+			],
+			[
+				"Ques",
+				"QuestionInstance	import"
+			],
+			[
+				"fetc",
+				"fetch_user	function"
+			],
+			[
+				"fetch_",
+				"fetch_section	function"
+			],
+			[
+				"Is",
+				"ISSUE_SAVE_SCORES"
+			],
+			[
+				"has",
+				"has_permission"
+			],
+			[
+				"to",
+				"to_dict"
+			],
+			[
+				"we",
+				"web_exposed"
+			],
+			[
+				"wb",
+				"web_exposed"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "main.go",
+			"settings":
+			{
+				"buffer_size": 4352,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Session.go",
+			"settings":
+			{
+				"buffer_size": 1959,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "database.go",
+			"settings":
+			{
+				"buffer_size": 4235,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "digitalwhanganui.sql",
+			"settings":
+			{
+				"buffer_size": 1546,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: List Packages"
+			],
+			[
+				"",
+				"Anaconda: Autoformat PEP8 Errors"
+			],
+			[
+				"p",
+				"Package Control: Install Package"
+			],
+			[
+				"P",
+				"Package Control: Remove Package"
+			],
+			[
+				"Pac",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"Snippet: ",
+				"Snippet: Try/Except/Else/Finally"
+			],
+			[
+				"remov",
+				"Package Control: Remove Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 139.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"$VIRTUAL_ENV",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/richardc/crit/digitalwhanganui",
+		"/home/richardc/crit/digitalwhanganui/public",
+		"/home/richardc/crit/digitalwhanganui/templates"
+	],
+	"file_history":
+	[
+		"/home/richardc/go/src/github.com/richardcrichardc/render/render.go",
+		"/home/richardc/serve/private-sites/digitalwhanganui/start",
+		"/home/richardc/serve/private-sites/digitalwhanganui/Dockerfile",
+		"/home/richardc/crit/digitalwhanganui/templates/browse-listing.tmpl",
+		"/home/richardc/business/supplier-select/qedit-react/qedit-react.sublime-",
+		"/home/richardc/serve/sites/blog/start",
+		"/home/richardc/crit/digitalwhanganui/templates/browse-major.tmpl",
+		"/home/richardc/go/src/github.com/martini-contrib/render/render.go",
+		"/home/richardc/crit/digitalwhanganui/main.go",
+		"/home/richardc/.config/sublime-text-3/Packages/GoSublime/CHANGELOG.md",
+		"/home/richardc/business/stellar/stellarsublime-project",
+		"/home/richardc/crit/digitalwhanganui/public/addme.js",
+		"/home/richardc/crit/digitalwhanganui/templates/base.tmpl",
+		"/home/richardc/crit/digitalwhanganui/public/custom.css",
+		"/home/richardc/crit/digitalwhanganui/digitalwhanganui.sql",
+		"/home/richardc/crit/digitalwhanganui/database.go",
+		"/home/richardc/crit/digitalwhanganui/templates/addme.tmpl",
+		"/home/richardc/crit/digitalwhanganui/templates/category-modal.tmpl",
+		"/home/richardc/serve/src/php-fpm/Dockerfile",
+		"/home/richardc/serve/private-sites/digitalwhanganui/nginx.conf",
+		"/home/richardc/serve/site",
+		"/home/richardc/serve/private-sites/digitalwhanganui/nginx",
+		"/home/richardc/crit/digitalwhanganui/templates/browse-minor.tmpl",
+		"/home/richardc/crit/digitalwhanganui/public/dropzone.js",
+		"/home/richardc/crit/digitalwhanganui/templates/browse.tmpl",
+		"/home/richardc/crit/digitalwhanganui/templates/about.tmpl",
+		"/home/richardc/crit/digitalwhanganui/templates/search.tmpl",
+		"/home/richardc/go/src/github.com/richardcrichardc/martini/recovery.go",
+		"/home/richardc/crit/digitalwhanganui/start",
+		"/home/richardc/crit/digitalwhanganui/templates/searchbox.tmpl",
+		"/home/richardc/crit/doc-archive/database.go",
+		"/home/richardc/crit/digitalwhanganui/templates/base.html",
+		"/home/richardc/go/src/doc-archive/smtpd.go",
+		"/home/richardc/go/src/doc-archive/js/home.jsx",
+		"/home/richardc/go/src/doc-archive/js/main.jsx",
+		"/home/richardc/go/src/doc-archive/js/documents.jsx",
+		"/home/richardc/go/src/doc-archive/start",
+		"/home/richardc/go/src/github.com/bradfitz/go-smtpd/smtpd/smtpd.go",
+		"/home/richardc/go/src/doc-archive/main.go",
+		"/home/richardc/business/supplier-select/qedit-react/index.html",
+		"/home/richardc/go/src/doc-archive/package.json",
+		"/home/richardc/go/src/doc-archive/httpd.go",
+		"/home/richardc/business/supplier-select/ssjava/collab/rfpy/adaptors.py",
+		"/home/richardc/business/supplier-select/ssjava/collab/rfpy/api.py",
+		"/home/richardc/business/supplier-select/ssjava/collab/static/js/views/userList.html",
+		"/home/richardc/business/supplier-select/ssjava/collab/static/js/views/users.html",
+		"/home/richardc/business/supplier-select/ssjava/src/com/supplierSelect/rfp/web/controllers/roles/UpdateRoleController.java",
+		"/home/richardc/business/supplier-select/ssjava/src/com/supplierSelect/rfp/web/controllers/roles/AddRoleController.java",
+		"/home/richardc/business/supplier-select/qedit-react/js/main.js",
+		"/home/richardc/go/src/doc-archive/js/app.jsx",
+		"/home/richardc/serve/src/ghost/Dockerfile",
+		"/home/richardc/go/src/doc-archive/public/index.html",
+		"/home/richardc/go/src/doc-archive/js/main.js",
+		"/home/richardc/go/src/doc-archive/doc-archive.go",
+		"/home/richardc/go/src/doc-archive/src/go/doc-archive.go",
+		"/home/richardc/go/src/doc-archive/Makefile",
+		"/home/richardc/go/src/doc-archive/src/watch.sh",
+		"/home/richardc/go/src/doc-archive/start.sh",
+		"/home/richardc/go/src/doc-archive/doc-archive2.go",
+		"/home/richardc/crit/acc3/doc-archive/doc-archive.go",
+		"/home/richardc/business/supplier-select/qedit-react/.git-ignore",
+		"/home/richardc/business/supplier-select/qedit-react/src/js/index.js",
+		"/home/richardc/business/supplier-select/qedit-react/package.json",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/Question.jsx",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/less/question.less",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/QuestionInfo.jsx",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/less/dashboard.less",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/PieChart.jsx",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/DashboardPage.jsx",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/less/panes.less",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/less/all.less",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/LineChart.jsx",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/less/vertical-center.less",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/less/pie.less",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/App.jsx",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/package.json",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/data/misc.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/less/answersDB.less",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/TreeBox.jsx",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/AnswersDB.jsx",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/Gruntfile.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/addons.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/uglifyify/index.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/Section.jsx",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/data/projects.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/package.json",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/scripts/jenkins-grunt-dist.sh",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/AssignedToUserProgress.jsx",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/QuestionsPage.jsx",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/User.jsx",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/less/treeBox.less",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/display.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/Countdown.jsx",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/QuestionResponse.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/filter.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/ReactBrowserComponentMixin.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/ReactDefaultPerf.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/filteredResponses.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/UserRow.jsx",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/data/events.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/data/users.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/CommentBox.jsx",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/QuestionComments.jsx",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/SlideDownDiv.jsx",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/Element.jsx",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/LinkedValueUtils.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/ReactWithAddons.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/LinkedStateMixin.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/ReactLink.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/mergeInto.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/merge.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/ReactReconcileTransaction.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/SelectEventPlugin.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/ReactInputSelection.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/ReactDOM.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/ReactDOMInput.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/ReactDOMTextarea.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/isTextInputElement.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/data/questions.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/data/core.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/data/comments.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/ProjectPage.jsx",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/AdminPage.jsx",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/__tests__/test-utils.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/data.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/utils.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/ReactDefaultPerfAnalysis.js",
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/ReactPerf.js"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"string",
+			"DD",
+			"Error",
+			"binding",
+			"MinorCatKeys",
+			"renderWrapper",
+			"MimeType",
+			"console",
+			"folder",
+			"blob",
+			"request",
+			"s",
+			"no Doc",
+			"log",
+			"\"}}",
+			"\")))\n",
+			"dist",
+			"matchSection",
+			"data",
+			"utils",
+			"Label",
+			"display",
+			"styleMap",
+			"autoEx",
+			"expanded",
+			"PRESENCE_D",
+			"recence",
+			"updatePrese",
+			"maxLen",
+			"sectionInfo",
+			"questionResponses",
+			"selectedSection",
+			"currentSection",
+			"current",
+			"resolveSection",
+			"navigateToNodeN",
+			"SELECTION_RES",
+			"input",
+			"RequestChange",
+			"handleData",
+			"Inclusive",
+			"questionResponses",
+			"expanded",
+			"}\n",
+			"console",
+			"getIfEle",
+			"questionId",
+			"this",
+			"filter",
+			"STATS",
+			"this.props.answer",
+			"console",
+			"QuestionInfo",
+			"newRe",
+			"questionResponse",
+			"\n        ",
+			"status",
+			"display",
+			"can1",
+			"display",
+			"status.",
+			"Total:",
+			"handleData",
+			"utils",
+			"updateChart",
+			"animate",
+			"uglify",
+			"legend",
+			"Any",
+			"data",
+			"$",
+			"AllocatedQu",
+			"\n        ",
+			"root",
+			"project",
+			"app",
+			"ReactTran",
+			"workflow",
+			"workdlow",
+			"workflow",
+			"style",
+			"current",
+			"users",
+			"setUser",
+			"demo",
+			"user",
+			"users",
+			"Firebase",
+			"data.",
+			"comment.add",
+			"addComment",
+			"data",
+			"TIMESTAMP",
+			"root",
+			"QUestionRes",
+			"login",
+			"emitter",
+			"on",
+			"events",
+			"connectedRef",
+			"treeBox",
+			"page",
+			"selectedSection",
+			"console.log",
+			"TICK",
+			"ReactTransitionEvents",
+			"noEv",
+			"exports.",
+			"}\n",
+			"handler",
+			"utils.",
+			"\n    ",
+			"exports",
+			"answer",
+			"status",
+			"SectionTree",
+			"questionnaire",
+			"root",
+			"utils",
+			"selectedSection",
+			"Countdown",
+			"Progress",
+			"regression",
+			"option",
+			"Countdown",
+			"responseStatus",
+			"300",
+			"border"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"TEXT",
+			"resence",
+			"this.state.answer",
+			"display.",
+			"comments.add",
+			"comment.add",
+			"core.TIMESTAMP",
+			"core.root",
+			"",
+			"utils.",
+			"TreeNode",
+			"questionStatus",
+			"qr",
+			"data",
+			"page",
+			"jsxhint",
+			"",
+			"currentUserAuthorised",
+			"@http",
+			"fetch_user",
+			")",
+			"",
+			"get_projects",
+			"run",
+			"    sudo$1')",
+			"    sudo('",
+			""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "main.go",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4352,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4081,
+								4081
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/GoSublime/syntax/GoSublime-Go.tmLanguage",
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2880.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Session.go",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1959,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1729,
+								1729
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/GoSublime/syntax/GoSublime-Go.tmLanguage",
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 937.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "database.go",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4235,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								23,
+								23
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Go/Go.tmLanguage",
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "digitalwhanganui.sql",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1546,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1546,
+								1546
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/SQL/SQL.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 475.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 172.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "digitalwhanganui.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"server",
+				"server.py"
+			],
+			[
+				"web",
+				"rfpy/web.py"
+			],
+			[
+				"api",
+				"rfpy/api.py"
+			],
+			[
+				"base",
+				"rfpy/templates/base.html"
+			],
+			[
+				"webu",
+				"rfpy/web_utils.py"
+			],
+			[
+				"web_u",
+				"rfpy/web_utils.py"
+			],
+			[
+				"serv",
+				"server.py"
+			],
+			[
+				"ipy",
+				"ipy.py"
+			],
+			[
+				"project",
+				"rfpy/model/project/__init__.py"
+			],
+			[
+				"test_ewe",
+				"tests/test_web.py"
+			],
+			[
+				"mod",
+				"rfpy/model.py"
+			],
+			[
+				"test_we",
+				"tests/test_web.py"
+			],
+			[
+				"test_",
+				"tests/test_api.py"
+			],
+			[
+				"mo",
+				"rfpy/model.py"
+			],
+			[
+				"schema_ch",
+				"src/com/supplierSelect/rfp/schema_changes.xml"
+			],
+			[
+				"sche",
+				"src/com/supplierSelect/rfp/schema_changes.xml"
+			],
+			[
+				"schem",
+				"dev/data/schema.sql"
+			],
+			[
+				"test",
+				"collab/tests.py"
+			],
+			[
+				"faqb",
+				"html/faq/faq_base.html"
+			],
+			[
+				"main.",
+				"static/css/main.css"
+			],
+			[
+				"articl",
+				"html/faq/article.html"
+			],
+			[
+				"sch",
+				"dev/data/schema.sql"
+			],
+			[
+				"auditeventcon",
+				"src/com/supplierSelect/rfp/impl/audit/AuditEventConverter.java"
+			],
+			[
+				"proejctaud",
+				"src/com/supplierSelect/rfp/audit/event/ProjectAuditEvent.java"
+			],
+			[
+				"issueaudtev",
+				"src/com/supplierSelect/rfp/audit/event/IssueAuditEvent.java"
+			],
+			[
+				"scoreevent",
+				"src/com/supplierSelect/rfp/audit/event/ScoreAuditEvent.java"
+			],
+			[
+				"sqlmapquestionel",
+				"src/com/supplierSelect/rfp/impl/ibatis/SqlMapQuestionElementDao.java"
+			],
+			[
+				"questionelem",
+				"src/com/supplierSelect/rfp/domain/qe/QuestionElement.java"
+			],
+			[
+				"base.j",
+				"web/resources/js/base.js"
+			],
+			[
+				"base.css",
+				"web/resources/themes/basic/base.css"
+			],
+			[
+				"admin.",
+				"web/resources/themes/basic/admin.css"
+			],
+			[
+				"userm",
+				"web/WEB-INF/i18n/userMessages_en.properties"
+			],
+			[
+				"hihg",
+				"web/resources/js/jquery.highlight.js"
+			],
+			[
+				"userms",
+				"web/WEB-INF/i18n/userMessages_en.properties"
+			],
+			[
+				"managerl",
+				"web/WEB-INF/templates/layouts/managerLayout.vm"
+			],
+			[
+				"supplierse",
+				"web/WEB-INF/templates/supplierSelectMacros.vm"
+			],
+			[
+				"search.vm",
+				"web/WEB-INF/templates/util/search.vm"
+			],
+			[
+				"search",
+				"web/resources/js/search.js"
+			],
+			[
+				"porjectin",
+				"src/com/supplierSelect/rfp/services/search/ProjectIndexer.java"
+			],
+			[
+				"usermessa",
+				"web/WEB-INF/i18n/userMessages_en.properties"
+			],
+			[
+				"managequ",
+				"web/WEB-INF/templates/respond/manageQuestion.vm"
+			],
+			[
+				"answersreport.vm",
+				"web/WEB-INF/templates/buy/inframe/answersReport.vm"
+			],
+			[
+				"answerelement",
+				"src/com/supplierSelect/rfp/web/controllers/buy/reporting/AnswerElementsReportsController.java"
+			],
+			[
+				"answersreportman",
+				"src/com/supplierSelect/rfp/web/controllers/buy/reporting/AnswersReportManager.java"
+			],
+			[
+				"buyhand",
+				"src/com/supplierSelect/rfp/web/mappings/BuyHandlerMappings.java"
+			],
+			[
+				"answerreportc",
+				"src/com/supplierSelect/rfp/web/controllers/reports/AnswerReportController.java"
+			],
+			[
+				"jquery-ui-",
+				"web/resources/js/lib/jquery/jquery-ui-auto.min.js"
+			],
+			[
+				"listis",
+				"web/WEB-INF/templates/buy/listIssues.vm"
+			],
+			[
+				"admin",
+				"web/resources/themes/basic/admin.css"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+		],
+		"width": 701.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 303.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

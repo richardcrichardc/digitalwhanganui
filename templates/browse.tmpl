@@ -1,0 +1,14 @@
+{{template "searchbox"}}
+
+<h1>Browse</h1>
+
+<div class="row">
+{{range .Cats.MajorCatKeys}}
+    {{$majorCat := index $.Cats.MajorCats .}}
+    <div class="col-lg-6">
+        <a href="/browse/{{.}}/"><h4>{{$majorCat.Name}}</h4></a>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non felis sagittis nunc convallis convallis sollicitudin vitae ante. Proin dictum commodo nisl sed aliquet.</p>
+    </div>
+{{end}}
+</div>
+

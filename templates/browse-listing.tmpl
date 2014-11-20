@@ -1,0 +1,32 @@
+<h1>{{.Listing.Name}}</h1>
+
+<ol class="breadcrumb">
+  <li><a href="/">Browse</a></li>
+  <li><a href="..">{{.MajorCat.Name}}</a></li>
+  <li class="active">{{.MinorCat.Name}}</li>
+</ol>
+
+<div class="row">
+    <div class="col-sm-3"><label>Telephone</label></div>
+    <div class="col-sm-9">{{.Listing.Phone}}</div>
+</div>
+<div class="row">
+    <div class="col-sm-3"><label>Email</label></div>
+    <div class="col-sm-9">{{.Listing.Email}}</div>
+</div>
+<div class="row">
+    <div class="col-sm-3"><label>Websites</label></div>
+    <div class="col-sm-9">{{.Listing.Websites}}</div>
+</div>
+<div class="row">
+    <div class="col-sm-3"><label>Address</label></div>
+    <div class="col-sm-9">{{.Listing.Address}}</div>
+</div>
+<div class="row">
+    <div class="col-sm-3"><label>Service / Product Description</label></div>
+    <div class="col-sm-9">{{.Listing.Desc1}}</div>
+</div>
+<div class="row">
+    <div class="col-sm-3"><label>About - Biography / Philosophy</label></div>
+    <div class="col-sm-9">{{.Listing.Desc2}}</div>
+</div>

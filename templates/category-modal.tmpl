@@ -1,0 +1,43 @@
+<!-- Modal -->
+<div class="modal fade" id="cat-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Add Category</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" class="form-horizontal">
+          <div class="form-group">
+            <label for="majorCategory" class="control-label col-sm-3">Major Category</label>
+            <select id="select-major-cats" class="form-control width-auto">
+              {{range .Cats.MajorCatKeys}}
+                {{$majorCat := index $.Cats.MajorCats .}}
+                <option value={{.}}>{{$majorCat.Name}}</option>
+              {{end}}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="minorCategory" class="control-label col-sm-3">Minor Category</label>
+              <div id="minor-cat-select">
+                {{range .Cats.MajorCatKeys}}
+                  {{$majorCat := index $.Cats.MajorCats .}}
+                  <select id="select-{{.}}-minor-cats" class="form-control width-auto hidden">
+                    {{range $majorCat.MinorCatKeys}}
+                      {{$minorCat := index $majorCat.MinorCats .}}
+                      <option value={{.}}>{{$minorCat.Name}}</option>
+                    {{end}}
+                  </select>
+                {{end}}
+              </div>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button id="add-category" type="button" class="btn btn-primary">Add</button>
+      </div>
+    </div>
+  </div>
+</div>

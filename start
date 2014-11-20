@@ -1,0 +1,14 @@
+#!/bin/bash
+
+trap "{ kill %digitalwhanganui ; exit; }" EXIT
+
+while true; do
+    go install digitalwhanganui
+    if [[ $? == 0 ]] ; then
+        digitalwhanganui &
+    fi
+    sleep 1
+    inotifywait -q -e attrib *.go
+    kill %digitalwhanganui
+    wait %digitalwhanganui
+done
