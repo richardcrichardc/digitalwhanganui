@@ -70,6 +70,14 @@ type page struct {
 	JSFiles []string
 }
 
+type listingPage struct {
+	page
+	MajorCat *MajorCat
+	MinorCat *MinorCat
+	Listing  *Listing
+	Preview  bool
+}
+
 func browse(r render.Render) {
 	var d struct {
 		page
@@ -117,19 +125,14 @@ func browseMinor(r render.Render, params martini.Params) {
 	d.Title = majorCat.Name
 	d.Section = "browse"
 	d.MajorCat = majorCat
-	d.MinorCat = &minorCat
+	d.MinorCat = minorCat
 	d.ListingSummaries = fetchListingSummaries(majorCatCode, minorCatCode)
 
 	r.HTML(200, "browse-minor", d)
 }
 
 func browseListing(r render.Render, params martini.Params) {
-	var d struct {
-		page
-		MajorCat *MajorCat
-		MinorCat *MinorCat
-		Listing  *Listing
-	}
+	var d listingPage
 
 	majorCatCode := params["majorCat"]
 	majorCat := Cats.MajorCats[majorCatCode]
@@ -138,7 +141,7 @@ func browseListing(r render.Render, params martini.Params) {
 
 	d.Section = "browse"
 	d.MajorCat = majorCat
-	d.MinorCat = &minorCat
+	d.MinorCat = minorCat
 
 	listingId, err := strconv.Atoi(params["listingId"])
 	if err != nil {
@@ -157,11 +160,28 @@ func browseListing(r render.Render, params martini.Params) {
 	r.HTML(200, "browse-listing", d)
 }
 
-func addMe(r render.Render, s *Session) {
+func addMe(r render.Render, s *Session, req *http.Request) {
+	err := req.ParseForm()
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(req.Form)
+
+	_, preview := req.Form["preview"]
+
+	if preview {
+		addMePreview(r, s)
+	} else {
+		addMeForm(r, s)
+	}
+}
+
+func addMeForm(r render.Render, s *Session) {
 	var d struct {
 		page
-		Cats    Categories
-		Listing ListingSubmission
+		Cats       Categories
+		Submission ListingSubmission
 	}
 
 	d.Title = "Add Me"
@@ -173,51 +193,83 @@ func addMe(r render.Render, s *Session) {
 		"/jquery.fileupload.js",
 		"/addme.js"}
 
-	d.Listing, _ = s.Values["addme"].(ListingSubmission)
-
-	fmt.Println(d.Listing)
+	d.Submission, _ = s.Values["addme"].(ListingSubmission)
 
 	r.HTML(200, "addme", d)
 }
 
-func postAddMe(r render.Render, listing ListingSubmission, s *Session, w http.ResponseWriter, req *http.Request) {
-	errors := make(map[string]string)
-	validate.Required(listing.AdminFirstName, "AdminFirstName", "First Name", errors)
-	validate.Required(listing.AdminLastName, "AdminLastName", "Last Name", errors)
-	validate.Required(listing.AdminPhone, "AdminPhone", "Telephone", errors)
-	validate.Email(listing.AdminEmail, "AdminEmail", "Email", errors)
-	validate.Required(listing.Name, "Name", "Name", errors)
-	validate.Required(listing.Desc1, "Desc1", "Service / Product Description", errors)
-	validate.Required(listing.Desc2, "Desc2", "About - Biography / Philosophy", errors)
+func addMePreview(r render.Render, s *Session) {
+	var d listingPage
 
-	if listing.Phone == "" &&
-		listing.Mobile == "" &&
-		listing.Email == "" &&
-		listing.Websites == "" &&
-		listing.Address == "" {
+	submission, _ := s.Values["addme"].(ListingSubmission)
+	// TODO check _/err
+	d.Title = "Add Me"
+	d.Section = "addme"
+	//d.Cats = Cats
+	firstCat := submission.CatIds[0]
+	d.MajorCat = Cats.MajorCats[firstCat.MajorCode]
+	d.MinorCat = Cats.MajorCats[firstCat.MajorCode].MinorCats[firstCat.MinorCode]
+	d.Listing = &submission.Listing
+	d.Preview = true
+
+	r.HTML(200, "browse-listing", d)
+}
+
+func postAddMe(r render.Render, formSubmission ListingSubmission, s *Session, w http.ResponseWriter, req *http.Request) {
+	var submission ListingSubmission
+
+	if formSubmission.FromPreview == "" {
+		submission = formSubmission
+	} else {
+		submission, _ = s.Values["addme"].(ListingSubmission)
+		// TODO check _/err
+		submission.Submit = formSubmission.Submit
+	}
+
+	errors := make(map[string]string)
+	validate.Required(submission.Listing.AdminFirstName, "AdminFirstName", "First Name", errors)
+	validate.Required(submission.Listing.AdminLastName, "AdminLastName", "Last Name", errors)
+	validate.Required(submission.Listing.AdminPhone, "AdminPhone", "Telephone", errors)
+	validate.Email(submission.Listing.AdminEmail, "AdminEmail", "Email", errors)
+	validate.Required(submission.Listing.Name, "Name", "Name", errors)
+	validate.Required(submission.Listing.Desc1, "Desc1", "Service / Product Description", errors)
+	validate.Required(submission.Listing.Desc2, "Desc2", "About - Biography / Philosophy", errors)
+
+	if submission.Listing.Phone == "" &&
+		submission.Listing.Mobile == "" &&
+		submission.Listing.Email == "" &&
+		submission.Listing.Websites == "" &&
+		submission.Listing.Address == "" {
 		errors["Contact"] = "At least one contact method to publish must be provided."
 	}
 
-	listing.CatIds = parseCategories(listing.Categories)
+	submission.CatIds = parseCategories(submission.Categories)
 
-	if len(listing.CatIds) == 0 {
+	if len(submission.CatIds) == 0 {
 		errors["Category"] = "At least one Category must be added."
 	}
 
-	switch listing.Submit {
+	submission.Errors = errors
+	s.Values["addme"] = submission
+
+	switch submission.Submit {
 	case "preview":
-		r.StatusText(500, "NOT IMPLEMENTED")
+		if len(errors) > 0 {
+			http.Redirect(w, req, "/addme", 302)
+		} else {
+			http.Redirect(w, req, "/addme?preview", 302)
+		}
 	case "save":
 		r.StatusText(500, "NOT IMPLEMENTED")
 	case "submit":
 		if len(errors) > 0 {
-			listing.Errors = errors
-			s.Values["addme"] = listing
 			http.Redirect(w, req, "/addme", 302)
 		} else {
+			storeListing(submission)
 			r.Status(200)
 		}
-		storeListing(listing)
+	case "edit":
+		http.Redirect(w, req, "/addme", 302)
 	default:
 		r.StatusText(400, "Bad Request - Submit")
 	}

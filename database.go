@@ -16,7 +16,7 @@ type Categories struct {
 type MajorCat struct {
 	Name         string
 	MinorCatKeys []string
-	MinorCats    map[string]MinorCat
+	MinorCats    map[string]*MinorCat
 }
 
 type MinorCat struct {
@@ -45,12 +45,13 @@ type Listing struct {
 }
 
 type ListingSubmission struct {
-	Listing
-	Categories string `form:"categories"`
-	Image      string `form:"image"`
-	Submit     string `form:"submit"`
-	CatIds     []CategoryId
-	Errors     map[string]string
+	Listing     Listing
+	Categories  string `form:"categories"`
+	Image       string `form:"image"`
+	Submit      string `form:"submit"`
+	FromPreview string `form:"fromPreview"`
+	CatIds      []CategoryId
+	Errors      map[string]string
 }
 
 type ListingSummary struct {
@@ -58,20 +59,20 @@ type ListingSummary struct {
 	Name string
 }
 
-func storeListing(listing ListingSubmission) {
+func storeListing(submission ListingSubmission) {
 	result, err := DB.Exec(`REPLACE INTO listing(adminEmail, adminFirstName, adminLastName, adminPhone,
                         name, desc1, desc2, phone, email, websites, address) VALUES(?,?,?,?,?,?,?,?,?,?,?)`,
-		listing.AdminEmail,
-		listing.AdminFirstName,
-		listing.AdminLastName,
-		listing.AdminPhone,
-		listing.Name,
-		listing.Desc1,
-		listing.Desc2,
-		listing.Phone,
-		listing.Email,
-		listing.Websites,
-		listing.Address)
+		submission.Listing.AdminEmail,
+		submission.Listing.AdminFirstName,
+		submission.Listing.AdminLastName,
+		submission.Listing.AdminPhone,
+		submission.Listing.Name,
+		submission.Listing.Desc1,
+		submission.Listing.Desc2,
+		submission.Listing.Phone,
+		submission.Listing.Email,
+		submission.Listing.Websites,
+		submission.Listing.Address)
 
 	if err != nil {
 		panic(err)
@@ -82,12 +83,14 @@ func storeListing(listing ListingSubmission) {
 		panic(err)
 	}
 
+	// TODO delete old categoruListings
+
 	stmt, err := DB.Prepare("INSERT INTO categoryListing(majorCatCode, minorCatCode, listingId) VALUES(?,?,?)")
 	if err != nil {
 		panic(err)
 	}
 
-	for _, catId := range listing.CatIds {
+	for _, catId := range submission.CatIds {
 		_, err = stmt.Exec(catId.MajorCode, catId.MinorCode, listingId)
 		if err != nil {
 			panic(err)
@@ -163,7 +166,7 @@ func init() {
 			panic(err)
 		}
 		Cats.MajorCatKeys = append(Cats.MajorCatKeys, code)
-		Cats.MajorCats[code] = &MajorCat{name, nil, make(map[string]MinorCat)}
+		Cats.MajorCats[code] = &MajorCat{name, nil, make(map[string]*MinorCat)}
 	}
 	if err := rows.Err(); err != nil {
 		panic(err)
@@ -186,7 +189,7 @@ func init() {
 		}
 
 		majorCat.MinorCatKeys = append(majorCat.MinorCatKeys, code)
-		majorCat.MinorCats[code] = MinorCat{name}
+		majorCat.MinorCats[code] = &MinorCat{name}
 	}
 	if err := rows.Err(); err != nil {
 		panic(err)

@@ -2,7 +2,7 @@
 
 <h1>Add Me</h1>
 
-{{if .Listing.Errors}}<div class="alert alert-danger" role="alert">There was a problem with your submission. Please fix all problems marked in red below and resubmit. TODO Fix bad england</div>{{end}}
+{{if .Submission.Errors}}<div class="alert alert-danger" role="alert">There was a problem with your submission. Please fix all problems marked in red below and resubmit. TODO Fix bad england</div>{{end}}
 
 <p>Please fill out this form if you would like to be added to the Digital Whanganui directory. Here is how is works:</p>
   <ul>
@@ -21,32 +21,32 @@
   <div class="form-group">
     <label for="adminFirstName" class="col-sm-2 control-label">First Name</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="adminFirstName" name="adminFirstName" value="{{.Listing.AdminFirstName}}" placeholder="First Name">
-      <span class="help-block"><span class="text-danger">{{.Listing.Errors.AdminFirstName}}</span></span>
+      <input type="text" class="form-control" id="adminFirstName" name="adminFirstName" value="{{.Submission.Listing.AdminFirstName}}" placeholder="First Name">
+      <span class="help-block"><span class="text-danger">{{.Submission.Errors.AdminFirstName}}</span></span>
     </div>
   </div>
 
   <div class="form-group">
     <label for="adminLastName" class="col-sm-2 control-label">Last Name</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="adminLastName" name="adminLastName" value="{{.Listing.AdminLastName}}" placeholder="Last Name">
-      <span class="help-block"><span class="text-danger">{{.Listing.Errors.AdminLastName}}</span></span>
+      <input type="text" class="form-control" id="adminLastName" name="adminLastName" value="{{.Submission.Listing.AdminLastName}}" placeholder="Last Name">
+      <span class="help-block"><span class="text-danger">{{.Submission.Errors.AdminLastName}}</span></span>
     </div>
   </div>
 
   <div class="form-group">
     <label for="adminPhone" class="col-sm-2 control-label">Telephone</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="adminPhone" name="adminPhone" value="{{.Listing.AdminPhone}}" placeholder="Phone">
-      <span class="help-block"><span class="text-danger">{{.Listing.Errors.AdminPhone}}</span></span>
+      <input type="text" class="form-control" id="adminPhone" name="adminPhone" value="{{.Submission.Listing.AdminPhone}}" placeholder="Phone">
+      <span class="help-block"><span class="text-danger">{{.Submission.Errors.AdminPhone}}</span></span>
     </div>
   </div>
 
   <div class="form-group">
     <label for="adminEmail" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-10">
-      <input type="email" class="form-control" id="adminEmail" name="adminEmail" value="{{.Listing.AdminEmail}}" placeholder="Email">
-      <span class="help-block"><span class="text-danger">{{.Listing.Errors.AdminEmail}}</span></span>
+      <input type="email" class="form-control" id="adminEmail" name="adminEmail" value="{{.Submission.Listing.AdminEmail}}" placeholder="Email">
+      <span class="help-block"><span class="text-danger">{{.Submission.Errors.AdminEmail}}</span></span>
     </div>
   </div>
 
@@ -55,27 +55,27 @@
   <div class="form-group">
     <label for="name" class="col-sm-2 control-label">Name</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="name" name="name" value="{{.Listing.Name}}" placeholder="Name">
-      <span class="help-block"><span class="text-danger">{{.Listing.Errors.Name}}</span></span>
+      <input type="text" class="form-control" id="name" name="name" value="{{.Submission.Listing.Name}}" placeholder="Name">
+      <span class="help-block"><span class="text-danger">{{.Submission.Errors.Name}}</span></span>
     </div>
   </div>
 
   <div class="form-group">
     <label for="addCat"class="col-sm-2 control-label">Categories</label>
-    <input type="hidden" id="categories" name="categories" value="{{.Listing.Categories}}">
+    <input type="hidden" id="categories" name="categories" value="{{.Submission.Categories}}">
     <div class="col-sm-10">
       <p id="selected-categories" class="form-control-static">
-      {{range .Listing.CatIds}}
+      {{range .Submission.CatIds}}
         {{$majorCat := index $.Cats.MajorCats .MajorCode}}
         {{$minorCat := index $majorCat.MinorCats .MinorCode}}
-        <span class="badge" id="{{.MajorCode}}.{{.MinorCode}}">{{$majorCat.Name}}/{{$minorCat.Name}}<span class="glyphicon glyphicon-remove remove-category"></span></span>
+        <span class="badge" id="{{.MajorCode}}.{{.MinorCode}}">{{$majorCat.Name}}/{{$minorCat.Name}} <span class="glyphicon glyphicon-remove remove-category"></span></span>
       {{end}}
       </p>
       <p id="add-at-least-one" class="form-control-static"><small>Please add at least one category.</small></p>
       <p class="form-control-static">
         <button id="addCat" type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#cat-modal">Add Category</button>
       </p>
-      <span class="help-block"><span class="text-danger">{{.Listing.Errors.Category}}</span></span>
+      <span class="help-block"><span class="text-danger">{{.Submission.Errors.Category}}</span></span>
     </div>
   </div>
 
@@ -99,33 +99,33 @@
 
   <h3>Published Contact Details</h3>
   <p><small>Please provide at least one way for people to contact you.</small></p>
-  <p><span class="help-block"><span class="text-danger">{{.Listing.Errors.Contact}}</span></span></p>
+  <p><span class="help-block"><span class="text-danger">{{.Submission.Errors.Contact}}</span></span></p>
 
   <div class="form-group">
     <label for="phone" class="col-sm-2 control-label">Telephone</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="phone" name="phone" value="{{.Listing.Phone}}" placeholder="Telephone">
+      <input type="text" class="form-control" id="phone" name="phone" value="{{.Submission.Listing.Phone}}" placeholder="Telephone">
     </div>
   </div>
 
   <div class="form-group">
     <label for="mobile" class="col-sm-2 control-label">Mobile</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="mobile" name="mobile" value="{{.Listing.Mobile}}" placeholder="Mobile">
+      <input type="text" class="form-control" id="mobile" name="mobile" value="{{.Submission.Listing.Mobile}}" placeholder="Mobile">
     </div>
   </div>
 
   <div class="form-group">
     <label for="email" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="email" name="email" value="{{.Listing.Email}}" placeholder="Email">
+      <input type="text" class="form-control" id="email" name="email" value="{{.Submission.Listing.Email}}" placeholder="Email">
     </div>
   </div>
 
   <div class="form-group">
     <label for="websites" class="col-sm-2 control-label">Websites</label>
     <div class="col-sm-10">
-      <textarea class="form-control" rows="3" id="websites" name="websites" placeholder="Websites">{{.Listing.Websites}}</textarea>
+      <textarea class="form-control" rows="3" id="websites" name="websites" placeholder="Websites">{{.Submission.Listing.Websites}}</textarea>
       <span class="help-block">Please enter one link per line.</span>
     </div>
   </div>
@@ -133,7 +133,7 @@
   <div class="form-group">
     <label for="address" class="col-sm-2 control-label">Physical Address</label>
     <div class="col-sm-10">
-      <textarea class="form-control" rows="4" id="address" name="address" placeholder="Physical Address">{{.Listing.Address}}</textarea>
+      <textarea class="form-control" rows="4" id="address" name="address" placeholder="Physical Address">{{.Submission.Listing.Address}}</textarea>
     </div>
   </div>
 
@@ -141,8 +141,8 @@
   <p><small> TODO Blah blah blah.</small></p>
   <div class="form-group">
     <div class="col-sm-12">
-      <textarea class="form-control" rows="10" id="desc1" name="desc1" placeholder="Service / Product Description">{{.Listing.Desc1}}</textarea>
-      <span class="help-block"><span class="text-danger">{{.Listing.Errors.Desc1}}</span></span>
+      <textarea class="form-control" rows="10" id="desc1" name="desc1" placeholder="Service / Product Description">{{.Submission.Listing.Desc1}}</textarea>
+      <span class="help-block"><span class="text-danger">{{.Submission.Errors.Desc1}}</span></span>
     </div>
   </div>
 
@@ -151,8 +151,8 @@
   <p><small>TODO Blah blah blah.</small></p>
   <div class="form-group">
     <div class="col-sm-12">
-      <textarea class="form-control" rows="10" id="desc2" name="desc2" placeholder="About - Biography / Philosophy">{{.Listing.Desc2}}</textarea>
-      <span class="help-block"><span class="text-danger">{{.Listing.Errors.Desc2}}</span></span>
+      <textarea class="form-control" rows="10" id="desc2" name="desc2" placeholder="About - Biography / Philosophy">{{.Submission.Listing.Desc2}}</textarea>
+      <span class="help-block"><span class="text-danger">{{.Submission.Errors.Desc2}}</span></span>
     </div>
   </div>
 

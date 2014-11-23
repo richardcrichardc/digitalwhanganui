@@ -1,3 +1,14 @@
+{{if .Preview}}
+    <form method="POST">
+        <input type="hidden" name="fromPreview" value="true">
+        <div class="alert alert-info" role="alert">
+            <strong>Listing Preview</strong>
+            <button type="submit" name="submit" value="edit" class="btn btn-sm btn-default">Edit</button>
+            <button type="submit" name="submit" value="save" class="btn btn-sm btn-default">Save for Later</button>
+            <button type="submit" name="submit" value="submit" class="btn btn-sm btn-default">Submit to Directory</button>
+        </div>
+{{end}}
+
 <h1>{{.Listing.Name}}</h1>
 
 <ol class="breadcrumb">
@@ -30,3 +41,13 @@
     <div class="col-sm-3"><label>About - Biography / Philosophy</label></div>
     <div class="col-sm-9">{{.Listing.Desc2}}</div>
 </div>
+
+{{if .Preview}}
+        <div class="alert alert-info" role="alert">
+            <strong>Listing Preview</strong>
+            <button type="submit" name="submit" value="edit" class="btn btn-sm btn-default">Edit</button>
+            <button type="submit" name="submit" value="save" class="btn btn-sm btn-default">Save for Later</button>
+            <button type="submit" name="submit" value="submit" class="btn btn-sm btn-default">Submit to Directory</button>
+        </div>
+    </form>
+{{end}}
