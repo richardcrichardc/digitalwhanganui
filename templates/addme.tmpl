@@ -15,7 +15,7 @@
 
 <form id="addmeform" class="form-horizontal" role="form" method="POST" novalidate>
 
-  <h3>Your Details</h3>
+  <h3>Contact for Directory Administration</h3>
   <p><small>These details are for administrative purposes and will not be published.</small></p>
 
   <div class="form-group">
@@ -50,8 +50,17 @@
     </div>
   </div>
 
-  <h3>Your Listing</h3>
+  <h3>Your Published Listing</h3>
   <p><small>These details will be published in your listing.</small></p>
+
+  <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">Listing Type</label>
+    <div class="col-sm-10">
+      <p>TODO Select BOX</p>
+      <span class="help-block"><span class="text-danger">{{.Submission.Errors.Name}}</span></span>
+    </div>
+  </div>
+
   <div class="form-group">
     <label for="name" class="col-sm-2 control-label">Name</label>
     <div class="col-sm-10">
@@ -94,10 +103,11 @@
         <button id="cancelUpload" type="button" class="btn btn-default btn-xs hidden">Cancel</button>
         <button id="removeImage" type="button" class="btn btn-default btn-xs" disabled>Remove</button>
        </p>
+       <span class="help-block">TODO Something will happen TODO. Whanganui has many <a href="#">Graphic Designers</a> who can assist. </span>
     </div>
   </div>
 
-  <h3>Published Contact Details</h3>
+  <h4>Contact Details</h4>
   <p><small>Please provide at least one way for people to contact you.</small></p>
   <p><span class="help-block"><span class="text-danger">{{.Submission.Errors.Contact}}</span></span></p>
 
@@ -123,7 +133,7 @@
   </div>
 
   <div class="form-group">
-    <label for="websites" class="col-sm-2 control-label">Websites</label>
+    <label for="websites" class="col-sm-2 control-label">Website(s)</label>
     <div class="col-sm-10">
       <textarea class="form-control" rows="3" id="websites" name="websites" placeholder="Websites">{{.Submission.Listing.Websites}}</textarea>
       <span class="help-block">Please enter one link per line.</span>
@@ -137,8 +147,8 @@
     </div>
   </div>
 
-  <h3>Service / Product Description</h3>
-  <p><small> TODO Blah blah blah.</small></p>
+  <h4>Service / Product Description</h4>
+  <p><small>Generally describe your offering to appear in your detailed listing. The first paragraph (up to ?400? characters) will be used as a summary.</small></p>
   <div class="form-group">
     <div class="col-sm-12">
       <textarea class="form-control" rows="10" id="desc1" name="desc1" placeholder="Service / Product Description">{{.Submission.Listing.Desc1}}</textarea>
@@ -147,8 +157,8 @@
   </div>
 
 
-  <h3>About - Biography / Philosophy</h3>
-  <p><small>TODO Blah blah blah.</small></p>
+  <h4>About You or your Orgnaisation</h4>
+  <p><small>This will appear in your your detailed listing.</small></p>
   <div class="form-group">
     <div class="col-sm-12">
       <textarea class="form-control" rows="10" id="desc2" name="desc2" placeholder="About - Biography / Philosophy">{{.Submission.Listing.Desc2}}</textarea>

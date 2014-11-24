@@ -22,7 +22,7 @@ $( document ).ready(function() {
     var minorCat = $("#select-" + majorCat + "-minor-cats").prop("value");
     var minorCatName = $('#select-' + majorCat + '-minor-cats option[value="' + minorCat + '"]').text();
     var cat = majorCat + "." + minorCat;
-    var catName = majorCatName + " / " + minorCatName;
+    var catName = majorCatName + " > " + minorCatName;
 
     // Don't add a category more than once
     if ($("#" + majorCat + "\\." + minorCat).length) {
