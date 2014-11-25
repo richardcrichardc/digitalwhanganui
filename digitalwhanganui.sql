@@ -1,37 +1,87 @@
-CREATE TABLE IF NOT EXISTS majorCat (
+CREATE TABLE IF NOT EXISTS majorMajorCat (
     code TEXT PRIMARY KEY,
     name TEXT,
+    blurb TEXT,
     sort INT
 );
 
+CREATE TABLE IF NOT EXISTS majorCat (
+    majorMajorCatCode TEXT,
+    code TEXT,
+    name TEXT,
+    sort INT,
+    PRIMARY KEY (majorMajorCatCode, code)
+);
+
 CREATE TABLE IF NOT EXISTS MinorCat (
+    majorMajorCatCode TEXT,
     majorCatCode TEXT,
     code TEXT,
     name TEXT,
     sort INT,
-    PRIMARY KEY (majorCatCode, code)
+    PRIMARY KEY (majorMajorCatCode, majorCatCode, code)
 );
 
-REPLACE INTO majorCat(code, name, sort) VALUES
-    ('people', 'People', 0),
-    ('org', 'Organisations', 1),
-    ('animals', 'Animals', 3),
-    ('et', 'Extraterestrials', 4);
+REPLACE INTO majorMajorCat(code, name, blurb, sort) VALUES
+    ('services', 'Services', 'Skills, talents and services useful to advise and shape digital futures.', 0),
+    ('products', 'Products', 'Hardware, software and accessories to make digital happen.', 1);
 
-REPLACE INTO minorCat(majorCatCode, code, name, sort) VALUES
-    ('people', 'programmers', 'Programmers', 0),
-    ('people', 'designers', 'Designers', 1),
-    ('people', 'copywriters', 'Copy Writers', 2),
-    ('org', 'shops', 'Shops', 0),
-    ('org', 'charities', 'Charities', 1),
-    ('org', 'consultancies', 'Consultancies', 2),
-    ('animals', 'cats', 'Cats', 0),
-    ('animals', 'dogs', 'Dogs', 1),
-    ('animals', 'birds', 'Birds', 2),
-    ('et', 'martians', 'Martians', 0),
-    ('et', 'venetians', 'Venitians', 1),
-    ('et', 'sontarans', 'Sontanrans', 2);
+REPLACE INTO majorCat(majorMajorCatCode, code, name, sort) VALUES
+('services','web','Web Development',1),
+('services','online-strategy','Online Strategy / Planning',6),
+('services','copy','Web Content Writing / Editing',7),
+('services','optimisation','Web Optimisation / QA / Reporting',8),
+('services','social','Social Media / Communities Support',9),
+('services','mobile','Mobile / Apps Development',10),
+('services','promo','Online Promotion / Advertising / Growth Hacking',11),
+('services','dev','Software Development',12),
+('services','ba','Business Analysis',14),
+('services','pm','Project Management',15),
+('services','doc','Technical Documentation Writing / Editing',16),
+('services','dba','Database Administration',17),
+('services','network','Networking & Information Systems',18),
+('services','analysis','Data Analysis / Business Intelligence',19),
+('services','telco','Phone Systems Support?',20),
+('services','edu','Education & Training ',21),
+('services','design','Graphic Design',23),
+('services','anim','Animation',24),
+('services','photo','Photography',25),
+('services','printing','Printing from Digital ',27),
+('services','video','Video Capture / Editing',28),
+('services','3d','Engineering / Architecture / Making',29),
+('services','strategy','Digital Strategy / Planning',33),
+('services','coach','Digital Futures / Innovation Coaching',34),
+('services','ip','Intellectual Property?',35),
+('products','comp','Computers',1),
+('products','comp-acc','Computer Accessories',2),
+('products','software','Software',3),
+('products','tablets','Tablets',4),
+('products','phones','Phones',5),
+('products','phone-acc','Phone Accessories',6),
+('products','camera','Cameras, Digital',7),
+('products','video','Video Cameras, Digital',8),
+('products','games','Games',9),
+('products','console','Gaming systems',10),
+('products','drones','Drones / Multicopters',11),
+('products','fab','Digital Fabrication Tools',12),
+('products','electronics','Electronics Supplies',17),
+('products','electronics','',18);
 
+REPLACE INTO minorCat(majorMajorCatCode, majorCatCode, code, name, sort) VALUES
+('services','web','site','Site Development',2),
+('services','web','arch','Information Architecture / Usability / User Experience',3),
+('services','web','ecom','eCommerce / Shopping Cart Setup',4),
+('services','web','cms','Content Management System Selection',5),
+('services','dev','breakdown','(languages breakdown?)',13),
+('services','edu','breakdown','(subjects breakdown?)',22),
+('services','photo','printing','Digital Photo Printing',26),
+('services','3d','scan','3D Scanning',30),
+('services','3d','cad','3D Modelling / Product Design (CAD)',31),
+('services','3d','printing','3D Printing / Digital Fabrication',32),
+('products','fab','3dprint','3D Printers',13),
+('products','fab','cnc','CNC Torch Tables',14),
+('products','fab','cutters','Digital Cutters',15),
+('products','fab','sew','Digital Sewing Machines / Embroidery',16);
 
 CREATE TABLE IF NOT EXISTS listing (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -39,6 +89,7 @@ CREATE TABLE IF NOT EXISTS listing (
     AdminFirstName TEXT,
     AdminLastName TEXT,
     AdminPhone TEXT,
+    isOrg INT,
     Name TEXT,
     Desc1 TEXT,
     Desc2 TEXT,

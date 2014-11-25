@@ -81,3 +81,14 @@ body {
 #addmeform .help-block {
     margin-bottom: 0;
 }
+
+/* show gap between selected categories*/
+#addmeform #selected-categories .badge {
+    margin-right: 5px;
+}
+
+/* Put > between breadcrumbs */
+.breadcrumb > li + li:before {
+    content: ">";
+}
+

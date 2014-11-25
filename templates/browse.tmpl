@@ -3,12 +3,35 @@
 <h1>Browse</h1>
 
 <div class="row">
-{{range .Cats.MajorCatKeys}}
-    {{$majorCat := index $.Cats.MajorCats .}}
+{{range .Cats.MajorMajorCatKeys}}
+    {{$majorMajorCat := index $.Cats.MajorMajorCats .}}
     <div class="col-lg-6">
-        <a href="/browse/{{.}}/"><h4>{{$majorCat.Name}}</h4></a>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non felis sagittis nunc convallis convallis sollicitudin vitae ante. Proin dictum commodo nisl sed aliquet.</p>
+        <a href="/browse/{{.}}/"><h4>{{$majorMajorCat.Name}}</h4></a>
+        <p>{{$majorMajorCat.Blurb}}</p>
     </div>
 {{end}}
+
+    <div class="col-lg-6">
+        <a href="/individuals/"><h4>Individuals</h4></a>
+        <p>Free-lancers, e-lancers and other independent operators.</p>
+    </div>
+
+    <div class="col-lg-6">
+        <a href="/organisations/"><h4>Organisations</h4></a>
+        <p>Supplier and vendor companies, government organisations, community organisations and tertiary educators.</p>
+    </div>
 </div>
 
+<h2>Sponsors</h2>
+
+<div class="row">
+    <div class="col-lg-6">
+        <h4>Sponsor Logo</h4>
+    </div>
+    <div class="col-lg-6">
+        <h4>Sponsor Logo</h4>
+    </div>
+    <div class="col-lg-6">
+        <h4>Sponsor Logo</h4>
+    </div>
+</div>

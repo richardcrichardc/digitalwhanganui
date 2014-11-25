@@ -10,36 +10,51 @@
         <form role="form" class="form-horizontal">
 
           <div class="form-group">
-            <label for="majorCategory" class="control-label col-sm-3">Service or Product</label>
-            <select id="select-xxx" class="form-control width-auto">
-                <option value={{.}}>Service</option>
-                <option value={{.}}>Product</option>
-            </select>
-          </div>
-
-
-          <div class="form-group">
-            <label for="majorCategory" class="control-label col-sm-3">Major Category</label>
-            <select id="select-major-cats" class="form-control width-auto">
-              {{range .Cats.MajorCatKeys}}
-                {{$majorCat := index $.Cats.MajorCats .}}
-                <option value={{.}}>{{$majorCat.Name}}</option>
+            <label for="majorCategory" class="control-label col-sm-4">Services or Products</label>
+            <select id="select-major-major-cats" class="form-control width-auto">
+              {{range .Cats.MajorMajorCatKeys}}
+                {{$majorMajorCat := index $.Cats.MajorMajorCats .}}
+                <option value={{.}}>{{$majorMajorCat.Name}}</option>
               {{end}}
             </select>
           </div>
+
+
           <div class="form-group">
-            <label for="minorCategory" class="control-label col-sm-3">Minor Category</label>
-              <div id="minor-cat-select">
-                {{range .Cats.MajorCatKeys}}
-                  {{$majorCat := index $.Cats.MajorCats .}}
-                  <select id="select-{{.}}-minor-cats" class="form-control width-auto hidden">
-                    {{range $majorCat.MinorCatKeys}}
-                      {{$minorCat := index $majorCat.MinorCats .}}
-                      <option value={{.}}>{{$minorCat.Name}}</option>
-                    {{end}}
-                  </select>
-                {{end}}
-              </div>
+            <label for="majorCategory" class="control-label col-sm-4">Major Category</label>
+            <div id="major-cat-select">
+              {{range .Cats.MajorMajorCatKeys}}
+                {{$majorMajorCat := index $.Cats.MajorMajorCats .}}
+                <select id="select-{{.}}-major-cats" class="form-control width-auto hidden">
+                  {{range $majorMajorCat.MajorCatKeys}}
+                    {{$majorCat := index $majorMajorCat.MajorCats .}}
+                    <option value={{.}}>{{$majorCat.Name}}</option>
+                  {{end}}
+                </select>
+              {{end}}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="minorCategory" class="control-label col-sm-4">Minor Category</label>
+            <div id="minor-cat-select">
+              {{range .Cats.MajorMajorCatKeys}}
+                {{$majorMajorCatCode := .}}
+                {{$majorMajorCat := index $.Cats.MajorMajorCats .}}
+                <div id="{{.}}-cat-select">
+                  {{range $majorMajorCat.MajorCatKeys}}
+                    {{$majorCat := index $majorMajorCat.MajorCats .}}
+                    <select id="select-{{$majorMajorCatCode}}-{{.}}-minor-cats" class="form-control width-auto hidden">
+                      <option value="none">None</option>
+                      {{range $majorCat.MinorCatKeys}}
+                        {{$minorCat := index $majorCat.MinorCats .}}
+                        <option value={{.}}>{{$minorCat.Name}}</option>
+                      {{end}}
+                    </select>
+                  {{end}}
+                </div>
+              {{end}}
+            </div>
           </div>
         </form>
 

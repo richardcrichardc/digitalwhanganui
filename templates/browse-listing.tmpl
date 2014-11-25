@@ -11,11 +11,14 @@
 
 <h1>{{.Listing.Name}}</h1>
 
-<ol class="breadcrumb">
-  <li><a href="/">Browse</a></li>
-  <li><a href="..">{{.MajorCat.Name}}</a></li>
-  <li class="active">{{.MinorCat.Name}}</li>
-</ol>
+{{if not .Preview}}
+    <ol class="breadcrumb">
+      <li><a href="/">Browse</a></li>
+      <li><a href="../..">{{.MajorMajorCat.Name}}</a></li>
+      <li><a href="../none/">{{.MajorCat.Name}}</a></li>
+      {{if .MinorCat}}<li><a href="../">{{.MinorCat.Name}}</a></li>{{end}}
+    </ol>
+{{end}}
 
 <div class="row">
     <div class="col-sm-3"><label>Telephone</label></div>

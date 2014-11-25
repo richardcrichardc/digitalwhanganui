@@ -1,0 +1,22 @@
+{{template "searchbox"}}
+
+<h1>{{.Title}}</h1>
+
+<ol class="breadcrumb">
+  <li><a href="/">Browse</a></li>
+  <li class="active">{{.Title}}</li>
+</ol>
+
+<div class="row">
+    <div class="col-sm-12">
+         {{range .ListingSummaries}}
+            {{if .Sort}}
+                <h3>{{.Sort}}</h3>
+            {{end}}
+            <div>
+              <a class="media-left" href="{{.Id}}">{{.Name}} {{.Sort}}</a>
+            </div>
+        {{end}}
+    </div>
+</div>
+

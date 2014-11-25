@@ -1,0 +1,23 @@
+{{template "searchbox"}}
+
+<h1>{{.MajorMajorCat.Name}}</h1>
+
+<ol class="breadcrumb">
+  <li><a href="/">Browse</a></li>
+  <li class="active">{{.MajorMajorCat.Name}}</li>
+</ol>
+
+<div class="row">
+{{range .MajorMajorCat.MajorCatKeys}}
+    {{$majorCatCode := .}}
+    {{$majorCat := index $.MajorMajorCat.MajorCats .}}
+    <div class="col-lg-6">
+        <a href="{{$majorCatCode}}/none/"><h4>{{$majorCat.Name}}</h4></a>
+        {{range $majorCat.MinorCatKeys}}
+            {{$minorCat := index $majorCat.MinorCats .}}
+            <a href="{{$majorCatCode}}/{{.}}/"><h5>&nbsp;{{$minorCat.Name}}</h5>
+        {{end}}
+    </div>
+{{end}}
+</div>
+

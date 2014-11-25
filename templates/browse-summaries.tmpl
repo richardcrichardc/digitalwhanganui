@@ -1,11 +1,12 @@
 {{template "searchbox"}}
 
-<h1>{{.MajorCat.Name}} / {{.MinorCat.Name}}</h1>
+<h1>{{.MajorCat.Name}} {{if .MinorCat}}/ {{.MinorCat.Name}}{{end}}</h1>
 
 <ol class="breadcrumb">
   <li><a href="/">Browse</a></li>
-  <li><a href="..">{{.MajorCat.Name}}</a></li>
-  <li class="active">{{.MinorCat.Name}}</li>
+  <li><a href="../..">{{.MajorMajorCat.Name}}</a></li>
+  <li class="active">{{.MajorCat.Name}}</li>
+  {{if .MinorCat}}<li class="active">{{.MinorCat.Name}}</li>{{end}}
 </ol>
 
 <div class="row">

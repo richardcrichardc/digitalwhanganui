@@ -43,12 +43,15 @@ func main() {
 	m.Use(render.Renderer(rendererOptions))
 
 	r.Get("/", browse)
-	r.Get("/browse/:majorCat/", browseMajor)
-	r.Get("/browse/:majorCat/:minorCat", browseMinor)
-	r.Get("/browse/:majorCat/:minorCat/:listingId", browseListing)
+	r.Get("/browse/:majorMajorCat", browseCategory)
+	r.Get("/browse/:majorMajorCat/:majorCat/:minorCat", browseCategorySummaries)
+	r.Get("/browse/:majorMajorCat/:majorCat/:minorCat/:listingId", browseListing)
+	r.Get("/individuals/", individuals)
+	r.Get("/organisations/", organisations)
 	r.Get("/addme", addMe)
 	r.Post("/addme", binding.Bind(ListingSubmission{}), postAddMe)
 	r.Post("/uploadImage", uploadImage)
+	r.Get("/addmedone", addMeDone)
 	r.Get("/about", about)
 	r.Get("/search", search)
 
@@ -72,10 +75,16 @@ type page struct {
 
 type listingPage struct {
 	page
-	MajorCat *MajorCat
-	MinorCat *MinorCat
-	Listing  *Listing
-	Preview  bool
+	MajorMajorCat *MajorMajorCat
+	MajorCat      *MajorCat
+	MinorCat      *MinorCat
+	Listing       *Listing
+	Preview       bool
+}
+
+type summaryPage struct {
+	page
+	ListingSummaries []ListingSummary
 }
 
 func browse(r render.Render) {
@@ -93,53 +102,60 @@ func browse(r render.Render) {
 	r.HTML(200, "browse", d)
 }
 
-func browseMajor(r render.Render, params martini.Params) {
+func browseCategory(r render.Render, params martini.Params) {
 	var d struct {
 		page
-		MajorCat *MajorCat
+		MajorMajorCat *MajorMajorCat
 	}
 
-	majorCatCode := params["majorCat"]
-	majorCat := Cats.MajorCats[majorCatCode]
+	majorMajorCatCode := params["majorMajorCat"]
+	majorMajorCat := Cats.MajorMajorCats[majorMajorCatCode]
 
-	d.Title = majorCat.Name
+	d.Title = majorMajorCat.Name
 	d.Section = "browse"
-	d.MajorCat = majorCat
+	d.MajorMajorCat = majorMajorCat
 
-	r.HTML(200, "browse-major", d)
+	r.HTML(200, "browse-category", d)
 }
 
-func browseMinor(r render.Render, params martini.Params) {
+func browseCategorySummaries(r render.Render, params martini.Params) {
 	var d struct {
 		page
+		MajorMajorCat    *MajorMajorCat
 		MajorCat         *MajorCat
 		MinorCat         *MinorCat
 		ListingSummaries []ListingSummary
 	}
 
+	majorMajorCatCode := params["majorMajorCat"]
+	majorMajorCat := Cats.MajorMajorCats[majorMajorCatCode]
 	majorCatCode := params["majorCat"]
-	majorCat := Cats.MajorCats[majorCatCode]
+	majorCat := majorMajorCat.MajorCats[majorCatCode]
 	minorCatCode := params["minorCat"]
 	minorCat := majorCat.MinorCats[minorCatCode]
 
 	d.Title = majorCat.Name
 	d.Section = "browse"
+	d.MajorMajorCat = majorMajorCat
 	d.MajorCat = majorCat
 	d.MinorCat = minorCat
-	d.ListingSummaries = fetchListingSummaries(majorCatCode, minorCatCode)
+	d.ListingSummaries = fetchCategorySummaries(majorCatCode, minorCatCode)
 
-	r.HTML(200, "browse-minor", d)
+	r.HTML(200, "browse-summaries", d)
 }
 
 func browseListing(r render.Render, params martini.Params) {
 	var d listingPage
 
+	majorMajorCatCode := params["majorMajorCat"]
+	majorMajorCat := Cats.MajorMajorCats[majorMajorCatCode]
 	majorCatCode := params["majorCat"]
-	majorCat := Cats.MajorCats[majorCatCode]
+	majorCat := majorMajorCat.MajorCats[majorCatCode]
 	minorCatCode := params["minorCat"]
 	minorCat := majorCat.MinorCats[minorCatCode]
 
 	d.Section = "browse"
+	d.MajorMajorCat = majorMajorCat
 	d.MajorCat = majorCat
 	d.MinorCat = minorCat
 
@@ -158,6 +174,33 @@ func browseListing(r render.Render, params martini.Params) {
 	d.Title = d.Listing.Name
 
 	r.HTML(200, "browse-listing", d)
+}
+
+func individuals(r render.Render) {
+	var d summaryPage
+	d.Title = "Individuals"
+	d.ListingSummaries = fetchIndividualSummaries()
+	azSummaries(r, d)
+}
+
+func organisations(r render.Render) {
+	var d summaryPage
+	d.Title = "Organisations"
+	d.ListingSummaries = fetchOrganisationSummaries()
+	azSummaries(r, d)
+}
+
+func azSummaries(r render.Render, d summaryPage) {
+	var lastSort string
+	for i := range d.ListingSummaries {
+		if d.ListingSummaries[i].Sort == lastSort {
+			d.ListingSummaries[i].Sort = ""
+		} else {
+			lastSort = d.ListingSummaries[i].Sort
+		}
+	}
+
+	r.HTML(200, "az-summaries", d)
 }
 
 func addMe(r render.Render, s *Session, req *http.Request) {
@@ -207,8 +250,9 @@ func addMePreview(r render.Render, s *Session) {
 	d.Section = "addme"
 	//d.Cats = Cats
 	firstCat := submission.CatIds[0]
-	d.MajorCat = Cats.MajorCats[firstCat.MajorCode]
-	d.MinorCat = Cats.MajorCats[firstCat.MajorCode].MinorCats[firstCat.MinorCode]
+	d.MajorMajorCat = Cats.MajorMajorCats[firstCat.MajorMajorCode]
+	d.MajorCat = d.MajorMajorCat.MajorCats[firstCat.MajorCode]
+	d.MinorCat = d.MajorCat.MinorCats[firstCat.MinorCode]
 	d.Listing = &submission.Listing
 	d.Preview = true
 
@@ -224,6 +268,10 @@ func postAddMe(r render.Render, formSubmission ListingSubmission, s *Session, w 
 		submission, _ = s.Values["addme"].(ListingSubmission)
 		// TODO check _/err
 		submission.Submit = formSubmission.Submit
+	}
+
+	if !submission.Listing.IsOrg {
+		submission.Listing.Name = submission.Listing.AdminFirstName + " " + submission.Listing.AdminLastName
 	}
 
 	errors := make(map[string]string)
@@ -266,7 +314,7 @@ func postAddMe(r render.Render, formSubmission ListingSubmission, s *Session, w 
 			http.Redirect(w, req, "/addme", 302)
 		} else {
 			storeListing(submission)
-			r.Status(200)
+			http.Redirect(w, req, "/addmedone", 302)
 		}
 	case "edit":
 		http.Redirect(w, req, "/addme", 302)
@@ -274,6 +322,15 @@ func postAddMe(r render.Render, formSubmission ListingSubmission, s *Session, w 
 		r.StatusText(400, "Bad Request - Submit")
 	}
 
+}
+
+func addMeDone(r render.Render) {
+	var d page
+
+	d.Title = "Listing Submitted"
+	d.Section = "addme"
+
+	r.HTML(200, "addmedone", d)
 }
 
 func parseCategories(categories string) (result []CategoryId) {
@@ -284,10 +341,10 @@ func parseCategories(categories string) (result []CategoryId) {
 
 	for _, cat := range strings.Split(categories, ",") {
 		cat2 := strings.Split(cat, ".")
-		if len(cat2) != 2 {
+		if len(cat2) != 3 {
 			panic("Bad category: " + cat)
 		}
-		result = append(result, CategoryId{cat2[0], cat2[1]})
+		result = append(result, CategoryId{cat2[0], cat2[1], cat2[2]})
 	}
 	return
 }
