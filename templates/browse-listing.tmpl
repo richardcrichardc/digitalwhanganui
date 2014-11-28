@@ -21,6 +21,16 @@
 {{end}}
 
 <div class="row">
+    <div class="col-sm-3"><label>Name</label></div>
+    <div class="col-sm-9">{{.Listing.Name}}</div>
+</div>
+
+<div class="row">
+    <div class="col-sm-3"><label>Ind/Org</label></div>
+    <div class="col-sm-9">{{if .Listing.IsOrg}}Organisation{{else}}Individual{{end}}</div>
+</div>
+
+<div class="row">
     <div class="col-sm-3"><label>Telephone</label></div>
     <div class="col-sm-9">{{.Listing.Phone}}</div>
 </div>
@@ -38,11 +48,11 @@
 </div>
 <div class="row">
     <div class="col-sm-3"><label>Service / Product Description</label></div>
-    <div class="col-sm-9">{{.Listing.Desc1}}</div>
+    <div class="col-sm-9">{{para .Listing.Desc1}}</div>
 </div>
 <div class="row">
     <div class="col-sm-3"><label>About - Biography / Philosophy</label></div>
-    <div class="col-sm-9">{{.Listing.Desc2}}</div>
+    <div class="col-sm-9">{{para .Listing.Desc2}}</div>
 </div>
 
 {{if .Preview}}

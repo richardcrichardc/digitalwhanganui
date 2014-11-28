@@ -100,10 +100,11 @@ CREATE TABLE IF NOT EXISTS listing (
 );
 
 CREATE TABLE IF NOT EXISTS categoryListing (
+    majorMajorCatCode TEXT,
     majorCatCode TEXT,
     minorCatCode TEXT,
     listingId INT,
-    PRIMARY KEY (majorCatCode, minorCatCode, listingId)
+    PRIMARY KEY (majorMajorCatCode, majorCatCode, minorCatCode, listingId)
 );
 
 CREATE TABLE IF NOT EXISTS session (

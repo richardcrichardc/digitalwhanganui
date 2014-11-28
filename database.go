@@ -63,9 +63,11 @@ type ListingSubmission struct {
 }
 
 type ListingSummary struct {
-	Id   int
-	Name string
-	Sort string
+	Id        int
+	Name      string
+	ShortDesc string
+	IsOrg     bool
+	Sort      string
 }
 
 func storeListing(submission ListingSubmission) {
@@ -139,17 +141,17 @@ func fetchListing(listingId int) *Listing {
 }
 
 func fetchCategorySummaries(majorCatCode, minorCatCode string) (summaries []ListingSummary) {
-	rows, err := DB.Query("SELECT l.Id, l.Name FROM categoryListing cl JOIN listing l ON cl.listingId = l.id WHERE majorCatCode = ? AND minorCatCode = ?", majorCatCode, minorCatCode)
+	rows, err := DB.Query("SELECT l.Id, l.Name, substr(desc1, 0, 320), l.isOrg, '' FROM categoryListing cl JOIN listing l ON cl.listingId = l.id WHERE majorCatCode = ? AND minorCatCode = ?", majorCatCode, minorCatCode)
 	return fetchListingSummaries(rows, err)
 }
 
 func fetchIndividualSummaries() (summaries []ListingSummary) {
-	rows, err := DB.Query("SELECT Id, Name, upper(substr(adminLastName,1,1)) FROM listing WHERE isOrg=0 ORDER BY upper(adminLastName), upper(adminFirstName)")
+	rows, err := DB.Query("SELECT Id, Name, '', isOrg, upper(substr(adminLastName,1,1)) FROM listing WHERE isOrg=0 ORDER BY upper(adminLastName), upper(adminFirstName)")
 	return fetchListingSummaries(rows, err)
 }
 
 func fetchOrganisationSummaries() (summaries []ListingSummary) {
-	rows, err := DB.Query("SELECT Id, Name, upper(substr(Name,1,1)) FROM listing WHERE isOrg=1 ORDER BY Name")
+	rows, err := DB.Query("SELECT Id, Name, '', isOrg, upper(substr(Name,1,1)) FROM listing WHERE isOrg=1 ORDER BY Name")
 	return fetchListingSummaries(rows, err)
 }
 
@@ -157,7 +159,7 @@ func fetchListingSummaries(rows *sql.Rows, err error) (summaries []ListingSummar
 
 	for rows.Next() {
 		var summary ListingSummary
-		if err := rows.Scan(&summary.Id, &summary.Name, &summary.Sort); err != nil {
+		if err := rows.Scan(&summary.Id, &summary.Name, &summary.ShortDesc, &summary.IsOrg, &summary.Sort); err != nil {
 			panic(err)
 		}
 		summaries = append(summaries, summary)

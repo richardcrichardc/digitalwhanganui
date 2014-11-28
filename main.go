@@ -6,6 +6,8 @@ import (
 	"github.com/richardcrichardc/binding"
 	"github.com/richardcrichardc/martini"
 	"github.com/richardcrichardc/render"
+	"html"
+	"html/template"
 	"net/http"
 	"os"
 	"strconv"
@@ -28,6 +30,8 @@ func main() {
 		publicDir = "/usr/local/share/digitalwhanganui/public"
 	}
 
+	fmt.Println(templateDir, publicDir)
+
 	// Classic with parametric publicDir
 	r := martini.NewRouter()
 	m := martini.New()
@@ -39,7 +43,11 @@ func main() {
 
 	m.Use(SQLiteSession)
 
-	rendererOptions := render.Options{Layout: "base", Directory: templateDir}
+	templateFuncs := []template.FuncMap{template.FuncMap{
+		"para":      para,
+		"shortDesc": shortDesc}}
+
+	rendererOptions := render.Options{Layout: "base", Directory: templateDir, Funcs: templateFuncs}
 	m.Use(render.Renderer(rendererOptions))
 
 	r.Get("/", browse)
@@ -65,6 +73,14 @@ func fileExists(name string) bool {
 		}
 	}
 	return true
+}
+
+func para(text string) template.HTML {
+	text = html.EscapeString(text)
+	text = strings.Replace(text, "\r", "", -1)
+	text = strings.Replace(text, "\n\n", "</p><p>", -1)
+	text = strings.Replace(text, "\n", "<br>", -1)
+	return template.HTML("<p>" + text + "</p>")
 }
 
 type page struct {
@@ -347,6 +363,24 @@ func parseCategories(categories string) (result []CategoryId) {
 		result = append(result, CategoryId{cat2[0], cat2[1], cat2[2]})
 	}
 	return
+}
+
+func shortDesc(in string) string {
+	splitPoint := strings.IndexRune(in, '\n')
+
+	// First paragraph can be kept intact
+	if splitPoint > -1 && splitPoint <= 300 {
+		return in[0:splitPoint]
+	}
+
+	// Entire input fits in short desc and is not split
+	if len(in) < 300 {
+		return in
+	}
+
+	// Split after 300 chars and add elipsis
+	return in[0:300] + "…"
+
 }
 
 func uploadImage(r render.Render) {
