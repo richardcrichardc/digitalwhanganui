@@ -90,6 +90,7 @@ CREATE TABLE IF NOT EXISTS listing (
     AdminFirstName TEXT,
     AdminLastName TEXT,
     AdminPhone TEXT,
+    WCCExportOK INT,
     isOrg INT,
     Name TEXT,
     Desc1 TEXT,
@@ -130,3 +131,21 @@ CREATE TABLE IF NOT EXISTS login (
     email TEXT,
     expires DATETIME
 );
+
+CREATE VIRTUAL TABLE IF NOT EXISTS listing_fts  USING fts4(content="listing", tokenize=porter, Name, Desc1, Desc2);
+
+CREATE TRIGGER IF NOT EXISTS listing_bu BEFORE UPDATE ON listing BEGIN
+  DELETE FROM listing_fts WHERE docid=old.rowid;
+END;
+CREATE TRIGGER IF NOT EXISTS listing_bd BEFORE DELETE ON listing BEGIN
+  DELETE FROM listing_fts WHERE docid=old.rowid;
+END;
+
+CREATE TRIGGER IF NOT EXISTS listing_au AFTER UPDATE ON listing BEGIN
+  INSERT INTO listing_fts(docid, Name, Desc1, Desc2) VALUES(new.rowid, new.Name, new.Desc1, new.Desc2);
+END;
+CREATE TRIGGER IF NOT EXISTS listing_ai AFTER INSERT ON listing BEGIN
+  INSERT INTO listing_fts(docid, Name, Desc1, Desc2) VALUES(new.rowid, new.Name, new.Desc1, new.Desc2);
+END;
+
+INSERT INTO listing_fts(listing_fts) VALUES('rebuild');

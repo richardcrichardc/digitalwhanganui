@@ -35,6 +35,31 @@ type CategoryId struct {
 	MajorMajorCode, MajorCode, MinorCode string
 }
 
+func (c *CategoryId) Name() (ret string) {
+	majorMajorCat, ok := Cats.MajorMajorCats[c.MajorMajorCode]
+	if !ok {
+		return
+	}
+	ret = majorMajorCat.Name
+
+	majorCat, ok := majorMajorCat.MajorCats[c.MajorCode]
+	if !ok {
+		return
+	}
+	ret = ret + " > " + majorCat.Name
+
+	minorCat, ok := majorCat.MinorCats[c.MinorCode]
+	if !ok {
+		return
+	}
+	ret = ret + " > " + minorCat.Name
+	return
+}
+
+func (c *CategoryId) URL() string {
+	return "/browse/" + c.MajorMajorCode + "/" + c.MajorCode + "/" + c.MinorCode + "/"
+}
+
 type Listing struct {
 	Id             sql.NullInt64
 	Status         int
@@ -42,6 +67,7 @@ type Listing struct {
 	AdminFirstName string `form:"adminFirstName"`
 	AdminLastName  string `form:"adminLastName"`
 	AdminPhone     string `form:"adminPhone"`
+	WCCExportOK    bool   `form:"WCCExportOK"`
 
 	IsOrg    bool   `form:"isOrg"`
 	Name     string `form:"name"`
@@ -100,14 +126,15 @@ func storeListing(listing *Listing) {
 		panic(err)
 	}
 
-	result, err := tx.Exec(`REPLACE INTO listing(id, status, adminEmail, adminFirstName, adminLastName, adminPhone, isOrg,
-                        name, desc1, desc2, phone, email, websites, address, updated) VALUES(?,?,lower(?),?,?,?,?,?,?,?,?,?,?,?, datetime('now'))`,
+	result, err := tx.Exec(`REPLACE INTO listing(id, status, adminEmail, adminFirstName, adminLastName, adminPhone, WCCExportOK, isOrg,
+                        name, desc1, desc2, phone, email, websites, address, updated) VALUES(?,?,lower(?),?,?,?,?,?,?,?,?,?,?,?,?, datetime('now'))`,
 		listing.Id,
 		listing.Status,
 		listing.AdminEmail,
 		listing.AdminFirstName,
 		listing.AdminLastName,
 		listing.AdminPhone,
+		listing.WCCExportOK,
 		listing.IsOrg,
 		listing.Name,
 		listing.Desc1,
@@ -157,7 +184,7 @@ func storeListing(listing *Listing) {
 
 func fetchListing(listingId int) *Listing {
 	var listing Listing
-	row := DB.QueryRow(`SELECT id, status, adminEmail, adminFirstName, adminLastName, adminPhone, isOrg,
+	row := DB.QueryRow(`SELECT id, status, adminEmail, adminFirstName, adminLastName, adminPhone, WCCExportOK, isOrg,
                         name, desc1, desc2, phone, email, websites, address FROM Listing WHERE id = ?`, listingId)
 
 	err := row.Scan(
@@ -167,6 +194,7 @@ func fetchListing(listingId int) *Listing {
 		&listing.AdminFirstName,
 		&listing.AdminLastName,
 		&listing.AdminPhone,
+		&listing.WCCExportOK,
 		&listing.IsOrg,
 		&listing.Name,
 		&listing.Desc1,
@@ -233,6 +261,11 @@ func fetchIndividualSummaries() (summaries []ListingSummary) {
 
 func fetchOrganisationSummaries() (summaries []ListingSummary) {
 	rows, err := DB.Query("SELECT Id, Name, '', isOrg, upper(substr(Name,1,1)) FROM listing WHERE Status=1 AND isOrg=1 ORDER BY Name")
+	return fetchListingSummaries(rows, err)
+}
+
+func fetchSearchSummaries(search string) (summaries []ListingSummary) {
+	rows, err := DB.Query("SELECT l.Id, l.Name, '', l.isOrg, '' FROM listing l JOIN listing_fts s ON l.id = s.docid WHERE l.Status=1 AND s.listing_fts MATCH ?", search)
 	return fetchListingSummaries(rows, err)
 }
 

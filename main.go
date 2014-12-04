@@ -104,9 +104,10 @@ func formatTime(t time.Time) string {
 }
 
 type page struct {
-	Title   string
-	Section string
-	JSFiles []string
+	Title        string
+	CanonicalURL string
+	Section      string
+	JSFiles      []string
 }
 
 type listingPage struct {
@@ -209,6 +210,7 @@ func browseListing(r render.Render, params martini.Params) {
 	}
 
 	d.Title = d.Listing.Name
+	d.CanonicalURL = "http://xyzzy.digitalwhanganui.org.nz/listing/" + params["listingId"]
 
 	r.HTML(200, "browse-listing", d)
 }
@@ -483,16 +485,17 @@ func about(r render.Render) {
 	r.HTML(200, "about", d)
 }
 
-func search(r render.Render) {
+func search(r render.Render, req *http.Request) {
 	var d struct {
 		page
-		Cats Categories
-		Name string
+		Q                string
+		ListingSummaries []ListingSummary
 	}
 
 	d.Title = "Search"
-	d.Cats = Cats
-	d.Name = "Bob"
+	d.Q = req.FormValue("q")
+	d.ListingSummaries = fetchSearchSummaries(d.Q)
+	fmt.Println("Q ", d.Q)
 
 	r.HTML(200, "search", d)
 }
@@ -586,7 +589,6 @@ func review(r render.Render, params martini.Params, s *Session) {
 
 	d.Title = d.Listing.Name
 	d.Review = true
-	d.JSFiles = []string{"/review.js"}
 
 	r.HTML(200, "browse-listing", d)
 }
@@ -647,6 +649,7 @@ func canonicalListing(r render.Render, params martini.Params) {
 	}
 
 	d.Title = d.Listing.Name
+	d.CanonicalURL = "http://xyzzy.digitalwhanganui.org.nz/listing/" + params["listingId"]
 
 	r.HTML(200, "browse-listing", d)
 }

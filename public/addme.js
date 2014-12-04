@@ -21,7 +21,6 @@ $( document ).ready(function() {
   $("#major-cat-select select").change(function (e){
     var majorMajorCat = $("#select-major-major-cats").val();
     var majorCat = $(e.target).val();
-    console.log('zzz', majorMajorCat, majorCat);
     $("#minor-cat-select select").addClass("hidden");
     $("#select-" + majorMajorCat + "-" + majorCat + "-minor-cats").removeClass("hidden");
   });
@@ -59,7 +58,6 @@ $( document ).ready(function() {
   // Remove a previously added category when X on category badge clicked
   $( document ).on( "click", ".remove-category", function(e) {
     $(e.target).parent(".badge").remove();
-    console.log($("#selected-categories").children.length);
     if ($("#selected-categories").children().length == 0) {
       $("#add-at-least-one").removeClass("hidden");
       $("#selected-categories").addClass("hidden");
@@ -93,7 +91,6 @@ $( document ).ready(function() {
     sequentialUploads: true,
 
     submit: function (e, data) {
-      console.log('sub', data);
       $('#uploadImage').addClass("disabled");
       $('#image').addClass("hidden");
       $('#noImage').addClass("hidden");
@@ -102,7 +99,6 @@ $( document ).ready(function() {
     },
 
     done: function (e, data) {
-      console.log('dn', data);
       $('#image')
         .removeClass("hidden")
         .text(data.result.Id);

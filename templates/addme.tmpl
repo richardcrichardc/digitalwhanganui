@@ -10,7 +10,7 @@
 
 <p>Please fill out this form if you would like to be added to the Digital Whanganui directory. Here is how is works:</p>
   <ul>
-    <li>Listings are free of charge, but a <a href="/donate">donation</a> would be appreciated to help with our costs.</li>
+    <li>Listings are free of charge, but a <a href="/about#donate">donation</a> would be appreciated to help with our costs.</li>
     <li>Your listing will be reviewed by our team before it is published in the directory.</li>
     <li>Listings will only be published for individuals and organisations resident in Whanganui</li>
     <li>Once published you can update or remove your listing at any time.</li>
@@ -51,6 +51,14 @@
     <div class="col-sm-10">
       <input type="email" class="form-control" id="adminEmail" name="adminEmail" value="{{.Submission.Listing.AdminEmail}}" placeholder="Email">
       <span class="help-block"><span class="text-danger">{{.Submission.Errors.AdminEmail}}</span></span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="checkbox col-sm-offset-2 col-sm-10">
+        <label>
+            <input type="checkbox" name="WCCExportOK" value="1" {{if .Submission.Listing.WCCExportOK}}checked{{end}}>Pass my details on to the WCC Digital Coordinator
+        </label>
     </div>
   </div>
 

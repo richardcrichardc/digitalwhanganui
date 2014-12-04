@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 	"gopkg.in/alexcesaro/quotedprintable.v1"
 	"net/smtp"
 	"path/filepath"
@@ -17,6 +16,7 @@ var auth = smtp.CRAMMD5Auth("digitalwhanganui@digitalwhanganui.org.nz", "apodaca
 var emailTemplates *template.Template
 
 func sendMail(to, subject, template string, data map[string]string) {
+	return
 	checkHeader(to)
 	checkHeader(subject)
 
@@ -35,9 +35,6 @@ func sendMail(to, subject, template string, data map[string]string) {
 		panic(err)
 	}
 	msg := buf.Bytes()
-
-	fmt.Println(to, subject, template, data)
-	fmt.Println(string(msg))
 
 	// TODO Fix email args - almost certainly wrong but works
 	err = smtp.SendMail(server, auth, fromEmail, []string{to}, msg)
