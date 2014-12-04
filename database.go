@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	_ "github.com/mattn/go-sqlite3"
+	"time"
 )
 
 var DB *sql.DB
@@ -35,7 +36,8 @@ type CategoryId struct {
 }
 
 type Listing struct {
-	Id             int
+	Id             sql.NullInt64
+	Status         int
 	AdminEmail     string `form:"adminEmail"`
 	AdminFirstName string `form:"adminFirstName"`
 	AdminLastName  string `form:"adminLastName"`
@@ -50,6 +52,8 @@ type Listing struct {
 	Email    string `form:"email"`
 	Websites string `form:"websites"`
 	Address  string `form:"address"`
+
+	CatIds []CategoryId
 }
 
 type ListingSubmission struct {
@@ -58,8 +62,7 @@ type ListingSubmission struct {
 	Image       string `form:"image"`
 	Submit      string `form:"submit"`
 	FromPreview string `form:"fromPreview"`
-	CatIds      []CategoryId
-	Errors      map[string]string
+	Errors      map[string]interface{}
 }
 
 type ListingSummary struct {
@@ -70,53 +73,96 @@ type ListingSummary struct {
 	Sort      string
 }
 
-func storeListing(submission ListingSubmission) {
-	result, err := DB.Exec(`REPLACE INTO listing(adminEmail, adminFirstName, adminLastName, adminPhone, isOrg,
-                        name, desc1, desc2, phone, email, websites, address) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)`,
-		submission.Listing.AdminEmail,
-		submission.Listing.AdminFirstName,
-		submission.Listing.AdminLastName,
-		submission.Listing.AdminPhone,
-		submission.Listing.IsOrg,
-		submission.Listing.Name,
-		submission.Listing.Desc1,
-		submission.Listing.Desc2,
-		submission.Listing.Phone,
-		submission.Listing.Email,
-		submission.Listing.Websites,
-		submission.Listing.Address)
+type ReviewListSummary struct {
+	Id      int
+	Name    string
+	Updated time.Time
+}
 
+const (
+	StatusNew      = 0
+	StatusAccepted = 1
+	StatusRejected = 2
+	StatusExpired  = 3
+)
+
+func storeListing(listing *Listing) {
+	tx, err := DB.Begin()
 	if err != nil {
 		panic(err)
 	}
 
-	listingId, err := result.LastInsertId()
+	// Ensure delete triggers fire
+	_, err = tx.Exec(`PRAGMA recursive_triggers = 1`)
+
 	if err != nil {
+		tx.Rollback()
 		panic(err)
 	}
 
-	// TODO delete old categoruListings
+	result, err := tx.Exec(`REPLACE INTO listing(id, status, adminEmail, adminFirstName, adminLastName, adminPhone, isOrg,
+                        name, desc1, desc2, phone, email, websites, address, updated) VALUES(?,?,lower(?),?,?,?,?,?,?,?,?,?,?,?, datetime('now'))`,
+		listing.Id,
+		listing.Status,
+		listing.AdminEmail,
+		listing.AdminFirstName,
+		listing.AdminLastName,
+		listing.AdminPhone,
+		listing.IsOrg,
+		listing.Name,
+		listing.Desc1,
+		listing.Desc2,
+		listing.Phone,
+		listing.Email,
+		listing.Websites,
+		listing.Address)
 
-	stmt, err := DB.Prepare("INSERT INTO categoryListing(majorCatCode, minorCatCode, listingId) VALUES(?,?,?)")
 	if err != nil {
+		tx.Rollback()
 		panic(err)
 	}
 
-	for _, catId := range submission.CatIds {
-		_, err = stmt.Exec(catId.MajorCode, catId.MinorCode, listingId)
+	if !listing.Id.Valid {
+		newListingId, err := result.LastInsertId()
 		if err != nil {
+			tx.Rollback()
+			panic(err)
+		}
+		listing.Id.Int64 = newListingId
+		listing.Id.Valid = true
+	}
+
+	_, err = tx.Exec("DELETE FROM categoryListing WHERE listingId=?", listing.Id)
+	if err != nil {
+		tx.Rollback()
+		panic(err)
+	}
+
+	stmt, err := tx.Prepare("INSERT INTO categoryListing(majorMajorCatCode, majorCatCode, minorCatCode, listingId) VALUES(?,?,?,?)")
+	if err != nil {
+		tx.Rollback()
+		panic(err)
+	}
+
+	for _, catId := range listing.CatIds {
+		_, err = stmt.Exec(catId.MajorMajorCode, catId.MajorCode, catId.MinorCode, listing.Id)
+		if err != nil {
+			tx.Rollback()
 			panic(err)
 		}
 	}
+
+	tx.Commit()
 }
 
 func fetchListing(listingId int) *Listing {
 	var listing Listing
-	row := DB.QueryRow(`SELECT id, adminEmail, adminFirstName, adminLastName, adminPhone, isOrg,
+	row := DB.QueryRow(`SELECT id, status, adminEmail, adminFirstName, adminLastName, adminPhone, isOrg,
                         name, desc1, desc2, phone, email, websites, address FROM Listing WHERE id = ?`, listingId)
 
 	err := row.Scan(
 		&listing.Id,
+		&listing.Status,
 		&listing.AdminEmail,
 		&listing.AdminFirstName,
 		&listing.AdminLastName,
@@ -132,30 +178,68 @@ func fetchListing(listingId int) *Listing {
 
 	switch err {
 	case nil:
-		return &listing
+		break
 	case sql.ErrNoRows:
 		return nil
 	default:
 		panic(err)
 	}
+
+	// Fetch Categories
+	rows, err := DB.Query("SELECT majorMajorCatCode, majorCatCode, minorCatCode FROM categoryListing WHERE listingId=?", listingId)
+	if err != nil {
+		panic(err)
+	}
+
+	for rows.Next() {
+		var catId CategoryId
+		if err := rows.Scan(&catId.MajorMajorCode, &catId.MajorCode, &catId.MinorCode); err != nil {
+			panic(err)
+		}
+		listing.CatIds = append(listing.CatIds, catId)
+	}
+	if err := rows.Err(); err != nil {
+		panic(err)
+	}
+
+	return &listing
 }
 
-func fetchCategorySummaries(majorCatCode, minorCatCode string) (summaries []ListingSummary) {
-	rows, err := DB.Query("SELECT l.Id, l.Name, substr(desc1, 0, 320), l.isOrg, '' FROM categoryListing cl JOIN listing l ON cl.listingId = l.id WHERE majorCatCode = ? AND minorCatCode = ?", majorCatCode, minorCatCode)
+func listingIdForAdminEmail(email string) int {
+	var id int
+
+	row := DB.QueryRow(`SELECT id FROM Listing WHERE adminEmail = lower(?)`, email)
+	err := row.Scan(&id)
+
+	switch err {
+	case nil:
+		return id
+	case sql.ErrNoRows:
+		return 0
+	default:
+		panic(err)
+	}
+}
+
+func fetchCategorySummaries(majorMajorCatCode, majorCatCode, minorCatCode string) (summaries []ListingSummary) {
+	rows, err := DB.Query("SELECT l.Id, l.Name, substr(desc1, 0, 320), l.isOrg, '' FROM categoryListing cl JOIN listing l ON cl.listingId = l.id WHERE Status=1 AND majorMajorCatCode = ? AND majorCatCode = ? AND minorCatCode = ?", majorMajorCatCode, majorCatCode, minorCatCode)
 	return fetchListingSummaries(rows, err)
 }
 
 func fetchIndividualSummaries() (summaries []ListingSummary) {
-	rows, err := DB.Query("SELECT Id, Name, '', isOrg, upper(substr(adminLastName,1,1)) FROM listing WHERE isOrg=0 ORDER BY upper(adminLastName), upper(adminFirstName)")
+	rows, err := DB.Query("SELECT Id, Name, '', isOrg, upper(substr(adminLastName,1,1)) FROM listing WHERE Status=1 AND isOrg=0 ORDER BY upper(adminLastName), upper(adminFirstName)")
 	return fetchListingSummaries(rows, err)
 }
 
 func fetchOrganisationSummaries() (summaries []ListingSummary) {
-	rows, err := DB.Query("SELECT Id, Name, '', isOrg, upper(substr(Name,1,1)) FROM listing WHERE isOrg=1 ORDER BY Name")
+	rows, err := DB.Query("SELECT Id, Name, '', isOrg, upper(substr(Name,1,1)) FROM listing WHERE Status=1 AND isOrg=1 ORDER BY Name")
 	return fetchListingSummaries(rows, err)
 }
 
 func fetchListingSummaries(rows *sql.Rows, err error) (summaries []ListingSummary) {
+	if err != nil {
+		panic(err)
+	}
 
 	for rows.Next() {
 		var summary ListingSummary
@@ -168,6 +252,35 @@ func fetchListingSummaries(rows *sql.Rows, err error) (summaries []ListingSummar
 		panic(err)
 	}
 	return
+}
+
+func fetchReviewSummaries(status int) []ReviewListSummary {
+	var summaries []ReviewListSummary
+
+	rows, err := DB.Query("SELECT id, name, updated FROM listing WHERE status=? ORDER BY updated", status)
+	if err != nil {
+		panic(err)
+	}
+
+	for rows.Next() {
+		var summary ReviewListSummary
+		if err := rows.Scan(&summary.Id, &summary.Name, &summary.Updated); err != nil {
+			panic(err)
+		}
+		summaries = append(summaries, summary)
+	}
+	if err := rows.Err(); err != nil {
+		panic(err)
+	}
+
+	return summaries
+}
+
+func setListingStatus(listingId, newStatus int) {
+	_, err := DB.Exec("UPDATE listing SET status=? WHERE id=?", newStatus, listingId)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func init() {
@@ -243,6 +356,31 @@ func init() {
 		majorCat.MinorCats[code] = &MinorCat{name}
 	}
 	if err := rows.Err(); err != nil {
+		panic(err)
+	}
+}
+
+func loginLink(email string) string {
+	code := randomIdString()
+	_, err := DB.Exec(`INSERT INTO login(code, email, expires) VALUES(?,lower(?),datetime('now', '+30 days'))`, code, email)
+	if err != nil {
+		panic(err)
+	}
+
+	return "http://xyzzy.digitalwhanganui.org.nz/login/" + code
+}
+
+func loginCodeToEmail(code string) string {
+	var email string
+	row := DB.QueryRow(`SELECT email FROM login WHERE code = ?`, code)
+	err := row.Scan(&email)
+
+	switch err {
+	case nil:
+		return email
+	case sql.ErrNoRows:
+		return ""
+	default:
 		panic(err)
 	}
 }

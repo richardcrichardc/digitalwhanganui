@@ -119,4 +119,6 @@ $( document ).ready(function() {
     $('#removeImage').prop("disabled", true);
   });
 
+
+  setAllCategories();
 });

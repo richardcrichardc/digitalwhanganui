@@ -85,7 +85,8 @@ REPLACE INTO minorCat(majorMajorCatCode, majorCatCode, code, name, sort) VALUES
 
 CREATE TABLE IF NOT EXISTS listing (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    AdminEmail TEXT UNIQUE,
+    Status INT DEFAULT 0,
+    AdminEmail TEXT,
     AdminFirstName TEXT,
     AdminLastName TEXT,
     AdminPhone TEXT,
@@ -96,8 +97,13 @@ CREATE TABLE IF NOT EXISTS listing (
     Phone TEXT,
     Email TEXT,
     Websites TEXT,
-    Address TEXT
+    Address TEXT,
+    Updated DATETIME
 );
+
+CREATE INDEX IF NOT EXISTS listingStatus ON listing(Status);
+
+CREATE INDEX IF NOT EXISTS listingIsOrg ON listing(isOrg);
 
 CREATE TABLE IF NOT EXISTS categoryListing (
     majorMajorCatCode TEXT,
@@ -107,8 +113,20 @@ CREATE TABLE IF NOT EXISTS categoryListing (
     PRIMARY KEY (majorMajorCatCode, majorCatCode, minorCatCode, listingId)
 );
 
+CREATE TRIGGER IF NOT EXISTS deleteListingsCategory AFTER DELETE ON listing
+  BEGIN
+    DELETE FROM categoryListing WHERE listingId = old.id;
+  END;
+
 CREATE TABLE IF NOT EXISTS session (
     id TEXT PRIMARY KEY,
     data BLOB,
     expires TEXT
+);
+
+
+CREATE TABLE IF NOT EXISTS login (
+    code TEXT PRIMARY KEY,
+    email TEXT,
+    expires DATETIME
 );

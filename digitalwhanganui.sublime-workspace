@@ -4,8 +4,28 @@
 		"selected_items":
 		[
 			[
+				"majorMajor",
+				"majorMajorCatCode"
+			],
+			[
 				"fet",
-				"fetchSession	*map[string]interface{} ƒ"
+				"fetchListingSummaries	summaries []ListingSummary ƒ"
+			],
+			[
+				"maj",
+				"majorMajorCat	*MajorMajorCat ν"
+			],
+			[
+				"Major",
+				"MajorMajorCat	*MajorMajorCat ν"
+			],
+			[
+				"M",
+				"MajorMajorCat	struct ʈ"
+			],
+			[
+				"Conta",
+				"ContainsRune	bool ƒ"
 			],
 			[
 				"p",
@@ -494,26 +514,6 @@
 			[
 				"fetch_",
 				"fetch_section	function"
-			],
-			[
-				"Is",
-				"ISSUE_SAVE_SCORES"
-			],
-			[
-				"has",
-				"has_permission"
-			],
-			[
-				"to",
-				"to_dict"
-			],
-			[
-				"we",
-				"web_exposed"
-			],
-			[
-				"wb",
-				"web_exposed"
 			]
 		]
 	},
@@ -523,23 +523,15 @@
 			"file": "main.go",
 			"settings":
 			{
-				"buffer_size": 4352,
+				"buffer_size": 9574,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Session.go",
+			"file": "templates/addme.tmpl",
 			"settings":
 			{
-				"buffer_size": 1959,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "database.go",
-			"settings":
-			{
-				"buffer_size": 4235,
+				"buffer_size": 9462,
 				"line_ending": "Unix"
 			}
 		},
@@ -547,7 +539,42 @@
 			"file": "digitalwhanganui.sql",
 			"settings":
 			{
-				"buffer_size": 1546,
+				"buffer_size": 4430,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/richardc/business/therivermouth/src/client/s/scripts/util.coffee",
+			"settings":
+			{
+				"buffer_size": 9527,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "database.go",
+			"settings":
+			{
+				"buffer_size": 6489,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "{{if .Preview}}\n    <form method=\"POST\">\n        <input type=\"hidden\" name=\"fromPreview\" value=\"true\">\n        <div class=\"alert alert-info\" role=\"alert\">\n            <strong>Listing Preview</strong>\n            <button type=\"submit\" name=\"submit\" value=\"edit\" class=\"btn btn-sm btn-default\">Edit</button>\n            <button type=\"submit\" name=\"submit\" value=\"save\" class=\"btn btn-sm btn-default\">Save for Later</button>\n            <button type=\"submit\" name=\"submit\" value=\"submit\" class=\"btn btn-sm btn-default\">Submit to Directory</button>\n        </div>\n{{end}}\n\n<h1>{{.Listing.Name}}</h1>\n\n{{if not .Preview}}\n    <ol class=\"breadcrumb\">\n      <li><a href=\"/\">Browse</a></li>\n      <li><a href=\"../..\">{{.MajorMajorCat.Name}}</a></li>\n      <li><a href=\"../none/\">{{.MajorCat.Name}}</a></li>\n      {{if .MinorCat}}<li><a href=\"../\">{{.MinorCat.Name}}</a></li>{{end}}\n    </ol>\n{{end}}\n\n<div class=\"row\">\n    <div class=\"col-sm-3\"><label>Name</label></div>\n    <div class=\"col-sm-9\">{{.Listing.Name}}</div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-sm-3\"><label>Ind/Org</label></div>\n    <div class=\"col-sm-9\">{{if .Listing.IsOrg}}Organisation{{else}}Individual{{end}}</div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-sm-3\"><label>Telephone</label></div>\n    <div class=\"col-sm-9\">{{.Listing.Phone}}</div>\n</div>\n<div class=\"row\">\n    <div class=\"col-sm-3\"><label>Email</label></div>\n    <div class=\"col-sm-9\">{{.Listing.Email}}</div>\n</div>\n<div class=\"row\">\n    <div class=\"col-sm-3\"><label>Websites</label></div>\n    <div class=\"col-sm-9\">{{.Listing.Websites}}</div>\n</div>\n<div class=\"row\">\n    <div class=\"col-sm-3\"><label>Address</label></div>\n    <div class=\"col-sm-9\">{{.Listing.Address}}</div>\n</div>\n<div class=\"row\">\n    <div class=\"col-sm-3\"><label>Service / Product Description</label></div>\n    <div class=\"col-sm-9\">{{para .Listing.Desc1}}</div>\n</div>\n<div class=\"row\">\n    <div class=\"col-sm-3\"><label>About - Biography / Philosophy</label></div>\n    <div class=\"col-sm-9\">{{para .Listing.Desc2}}</div>\n</div>\n<div class=\"row\">\n    <div class=\"col-sm-3\"><label>Categories</label></div>\n    <div class=\"col-sm-9\">{{para .Listing.Desc2}}</div>\n</div>\n\n\n{{if .Preview}}\n        <div class=\"alert alert-info\" role=\"alert\">\n            <strong>Listing Preview</strong>\n            <button type=\"submit\" name=\"submit\" value=\"edit\" class=\"btn btn-sm btn-default\">Edit</button>\n            <button type=\"submit\" name=\"submit\" value=\"save\" class=\"btn btn-sm btn-default\">Save for Later</button>\n            <button type=\"submit\" name=\"submit\" value=\"submit\" class=\"btn btn-sm btn-default\">Submit to Directory</button>\n        </div>\n    </form>\n{{end}}",
+			"file": "templates/browse-listing.tmpl",
+			"file_size": 2533,
+			"file_write_time": 130615472423760482,
+			"settings":
+			{
+				"buffer_size": 2673,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "templates/browse-summaries.tmpl",
+			"settings":
+			{
+				"buffer_size": 1417,
 				"line_ending": "Unix"
 			}
 		}
@@ -636,32 +663,42 @@
 	],
 	"file_history":
 	[
+		"/home/richardc/business/therivermouth3/src/server/anomareh_attr_list.py",
+		"/home/richardc/serve/private-sites/digitalwhanganui/build",
+		"/home/richardc/serve/private-sites/digitalwhanganui/Dockerfile",
+		"/home/richardc/serve/site",
+		"/home/richardc/crit/digitalwhanganui/templates/addmedone.tmpl",
+		"/home/richardc/crit/digitalwhanganui/database.go",
+		"/home/richardc/crit/digitalwhanganui/digitalwhanganui.sql",
+		"/home/richardc/crit/digitalwhanganui/templates/browse.tmpl",
+		"/home/richardc/crit/digitalwhanganui/templates/az-summaries.tmpl",
+		"/home/richardc/crit/digitalwhanganui/public/addme.js",
+		"/home/richardc/crit/digitalwhanganui/templates/browse-listing.tmpl",
+		"/home/richardc/crit/digitalwhanganui/templates/browse-category.tmpl",
+		"/home/richardc/crit/digitalwhanganui/templates/addme.tmpl",
+		"/home/richardc/crit/digitalwhanganui/templates/browse-summaries.tmpl",
+		"/home/richardc/crit/digitalwhanganui/public/custom.css",
+		"/home/richardc/crit/digitalwhanganui/templates/category-modal.tmpl",
+		"/home/richardc/crit/digitalwhanganui/digitalwhanganui.sdb",
+		"/home/richardc/crit/digitalwhanganui/templates/about.tmpl",
+		"/home/richardc/crit/digitalwhanganui/templates/browse-major.tmpl",
+		"/home/richardc/crit/digitalwhanganui/Session.go",
+		"/home/richardc/crit/digitalwhanganui/validate/validate.go",
+		"/home/richardc/go/src/github.com/richardcrichardc/binding/binding.go",
 		"/home/richardc/go/src/github.com/richardcrichardc/render/render.go",
 		"/home/richardc/serve/private-sites/digitalwhanganui/start",
-		"/home/richardc/serve/private-sites/digitalwhanganui/Dockerfile",
-		"/home/richardc/crit/digitalwhanganui/templates/browse-listing.tmpl",
 		"/home/richardc/business/supplier-select/qedit-react/qedit-react.sublime-",
 		"/home/richardc/serve/sites/blog/start",
-		"/home/richardc/crit/digitalwhanganui/templates/browse-major.tmpl",
 		"/home/richardc/go/src/github.com/martini-contrib/render/render.go",
 		"/home/richardc/crit/digitalwhanganui/main.go",
 		"/home/richardc/.config/sublime-text-3/Packages/GoSublime/CHANGELOG.md",
 		"/home/richardc/business/stellar/stellarsublime-project",
-		"/home/richardc/crit/digitalwhanganui/public/addme.js",
 		"/home/richardc/crit/digitalwhanganui/templates/base.tmpl",
-		"/home/richardc/crit/digitalwhanganui/public/custom.css",
-		"/home/richardc/crit/digitalwhanganui/digitalwhanganui.sql",
-		"/home/richardc/crit/digitalwhanganui/database.go",
-		"/home/richardc/crit/digitalwhanganui/templates/addme.tmpl",
-		"/home/richardc/crit/digitalwhanganui/templates/category-modal.tmpl",
 		"/home/richardc/serve/src/php-fpm/Dockerfile",
 		"/home/richardc/serve/private-sites/digitalwhanganui/nginx.conf",
-		"/home/richardc/serve/site",
 		"/home/richardc/serve/private-sites/digitalwhanganui/nginx",
 		"/home/richardc/crit/digitalwhanganui/templates/browse-minor.tmpl",
 		"/home/richardc/crit/digitalwhanganui/public/dropzone.js",
-		"/home/richardc/crit/digitalwhanganui/templates/browse.tmpl",
-		"/home/richardc/crit/digitalwhanganui/templates/about.tmpl",
 		"/home/richardc/crit/digitalwhanganui/templates/search.tmpl",
 		"/home/richardc/go/src/github.com/richardcrichardc/martini/recovery.go",
 		"/home/richardc/crit/digitalwhanganui/start",
@@ -753,17 +790,7 @@
 		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/ReactDOM.js",
 		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/ReactDOMInput.js",
 		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/ReactDOMTextarea.js",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/isTextInputElement.js",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/data/questions.js",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/data/core.js",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/data/comments.js",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/ProjectPage.jsx",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/AdminPage.jsx",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/__tests__/test-utils.js",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/data.js",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/utils.js",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/ReactDefaultPerfAnalysis.js",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/ReactPerf.js"
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/isTextInputElement.js"
 	],
 	"find":
 	{
@@ -782,6 +809,13 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"submission",
+			"add-at-least-one",
+			"hidden",
+			"'product'",
+			"'service'",
+			">\n",
+			"parse",
 			"string",
 			"DD",
 			"Error",
@@ -902,14 +936,7 @@
 			"root",
 			"utils",
 			"selectedSection",
-			"Countdown",
-			"Progress",
-			"regression",
-			"option",
-			"Countdown",
-			"responseStatus",
-			"300",
-			"border"
+			"Countdown"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -917,6 +944,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"'products'",
+			"'services'",
 			"TEXT",
 			"resence",
 			"this.state.answer",
@@ -954,7 +983,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -963,15 +992,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4352,
+						"buffer_size": 9574,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4081,
-								4081
+								8069,
+								8069
 							]
 						],
 						"settings":
@@ -980,85 +1009,55 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2880.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "Session.go",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1959,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1729,
-								1729
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/GoSublime/syntax/GoSublime-Go.tmLanguage",
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 937.0,
+						"translation.y": 4416.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "database.go",
+					"buffer": 1,
+					"file": "templates/addme.tmpl",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4235,
+						"buffer_size": 9462,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								23,
-								23
+								4966,
+								4966
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Go/Go.tmLanguage",
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/HTML/HTML.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 990.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 2,
 					"file": "digitalwhanganui.sql",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1546,
+						"buffer_size": 4430,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1546,
-								1546
+								4266,
+								4266
 							]
 						],
 						"settings":
@@ -1066,10 +1065,123 @@
 							"syntax": "Packages/SQL/SQL.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 475.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/home/richardc/business/therivermouth/src/client/s/scripts/util.coffee",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9527,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3998,
+								3998
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1485.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "database.go",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6489,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2401,
+								2401
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/GoSublime/syntax/GoSublime-Go.tmLanguage",
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1179.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "templates/browse-listing.tmpl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2673,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1267,
+								1267
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 589.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "templates/browse-summaries.tmpl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1417,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1399,
+								1399
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
 					"type": "text"
 				}
 			]
@@ -1106,6 +1218,10 @@
 		]
 	},
 	"menu_visible": true,
+	"output.9o:///home/richardc/crit/digitalwhanganui":
+	{
+		"height": 100.0
+	},
 	"output.exec":
 	{
 		"height": 172.0

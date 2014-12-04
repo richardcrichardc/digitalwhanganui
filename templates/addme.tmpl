@@ -1,6 +1,10 @@
 {{template "category-modal" .}}
 
-<h1>Add Me</h1>
+{{if .Submission.Listing.Id.Valid }}
+  <h1>Edit Listing</h1>
+{{else}}
+  <h1>Add Me</h1>
+{{end}}
 
 {{if .Submission.Errors}}<div class="alert alert-danger" role="alert">There was a problem with your submission. Please fix all problems marked in red below and resubmit. TODO Fix bad england</div>{{end}}
 
@@ -10,7 +14,7 @@
     <li>Your listing will be reviewed by our team before it is published in the directory.</li>
     <li>Listings will only be published for individuals and organisations resident in Whanganui</li>
     <li>Once published you can update or remove your listing at any time.</li>
-    <li>To keep the directory up to date, we require you to review your listing once every 3 months. We will send you a reminder email.</li>
+    <li>To keep the directory up to date, we require you to review your listing once every 6 months. We will send you a reminder email.</li>
   </ul>
 
 <form id="addmeform" class="form-horizontal" role="form" method="POST" novalidate>
@@ -76,15 +80,15 @@
     <label for="addCat"class="col-sm-2 control-label">Categories</label>
     <input type="hidden" id="categories" name="categories" value="{{.Submission.Categories}}">
     <div class="col-sm-10">
-      <div id="selected-categories" class="form-control-static {{if not .Submission.CatIds}}hidden{{end}}">
-      {{range .Submission.CatIds}}
+      <div id="selected-categories" class="form-control-static {{if not .Submission.Listing.CatIds}}hidden{{end}}">
+      {{range .Submission.Listing.CatIds}}
         {{$majorMajorCat := index $.Cats.MajorMajorCats .MajorMajorCode}}
         {{$majorCat := index $majorMajorCat.MajorCats .MajorCode}}
         {{$minorCat := index $majorCat.MinorCats .MinorCode}}
         <span class="badge" id="{{.MajorMajorCode}}.{{.MajorCode}}.{{.MinorCode}}">{{$majorMajorCat.Name}} > {{$majorCat.Name}} {{if $minorCat}}> {{$minorCat.Name}} {{end}}<span class="glyphicon glyphicon-remove remove-category"></span></span>
       {{end}}
       </div>
-      <div id="add-at-least-one" class="form-control-static {{if .Submission.CatIds}}hidden{{end}}"><small>Please add at least one category.</small></div>
+      <div id="add-at-least-one" class="form-control-static {{if .Submission.Listing.CatIds}}hidden{{end}}"><small>Please add at least one category.</small></div>
       <p class="form-control-static">
         <button id="addCat" type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#cat-modal">Add Category</button>
       </p>
@@ -173,7 +177,6 @@
   <div class="form-group">
     <div class="col-sm-12">
       <button type="submit" name="submit" value="preview" class="btn btn-default">Preview</button>
-      <button type="submit" name="submit" value="save" class="btn btn-default">Save for Later</button>
       <button type="submit" name="submit" value="submit" class="btn btn-default">Submit to Directory</button>
     </div>
   </div>

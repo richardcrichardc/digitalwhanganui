@@ -1,0 +1,33 @@
+{{define "List"}}
+  {{if .}}
+    <table class="table table-striped">
+      <tr>
+        <th width="70%">Name</th>
+        <th width="30%">Last Edited</th>
+      </tr>
+      {{range .}}
+        <tr>
+          <td><a href="{{.Id}}">{{.Name}}</a></td>
+          <td>{{formatTime .Updated}}</td>
+        </tr>
+      {{end}}
+    </table>
+  {{else}}
+    <p><i>No listings.</i></p>
+  {{end}}
+{{end}}
+
+
+<h1>{{.Title}}</h1>
+
+<h2>New Listings</h2>
+{{template "List" .NewListings}}
+
+<h2>Accepted Listings</h2>
+{{template "List" .AcceptedListings}}
+
+<h2>Rejected Listings</h2>
+{{template "List" .RejectedListings}}
+
+<h2>Expired Listings</h2>
+{{template "List" .ExpiredListings}}
