@@ -1,1 +1,3 @@
 digitalwhanganui.sdb
+**/node_modules/
+/bootstrap/dist/
