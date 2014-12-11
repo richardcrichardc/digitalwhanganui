@@ -6297,3 +6297,66 @@ button.close {
     display: none !important;
   }
 }
+
+.search {
+    margin-top: 10px;
+}
+
+.width-auto {
+    width: auto;
+}
+
+.remove-category {
+    font-size: 10px;
+    color: red;
+    cursor: pointer;
+}
+
+.modal-dialog {
+    width: 700px;
+}
+
+/* File upload */
+.fileinput-button {
+  position: relative;
+  overflow: hidden;
+}
+.fileinput-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  -ms-filter: 'alpha(opacity=0)';
+  font-size: 200px;
+  direction: ltr;
+  cursor: pointer;
+}
+
+/* Fixes for IE < 8 */
+@media screen\9 {
+  .fileinput-button input {
+    filter: alpha(opacity=0);
+    font-size: 100%;
+    height: 100%;
+  }
+}
+
+#addmeform .help-block {
+    margin-bottom: 0;
+}
+
+/* show gap between selected categories*/
+#addmeform #selected-categories .badge {
+    margin-right: 5px;
+}
+
+/* Put > between breadcrumbs */
+.breadcrumb > li + li:before {
+    content: ">";
+}
+
+/* hide page until webfonts have loaded */
+.wf-loading {
+    visibility: hidden;
+}

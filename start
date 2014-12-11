@@ -7,8 +7,9 @@ while true; do
     if [[ $? == 0 ]] ; then
         digitalwhanganui &
     fi
+    cat DigitalWhanganui_stylesheet/style.css custom.css > public/css/style.css
     sleep 1
-    inotifywait -q -e attrib *.go
+    inotifywait -q -e attrib *
     kill %digitalwhanganui
     wait %digitalwhanganui
 done
