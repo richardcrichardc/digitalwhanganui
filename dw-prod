@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export MARTINI_ENV=production
+exec digitalwhanganui
