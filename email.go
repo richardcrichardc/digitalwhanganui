@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"github.com/richardcrichardc/martini"
 	"gopkg.in/alexcesaro/quotedprintable.v1"
 	"net/smtp"
 	"path/filepath"
@@ -10,13 +11,25 @@ import (
 
 var shortFromEmail = "digitalwhanganui@digitalwhanganui.org.nz"
 var fromEmail = "DigitalWhanganui <" + shortFromEmail + ">"
+
 var server = "bakerloo.richardc.net:587"
 var auth = smtp.CRAMMD5Auth("digitalwhanganui@digitalwhanganui.org.nz", "apodacaGritz")
 
 var emailTemplates *template.Template
 
+func shortAdministratorEmail() string {
+	if martini.Env == martini.Dev {
+		return "richardc+digitalwhanganui@richardc.net"
+	} else {
+		return "digitalwhanganui@digitalwhanganui.org.nz"
+	}
+}
+
+func administratorEmail() string {
+	return "DigitalWhanganui <" + shortAdministratorEmail() + ">"
+}
+
 func sendMail(to, subject, template string, data map[string]string) {
-	return
 	checkHeader(to)
 	checkHeader(subject)
 

@@ -88,6 +88,7 @@ $( document ).ready(function() {
   // file upload widget
   $('#uploadImage input').fileupload({
     url: '/uploadImage',
+    formData: {},
     sequentialUploads: true,
 
     submit: function (e, data) {
@@ -98,18 +99,40 @@ $( document ).ready(function() {
       //$('#cancelUpload').removeClass("hidden");
     },
 
-    done: function (e, data) {
-      $('#image')
-        .removeClass("hidden")
-        .text(data.result.Id);
+    always: function (e, data) {
+      console.log(data.textStatus);
+      var error;
+      if (data.textStatus === "error") {
+        error = "Upload failed - please try again.";
+      } else if (data.result.Error) {
+        error = data.result.Error;
+      }
+
+      if (error) {
+        $('#image')
+          .removeClass("hidden")
+          .text(error);
+        $('#imageInput').val('');
+      } else {
+        $('#image')
+          .removeClass("hidden")
+          .html('<img src="/image/' + data.result.Id + '/small">');
+        $('#imageInput').val(data.result.Id);
+        $('#removeImage').prop("disabled", false);
+      }
+
       $('#imageUploading').addClass("hidden");
       $('#uploadImage').removeClass("disabled");
       //$('#cancelUpload').addClass("hidden");
-      $('#removeImage').prop("disabled", false);
-    }
+    },
+
+
+
+
   });
 
   $("#removeImage").click(function() {
+    $('#imageInput').val('');
     $('#image').addClass("hidden");
     $('#noImage').removeClass("hidden");
     $('#removeImage').prop("disabled", true);

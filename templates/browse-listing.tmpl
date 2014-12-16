@@ -73,6 +73,11 @@
 </div>
 
 <div class="row">
+    <div class="col-sm-3"><label>Image/Logo</label></div>
+    <div class="col-sm-9">{{if .Listing.ImageId}}<img src="/image/{{.Listing.ImageId}}/large">{{else}}None{{end}}</div>
+</div>
+
+<div class="row">
     <div class="col-sm-3"><label>Telephone</label></div>
     <div class="col-sm-9">{{.Listing.Phone}}</div>
 </div>

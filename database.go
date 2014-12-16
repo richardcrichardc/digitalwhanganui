@@ -78,6 +78,7 @@ type Listing struct {
 	Email    string `form:"email"`
 	Websites string `form:"websites"`
 	Address  string `form:"address"`
+	ImageId  string `form:"image"`
 
 	CatIds []CategoryId
 }
@@ -97,6 +98,7 @@ type ListingSummary struct {
 	ShortDesc string
 	IsOrg     bool
 	Sort      string
+	ImageId   string
 }
 
 type ReviewListSummary struct {
@@ -127,7 +129,7 @@ func storeListing(listing *Listing) {
 	}
 
 	result, err := tx.Exec(`REPLACE INTO listing(id, status, adminEmail, adminFirstName, adminLastName, adminPhone, WCCExportOK, isOrg,
-                        name, desc1, desc2, phone, email, websites, address, updated) VALUES(?,?,lower(?),?,?,?,?,?,?,?,?,?,?,?,?, datetime('now'))`,
+                        name, desc1, desc2, phone, email, websites, address, ImageId, updated) VALUES(?,?,lower(?),?,?,?,?,?,?,?,?,?,?,?,?,?, datetime('now'))`,
 		listing.Id,
 		listing.Status,
 		listing.AdminEmail,
@@ -142,7 +144,8 @@ func storeListing(listing *Listing) {
 		listing.Phone,
 		listing.Email,
 		listing.Websites,
-		listing.Address)
+		listing.Address,
+		listing.ImageId)
 
 	if err != nil {
 		tx.Rollback()
@@ -185,7 +188,7 @@ func storeListing(listing *Listing) {
 func fetchListing(listingId int) *Listing {
 	var listing Listing
 	row := DB.QueryRow(`SELECT id, status, adminEmail, adminFirstName, adminLastName, adminPhone, WCCExportOK, isOrg,
-                        name, desc1, desc2, phone, email, websites, address FROM Listing WHERE id = ?`, listingId)
+                        name, desc1, desc2, phone, email, websites, address, imageId FROM Listing WHERE id = ?`, listingId)
 
 	err := row.Scan(
 		&listing.Id,
@@ -202,7 +205,8 @@ func fetchListing(listingId int) *Listing {
 		&listing.Phone,
 		&listing.Email,
 		&listing.Websites,
-		&listing.Address)
+		&listing.Address,
+		&listing.ImageId)
 
 	switch err {
 	case nil:
@@ -250,22 +254,22 @@ func listingIdForAdminEmail(email string) int {
 }
 
 func fetchCategorySummaries(majorMajorCatCode, majorCatCode, minorCatCode string) (summaries []ListingSummary) {
-	rows, err := DB.Query("SELECT l.Id, l.Name, substr(desc1, 0, 320), l.isOrg, '' FROM categoryListing cl JOIN listing l ON cl.listingId = l.id WHERE Status=1 AND majorMajorCatCode = ? AND majorCatCode = ? AND minorCatCode = ?", majorMajorCatCode, majorCatCode, minorCatCode)
+	rows, err := DB.Query("SELECT l.Id, l.Name, substr(desc1, 0, 320), l.isOrg, '', imageId FROM categoryListing cl JOIN listing l ON cl.listingId = l.id WHERE Status=1 AND majorMajorCatCode = ? AND majorCatCode = ? AND minorCatCode = ?", majorMajorCatCode, majorCatCode, minorCatCode)
 	return fetchListingSummaries(rows, err)
 }
 
 func fetchIndividualSummaries() (summaries []ListingSummary) {
-	rows, err := DB.Query("SELECT Id, Name, '', isOrg, upper(substr(adminLastName,1,1)) FROM listing WHERE Status=1 AND isOrg=0 ORDER BY upper(adminLastName), upper(adminFirstName)")
+	rows, err := DB.Query("SELECT Id, Name, '', isOrg, upper(substr(adminLastName,1,1)), imageId FROM listing WHERE Status=1 AND isOrg=0 ORDER BY upper(adminLastName), upper(adminFirstName)")
 	return fetchListingSummaries(rows, err)
 }
 
 func fetchOrganisationSummaries() (summaries []ListingSummary) {
-	rows, err := DB.Query("SELECT Id, Name, '', isOrg, upper(substr(Name,1,1)) FROM listing WHERE Status=1 AND isOrg=1 ORDER BY Name")
+	rows, err := DB.Query("SELECT Id, Name, '', isOrg, upper(substr(Name,1,1)), imageId FROM listing WHERE Status=1 AND isOrg=1 ORDER BY Name")
 	return fetchListingSummaries(rows, err)
 }
 
 func fetchSearchSummaries(search string) (summaries []ListingSummary) {
-	rows, err := DB.Query("SELECT l.Id, l.Name, '', l.isOrg, '' FROM listing l JOIN listing_fts s ON l.id = s.docid WHERE l.Status=1 AND s.listing_fts MATCH ?", search)
+	rows, err := DB.Query("SELECT l.Id, l.Name, '', l.isOrg, '', imageId FROM listing l JOIN listing_fts s ON l.id = s.docid WHERE l.Status=1 AND s.listing_fts MATCH ?", search)
 	return fetchListingSummaries(rows, err)
 }
 
@@ -276,7 +280,7 @@ func fetchListingSummaries(rows *sql.Rows, err error) (summaries []ListingSummar
 
 	for rows.Next() {
 		var summary ListingSummary
-		if err := rows.Scan(&summary.Id, &summary.Name, &summary.ShortDesc, &summary.IsOrg, &summary.Sort); err != nil {
+		if err := rows.Scan(&summary.Id, &summary.Name, &summary.ShortDesc, &summary.IsOrg, &summary.Sort, &summary.ImageId); err != nil {
 			panic(err)
 		}
 		summaries = append(summaries, summary)

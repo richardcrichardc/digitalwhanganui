@@ -99,6 +99,7 @@ CREATE TABLE IF NOT EXISTS listing (
     Email TEXT,
     Websites TEXT,
     Address TEXT,
+    ImageId TEXT,
     Updated DATETIME
 );
 
@@ -149,3 +150,12 @@ CREATE TRIGGER IF NOT EXISTS listing_ai AFTER INSERT ON listing BEGIN
 END;
 
 INSERT INTO listing_fts(listing_fts) VALUES('rebuild');
+
+CREATE TABLE IF NOT EXISTS image (
+    id TEXT PRIMARY KEY,
+    created DATETIME,
+    format TEXT,
+    original BLOB,
+    small BLOB,
+    large BLOB
+);

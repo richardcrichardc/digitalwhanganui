@@ -2,7 +2,6 @@ package main
 
 import (
 	"digitalwhanganui/validate"
-	"fmt"
 	"github.com/richardcrichardc/binding"
 	"github.com/richardcrichardc/martini"
 	"github.com/richardcrichardc/render"
@@ -70,6 +69,7 @@ func main() {
 	r.Get("/addme", addMe)
 	r.Post("/addme", binding.Bind(ListingSubmission{}), postAddMe)
 	r.Post("/uploadImage", uploadImage)
+	r.Get("/image/:imageId/:size", downloadImage)
 	r.Get("/addmedone", addMeDone)
 	r.Get("/about", about)
 	r.Get("/search", search)
@@ -248,8 +248,6 @@ func addMe(r render.Render, s *Session, req *http.Request) {
 		panic(err)
 	}
 
-	fmt.Println(req.Form)
-
 	_, preview := req.Form["preview"]
 
 	if preview {
@@ -276,15 +274,19 @@ func addMeForm(r render.Render, s *Session) {
 		"/addme.js"}
 
 	d.Submission, _ = s.Values["addme"].(ListingSubmission)
-	fmt.Println(d.Submission.Listing)
 	r.HTML(200, "addme", d)
 }
 
 func addMePreview(r render.Render, s *Session) {
 	var d listingPage
 
-	submission, _ := s.Values["addme"].(ListingSubmission)
-	// TODO check _/err
+	submission, ok := s.Values["addme"].(ListingSubmission)
+
+	if !ok {
+		r.Redirect("/addme", 302)
+		return
+	}
+
 	d.Title = "Add Me"
 	d.Section = "addme"
 	//d.Cats = Cats
@@ -320,8 +322,6 @@ func postAddMe(r render.Render, formSubmission ListingSubmission, s *Session, w 
 	if !submission.Listing.IsOrg {
 		submission.Listing.Name = submission.Listing.AdminFirstName + " " + submission.Listing.AdminLastName
 	}
-
-	fmt.Println(submission.Listing)
 
 	errors := make(map[string]interface{})
 	validate.Required(submission.Listing.AdminFirstName, "AdminFirstName", "First Name", errors)
@@ -378,8 +378,8 @@ func postAddMe(r render.Render, formSubmission ListingSubmission, s *Session, w 
 				args := map[string]string{
 					"FirstName": submission.Listing.AdminFirstName,
 					"Name":      submission.Listing.Name,
-					"LoginLink": loginLink(shortFromEmail)}
-				sendMail(fromEmail, "New Listing", "newsubmission.tmpl", args)
+					"LoginLink": loginLink(shortAdministratorEmail())}
+				sendMail(administratorEmail(), "New Listing", "newsubmission.tmpl", args)
 
 				args["LoginLink"] = loginLink(submission.Listing.AdminEmail)
 				sendMail(submission.Listing.FullAdminEmail(), "Digital Whanganui Submission", "pending.tmpl", args)
@@ -458,16 +458,33 @@ func shortDesc(in string) string {
 
 }
 
-func uploadImage(r render.Render) {
+func uploadImage(r render.Render, req *http.Request) {
+	//r.Status(500)
+	//return
+
 	var d struct {
 		Id    string
 		Error string
 	}
 
-	d.Id = "123456789"
+	file, _, err := req.FormFile("file")
+	if err != nil {
+		panic(err)
+	}
 
-	time.Sleep(2 * time.Second)
+	d.Id, d.Error = addImage(file)
+
 	r.JSON(200, d)
+}
+
+func downloadImage(r render.Render, w http.ResponseWriter, req *http.Request, params martini.Params) {
+	stream, created := fetchImage(params["imageId"], params["size"])
+	if stream == nil {
+		r.Status(404)
+		return
+	}
+
+	http.ServeContent(w, req, "", *created, stream)
 }
 
 func about(r render.Render) {
@@ -495,7 +512,6 @@ func search(r render.Render, req *http.Request) {
 	d.Title = "Search"
 	d.Q = req.FormValue("q")
 	d.ListingSummaries = fetchSearchSummaries(d.Q)
-	fmt.Println("Q ", d.Q)
 
 	r.HTML(200, "search", d)
 }
@@ -508,9 +524,7 @@ func login(r render.Render, params martini.Params, s *Session, w http.ResponseWr
 		return
 	}
 
-	fmt.Println("ee", email, shortFromEmail, email == shortFromEmail)
-
-	if email == shortFromEmail {
+	if email == shortAdministratorEmail() {
 		s.Values["review"] = true
 		http.Redirect(w, req, "/review/", 302)
 		return
