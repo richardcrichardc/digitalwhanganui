@@ -107,17 +107,21 @@
   <div class="form-group">
     <label for="addImage"class="col-sm-2 control-label">Picture / Logo</label>
     <div class="col-sm-10">
-      <input id="imageInput" type="hidden" name="image">
-      <p id="noImage" class="form-control-static"><small>[No Picture / Logo]</small></p>
+      <input id="imageInput" type="hidden" name="image" value="{{.Submission.Listing.ImageId}}">
+      <p id="noImage" class="form-control-static {{if .Submission.Listing.ImageId}}hidden{{end}}"><small>[No Picture / Logo]</small></p>
       <p id="imageUploading" class="form-control-static hidden"><img src="loading.gif"></p>
-      <p id="image" class="form-control-static hidden"></p>
+      <p id="image" class="form-control-static {{if not .Submission.Listing.ImageId}}hidden{{end}}">
+        {{if .Submission.Listing.ImageId}}
+          <image src="/image/{{.Submission.Listing.ImageId}}/small">
+        {{end}}
+      </p>
       <p class="form-control-static">
         <span id="uploadImage" class="btn btn-default btn-xs fileinput-button">
           <span>Upload</span>
           <input type="file" name="file">
         </span>
         <button id="cancelUpload" type="button" class="btn btn-default btn-xs hidden">Cancel</button>
-        <button id="removeImage" type="button" class="btn btn-default btn-xs" disabled>Remove</button>
+        <button id="removeImage" type="button" class="btn btn-default btn-xs" {{if not .Submission.Listing.ImageId}}disabled{{end}}>Remove</button>
        </p>
        <span class="help-block">TODO Something will happen TODO. Whanganui has many <a href="#">Graphic Designers</a> who can assist. </span>
     </div>
