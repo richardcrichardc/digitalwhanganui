@@ -1,3 +1,4 @@
 digitalwhanganui.sdb
 **/node_modules/
 /bootstrap/dist/
+/public/css/style.css

@@ -24,7 +24,10 @@
           <li {{if eq .Section "addme" }}class="active"{{end}}><a href="/addme">Add Me</a></li>
           <li {{if eq .Section "about" }}class="active"{{end}}><a href="/about">About</a></li>
         </ul>
-        <h3 class="text-muted">Digital Whanganui</h3>
+        <div id="logo">
+            <h3 class="logo-digital">Digital</h3>
+            <h3 class="logo-whanganui">Whanganui</h3>
+        </div>
       </div>
 
       {{ yield }}
