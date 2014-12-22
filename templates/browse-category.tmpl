@@ -1,7 +1,7 @@
 <div class="dark-bg">
   <div class="container">
     <h2>
-      {{if eq .MajorMajorCat.Name "Service"}}
+      {{if eq .MajorMajorCat.Name "Services"}}
         <span class="glyphicon glyphicon-tower" aria-hidden="true"></span>
       {{else}}
         <span class="glyphicon glyphicon-music" aria-hidden="true"></span>
@@ -13,7 +13,7 @@
     {{range .MajorMajorCat.MajorCatKeys}}
         {{$majorCatCode := .}}
         {{$majorCat := index $.MajorMajorCat.MajorCats .}}
-        <div class="col-lg-6">
+        <div class="col-md-6">
           <div class="major">
             <a href="{{$majorCatCode}}/none/"><h5>{{$majorCat.Name}}</h5></a>
             {{range $majorCat.MinorCatKeys}}
