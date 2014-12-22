@@ -17,26 +17,51 @@
     <![endif]-->
   </head>
   <body>
-    <div class="container">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li {{if eq .Section "browse" }}class="active"{{end}}><a href="/">Browse</a></li>
-          <li {{if eq .Section "addme" }}class="active"{{end}}><a href="/addme">Add Me</a></li>
-          <li {{if eq .Section "about" }}class="active"{{end}}><a href="/about">About</a></li>
-        </ul>
-        <div id="logo">
-            <h3 class="logo-digital">Digital</h3>
-            <h3 class="logo-whanganui">Whanganui</h3>
+    <div class="header">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-7">
+            <div id="logo">
+                <a href="/">
+                    <h3 class="logo-digital">Digital</h3>
+                    <h3 class="logo-whanganui">Whanganui</h3>
+                </a>
+              <div class="byline">
+                Local resources to enable your digital transformation
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-5">
+            <form class="form-inline search pull-right hidden-xs" action="/search">
+              <div class="form-group">
+                <label class="sr-only" for="search">Search</label>
+                <input type="text" class="form-control input-sm input-find" id="search" placeholder="Search">
+                <button type="submit" class="btn btn-default btn-sm btn-find">Find</button>
+              </div>
+            </form>
+            <div>
+              <a href="#" class="search-collapsed" data-toggle="collapse" data-target=".search-collapsed-form"><span class="glyphicon glyphicon-search"></span></a>
+              <ul class="nav my-nav">
+                <li {{if eq .Section "browse" }}class="active"{{end}}><a href="/">Browse</a></li>
+                <li {{if eq .Section "addme" }}class="active"{{end}}><a href="/addme">Add Me</a></li>
+                <li {{if eq .Section "about" }}class="active"{{end}}><a href="/about">About</a></li>
+              </ul>
+            </div>
+            <form class="form-inline search-collapsed-form collapse" action="/search">
+              <div class="form-group col-xs-10">
+                <label class="sr-only" for="search2">Search</label>
+                <input type="text" class="form-control input-sm" id="search2" placeholder="Search">
+              </div>
+              <div class="form-group cols-xs-2">
+                <button type="submit" class="btn btn-default btn-sm btn-find">Find</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-
-      {{ yield }}
-
-      <div class="footer">
-        <p>&copy; Company 2014</p>
-      </div>
-
     </div>
+
+    {{ yield }}
 
     <script>
     (function(d) {

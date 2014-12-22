@@ -1,0 +1,90 @@
+/* Styles added by Richard */
+
+
+/* hide page until webfonts have loaded */
+.wf-loading {
+    visibility: hidden;
+}
+
+/* header */
+.header {
+    background-color: @reversed-bg;
+    color: white;
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+
+/* dark background used on home and other pages */
+.dark-bg {
+    background-color: @reversed-bg-darker;
+}
+
+/* disable last breakpoint */
+.container {
+  .container-fixed();
+
+  @media (min-width: @screen-lg-min) {
+    width: @container-md;
+  }
+}
+
+/* increase gutter on left and right of container to 30px */
+.container {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+/* search form */
+
+form.search {
+  padding-bottom: 6px;
+}
+
+.btn-find {
+  .button-variant(black; white; @btn-default-border);
+}
+
+.form-inline .form-control.input-find {
+  width: 165px;
+}
+
+.search-collapsed {
+  .visible-xs();
+  .pull-right();
+  padding: 10px 0px 10px 0px;
+}
+
+.search-collapsed-form {
+  margin-left: -15px;
+  margin-right: -30px;
+}
+
+/* nav bar */
+.my-nav {
+
+  font-weight: bold;
+
+  > li {
+    float: left;
+
+    > a {
+      position: relative;
+      display: block;
+      padding: 10px 30px 10px 0px;
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+        background-color: @reversed-bg;
+      }
+    }
+  }
+
+  @media (min-width: @screen-sm-min) {
+    .pull-right();
+
+    > li > a {
+      padding: 10px 0px 10px 30px;
+    }
+  }
+
+}
