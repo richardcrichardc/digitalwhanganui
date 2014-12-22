@@ -3,13 +3,18 @@
 trap "{ kill %digitalwhanganui ; exit; }" EXIT
 
 while true; do
-    go install digitalwhanganui
-    if [[ $? == 0 ]] ; then
+    go install digitalwhanganui &
+    grunt --gruntfile bootstrap/Gruntfile.js less:compileCore &
+    wait %go
+    GO_RESULT=$?
+    wait %grunt
+    GRUNT_RESULT=$?
+    if [[ $GO_RESULT == 0 && $GRUNT_RESULT == 0 ]] ; then
+        cp bootstrap/dist/css/bootstrap.css public/css/style.css
         digitalwhanganui &
     fi
-    cat DigitalWhanganui_stylesheet/style.css custom.css > public/css/style.css
     sleep 1
-    inotifywait -q -e attrib *
+    inotifywait -r -q -e attrib *
     kill %digitalwhanganui
     wait %digitalwhanganui
 done
