@@ -1,23 +1,28 @@
-{{template "searchbox"}}
+<div class="dark-bg">
+  <div class="container">
+    <h2>
+      {{if eq .MajorMajorCat.Name "Service"}}
+        <span class="glyphicon glyphicon-tower" aria-hidden="true"></span>
+      {{else}}
+        <span class="glyphicon glyphicon-music" aria-hidden="true"></span>
+      {{end}}
+      {{.MajorMajorCat.Name}}
+    </h2>
 
-<h1>{{.MajorMajorCat.Name}}</h1>
-
-<ol class="breadcrumb">
-  <li><a href="/">Browse</a></li>
-  <li class="active">{{.MajorMajorCat.Name}}</li>
-</ol>
-
-<div class="row">
-{{range .MajorMajorCat.MajorCatKeys}}
-    {{$majorCatCode := .}}
-    {{$majorCat := index $.MajorMajorCat.MajorCats .}}
-    <div class="col-lg-6">
-        <a href="{{$majorCatCode}}/none/"><h4>{{$majorCat.Name}}</h4></a>
-        {{range $majorCat.MinorCatKeys}}
-            {{$minorCat := index $majorCat.MinorCats .}}
-            <a href="{{$majorCatCode}}/{{.}}/"><h5>&nbsp;{{$minorCat.Name}}</h5>
-        {{end}}
+    <div class="row browse-major">
+    {{range .MajorMajorCat.MajorCatKeys}}
+        {{$majorCatCode := .}}
+        {{$majorCat := index $.MajorMajorCat.MajorCats .}}
+        <div class="col-lg-6">
+          <div class="major">
+            <a href="{{$majorCatCode}}/none/"><h5>{{$majorCat.Name}}</h5></a>
+            {{range $majorCat.MinorCatKeys}}
+                {{$minorCat := index $majorCat.MinorCats .}}
+                <div class="minor"><a href="{{$majorCatCode}}/{{.}}/">{{$minorCat.Name}}</a></div>
+            {{end}}
+          </div>
+        </div>
+    {{end}}
     </div>
-{{end}}
+  </div>
 </div>
-
