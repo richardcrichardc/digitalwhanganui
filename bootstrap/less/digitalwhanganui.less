@@ -3,20 +3,49 @@
 
 /* hide page until webfonts have loaded */
 .wf-loading {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 /* header */
 .header {
-    background-color: @reversed-bg;
-    color: white;
-    padding-top: 30px;
-    padding-bottom: 20px;
+  background-color: @reversed-bg;
+  color: white;
+  padding-top: 30px;
+  padding-bottom: 20px;
 }
 
 /* dark background used on home and other pages */
 .dark-bg {
-    background-color: @reversed-bg-darker;
+  background-color: @reversed-bg-darker;
+  padding-top: 60px;
+  color: white;
+
+  h3 {
+    margin-top: 0;
+  }
+
+}
+
+/* feature image panel */
+.feat-img {
+  position: relative;
+  top: 0;
+
+  margin-top: 30px;
+
+  @media (min-width: @screen-md-min) {
+    margin-top: 0;
+  }
+
+}
+
+.feat-img-head {
+  width: 100%;
+  padding: 15px;
+  position: absolute;
+  top: 0;
+  background-color: black;
+  opacity: 0.5;
 }
 
 /* disable last breakpoint */
@@ -86,5 +115,87 @@ form.search {
       padding: 10px 0px 10px 30px;
     }
   }
+}
 
+/* home page panels */
+
+.browse-panels h4 {
+  margin: 0;
+  padding-bottom: 15px;
+}
+
+.browse-panels p {
+  font-weight: bold;
+}
+
+.browse-panels a:hover,
+.browse-panels a:active {
+  text-decoration: none;
+}
+
+
+.logo-panel {
+  margin-top: 30px;
+  height: 150px;
+  padding: 15px;
+  color: white;
+  text-align: center;
+  font-size: 72px;
+}
+
+.text-panel {
+  height: 150px;
+  padding: 15px;
+  color: white;
+}
+
+.services-panel-logo {
+  .logo-panel();
+  background-color: #36c9e9;
+}
+
+.services-panel-text {
+  .text-panel();
+  background-color: #13c0e5;
+}
+
+.products-panel-logo {
+  .logo-panel();
+  background-color: #ffb667;
+}
+
+.products-panel-text {
+  .text-panel();
+  background-color: #ffa94c;
+}
+
+.individuals-panel-logo {
+  .logo-panel();
+  background-color: #fe6a69;
+}
+
+.individuals-panel-text {
+  .text-panel();
+  background-color: #fe504f;
+}
+
+.organisations-panel-logo {
+  .logo-panel();
+  background-color: #45b29d;
+}
+
+.organisations-panel-text {
+  .text-panel();
+  background-color: #61bdac;
+}
+
+
+/* sponsors */
+
+.sponsors {
+  h4 {
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 20px;
+  }
 }
