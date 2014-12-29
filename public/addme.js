@@ -100,9 +100,10 @@ $( document ).ready(function() {
     },
 
     always: function (e, data) {
-      console.log(data.textStatus);
       var error;
-      if (data.textStatus === "error") {
+      if (data.jqXHR && data.jqXHR.status && data.jqXHR.status == 413) {
+        error = "File too big - please use a file smaller than 10MB.";
+      } else if (data.textStatus === "error") {
         error = "Upload failed - please try again.";
       } else if (data.result.Error) {
         error = data.result.Error;
