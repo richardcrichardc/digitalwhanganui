@@ -66,6 +66,9 @@ func main() {
 	r.Get("/browse/:majorMajorCat/:majorCat/:minorCat/:listingId", browseListing)
 	r.Get("/individuals/", individuals)
 	r.Get("/organisations/", organisations)
+	r.Get("/individuals/:listingId", individualListing)
+	r.Get("/organisations/:listingId", organisationListing)
+	r.Get("/listing/:listingId", canonicalListing)
 	r.Get("/addme", addMe)
 	r.Post("/addme", binding.Bind(ListingSubmission{}), postAddMe)
 	r.Post("/uploadImage", uploadImage)
@@ -77,7 +80,6 @@ func main() {
 	r.Post("/login/:code", postLogin)
 	r.Get("/review/", reviewList)
 	r.Get("/review/:listingId", review)
-	r.Get("/listing/:listingId", canonicalListing)
 	r.Post("/review/:listingId", postReview)
 	m.Run()
 }
@@ -112,12 +114,13 @@ type page struct {
 
 type listingPage struct {
 	page
-	MajorMajorCat *MajorMajorCat
-	MajorCat      *MajorCat
-	MinorCat      *MinorCat
-	Listing       *Listing
-	Preview       bool
-	Review        bool
+	MajorMajorCatName string
+	MajorMajorCatURL  string
+	MajorCat          *MajorCat
+	MinorCat          *MinorCat
+	Listing           *Listing
+	Preview           bool
+	Review            bool
 }
 
 type summaryPage struct {
@@ -193,7 +196,8 @@ func browseListing(r render.Render, params martini.Params) {
 	minorCat := majorCat.MinorCats[minorCatCode]
 
 	d.Section = "browse"
-	d.MajorMajorCat = majorMajorCat
+	d.MajorMajorCatName = majorMajorCat.Name
+	d.MajorMajorCatURL = "../.."
 	d.MajorCat = majorCat
 	d.MinorCat = minorCat
 
@@ -289,17 +293,10 @@ func addMePreview(r render.Render, s *Session) {
 
 	d.Title = "Add Me"
 	d.Section = "addme"
-	setListingPageCat(submission.Listing.CatIds[0], &d)
 	d.Listing = &submission.Listing
 	d.Preview = true
 
 	r.HTML(200, "browse-listing", d)
-}
-
-func setListingPageCat(cat CategoryId, page *listingPage) {
-	page.MajorMajorCat = Cats.MajorMajorCats[cat.MajorMajorCode]
-	page.MajorCat = page.MajorMajorCat.MajorCats[cat.MajorCode]
-	page.MinorCat = page.MajorCat.MinorCats[cat.MinorCode]
 }
 
 func postAddMe(r render.Render, formSubmission ListingSubmission, s *Session, w http.ResponseWriter, req *http.Request) {
@@ -605,7 +602,6 @@ func review(r render.Render, params martini.Params, s *Session) {
 
 	d.Title = d.Listing.Name
 	d.Review = true
-	setListingPageCat(d.Listing.CatIds[0], &d)
 
 	r.HTML(200, "browse-listing", d)
 }
@@ -648,7 +644,19 @@ func postReview(r render.Render, params martini.Params, w http.ResponseWriter, r
 	http.Redirect(w, req, "/review/"+listingIdString, 302)
 }
 
+func individualListing(r render.Render, params martini.Params) {
+	displayListing(r, params, "Individuals")
+}
+
+func organisationListing(r render.Render, params martini.Params) {
+	displayListing(r, params, "Organisations")
+}
+
 func canonicalListing(r render.Render, params martini.Params) {
+	displayListing(r, params, "")
+}
+
+func displayListing(r render.Render, params martini.Params, majorMajorCatName string) {
 	var d listingPage
 
 	d.Section = "browse"
@@ -667,7 +675,8 @@ func canonicalListing(r render.Render, params martini.Params) {
 
 	d.Title = d.Listing.Name
 	d.CanonicalURL = "http://xyzzy.digitalwhanganui.org.nz/listing/" + params["listingId"]
-	setListingPageCat(d.Listing.CatIds[0], &d)
+	d.MajorMajorCatName = majorMajorCatName
+	d.MajorMajorCatURL = "."
 
 	r.HTML(200, "browse-listing", d)
 }

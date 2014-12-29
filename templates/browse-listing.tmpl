@@ -4,26 +4,29 @@
 
   <h1>{{.Listing.Name}}</h1>
 
+  {{if .MajorMajorCatName }}
   <h3 class="listing-bread">
-    {{template "major-major-cat-icon" .MajorMajorCat.Name}} <a href="../..">{{.MajorMajorCat.Name}}</a>
-    &#9656;
+    {{/* These breadcrumbs are sublty different from the ones on the summaries page */}}
+    {{template "major-major-cat-icon" .MajorMajorCatName}} <a href="{{.MajorMajorCatURL}}">{{.MajorMajorCatName}}</a>
+    {{if .MajorCat}}
+      &#9656; <a href="../none/">{{.MajorCat.Name}}</a>
+    {{end}}
     {{if .MinorCat}}
-      <a href=".">{{.MajorCat.Name}}</a> &#9656; {{.MinorCat.Name}}
-    {{else}}
-      {{.MajorCat.Name}}
+      &#9656; <a href=".">{{.MinorCat.Name}}</a>
     {{end}}
   </h3>
+  {{ end}}
 
   <div class="row">
       <div class="col-md-6">
-        <div class="col-xs-6 no-left-pad">
+        <div class="col-sm-6 no-left-pad">
           {{if .Listing.ImageId}}
-            <img class="logo" src="/image/{{.Listing.ImageId}}/large">
+            <img class="img-responsive" src="/image/{{.Listing.ImageId}}/large">
           {{else}}
               {{template "no-logo" .Listing.IsOrg}}
           {{end}}
         </div>
-        <div class="col-xs-6">
+        <div class="col-sm-6">
           <h5>Categories</h5>
           {{range .Listing.CatIds}}
               <div><span class="label label-info"><a href="{{.URL}}">{{.Name}}</a></span></div>
@@ -56,7 +59,7 @@
           {{range .Listing.EachWebsite}}
             <tr>
               <td><span class="glyphicon glyphicon-{{.Icon}}" aria-hidden="true"></span></td>
-              <td>{{.URL}}</td>
+              <td><a href="{{.URL}}">{{.URL}}</a></td>
             </tr>
           {{end}}
 

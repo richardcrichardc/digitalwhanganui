@@ -4,13 +4,12 @@
     </div>
     <div class="col-md-9">
       <h2 class="summaries-bread">
-        {{template "major-major-cat-icon" .MajorMajorCat.Name}}
-        <a href="../..">{{ .MajorMajorCat.Name }}</a>
-        &#9656;
+        {{/* These breadcrumbs are sublty different from the ones on the listing page */}}
+        {{template "major-major-cat-icon" .MajorMajorCat.Name}} <a href="../..">{{ .MajorMajorCat.Name }}</a>
         {{if .MinorCat}}
-          <a href=".">{{.MajorCat.Name}}</a> &#9656; {{.MinorCat.Name}}
+          &#9656; <a href="../none/">{{.MajorCat.Name}}</a> &#9656; {{.MinorCat.Name}}
         {{else}}
-          {{.MajorCat.Name}}
+          &#9656; {{.MajorCat.Name}}
         {{end}}
       </h2>
     </div>
@@ -20,7 +19,7 @@
       {{if and (not .MinorCat) (.MajorCat.MinorCats) }}
         <h3>Sub-categories</h3>
         {{range .MajorCat.MinorCatKeys}}
-          <div><a href="../{{.}}">{{with index $.MajorCat.MinorCats .}}{{.Name}}{{end}}</a></div>
+          <div><a href="../{{.}}/">{{with index $.MajorCat.MinorCats .}}{{.Name}}{{end}}</a></div>
         {{end}}
       {{end}}
       TODO breakpoints
@@ -32,7 +31,7 @@
             <div class="col-xs-3">
               <a href="{{.Id}}">
                 {{if .ImageId}}
-                  <img class="listing-image" src="/image/{{.ImageId}}/small">
+                  <img class="img-responsive" src="/image/{{.ImageId}}/small">
                 {{else}}
                     {{template "no-logo" .IsOrg}}
                 {{end}}

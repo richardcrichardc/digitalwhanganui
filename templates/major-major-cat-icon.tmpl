@@ -1,5 +1,11 @@
 {{if eq . "Services"}}
-  <span class="glyphicon glyphicon-tower" aria-hidden="true"></span>
-{{else}}
+  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+{{else if eq . "Products"}}
   <span class="glyphicon glyphicon-music" aria-hidden="true"></span>
+{{else if eq . "Individuals"}}
+  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+{{else if eq . "Organisations"}}
+  <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>
+{{else}}
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 {{end}}
