@@ -1,33 +1,35 @@
-{{define "List"}}
-  {{if .}}
-    <table class="table table-striped">
-      <tr>
-        <th width="70%">Name</th>
-        <th width="30%">Last Edited</th>
-      </tr>
-      {{range .}}
+<div class="container">
+  {{define "List"}}
+    {{if .}}
+      <table class="table table-striped">
         <tr>
-          <td><a href="{{.Id}}">{{.Name}}</a></td>
-          <td>{{formatTime .Updated}}</td>
+          <th width="70%">Name</th>
+          <th width="30%">Last Edited</th>
         </tr>
-      {{end}}
-    </table>
-  {{else}}
-    <p><i>No listings.</i></p>
+        {{range .}}
+          <tr>
+            <td><a href="{{.Id}}">{{.Name}}</a></td>
+            <td>{{formatTime .Updated}}</td>
+          </tr>
+        {{end}}
+      </table>
+    {{else}}
+      <p><i>No listings.</i></p>
+    {{end}}
   {{end}}
-{{end}}
 
 
-<h1>{{.Title}}</h1>
+  <h2>{{.Title}}</h2>
 
-<h2>New Listings</h2>
-{{template "List" .NewListings}}
+  <h3>New Listings</h3>
+  {{template "List" .NewListings}}
 
-<h2>Accepted Listings</h2>
-{{template "List" .AcceptedListings}}
+  <h3>Accepted Listings</h3>
+  {{template "List" .AcceptedListings}}
 
-<h2>Rejected Listings</h2>
-{{template "List" .RejectedListings}}
+  <h3>Rejected Listings</h3>
+  {{template "List" .RejectedListings}}
 
-<h2>Expired Listings</h2>
-{{template "List" .ExpiredListings}}
+  <h3>Expired Listings</h3>
+  {{template "List" .ExpiredListings}}
+</div>

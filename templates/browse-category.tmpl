@@ -1,13 +1,6 @@
 <div class="dark-bg">
   <div class="container">
-    <h2>
-      {{if eq .MajorMajorCat.Name "Services"}}
-        <span class="glyphicon glyphicon-tower" aria-hidden="true"></span>
-      {{else}}
-        <span class="glyphicon glyphicon-music" aria-hidden="true"></span>
-      {{end}}
-      {{.MajorMajorCat.Name}}
-    </h2>
+    <h2>{{template "major-major-cat-icon" .MajorMajorCat.Name}} {{.MajorMajorCat.Name}}</h2>
 
     <div class="row browse-major">
     {{range .MajorMajorCat.MajorCatKeys}}

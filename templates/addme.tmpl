@@ -1,4 +1,7 @@
+
 {{template "category-modal" .}}
+
+<div class="container">
 
 {{if .Submission.Listing.Id.Valid }}
   <h1>Edit Listing</h1>
@@ -112,7 +115,7 @@
       <p id="imageUploading" class="form-control-static hidden"><img src="loading.gif"></p>
       <p id="image" class="form-control-static {{if not .Submission.Listing.ImageId}}hidden{{end}}">
         {{if .Submission.Listing.ImageId}}
-          <image src="/image/{{.Submission.Listing.ImageId}}/small">
+          <img src="/image/{{.Submission.Listing.ImageId}}/small">
         {{end}}
       </p>
       <p class="form-control-static">
@@ -195,4 +198,4 @@
 
 </form>
 
-
+</div>

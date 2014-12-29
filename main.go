@@ -289,15 +289,17 @@ func addMePreview(r render.Render, s *Session) {
 
 	d.Title = "Add Me"
 	d.Section = "addme"
-	//d.Cats = Cats
-	firstCat := submission.Listing.CatIds[0]
-	d.MajorMajorCat = Cats.MajorMajorCats[firstCat.MajorMajorCode]
-	d.MajorCat = d.MajorMajorCat.MajorCats[firstCat.MajorCode]
-	d.MinorCat = d.MajorCat.MinorCats[firstCat.MinorCode]
+	setListingPageCat(submission.Listing.CatIds[0], &d)
 	d.Listing = &submission.Listing
 	d.Preview = true
 
 	r.HTML(200, "browse-listing", d)
+}
+
+func setListingPageCat(cat CategoryId, page *listingPage) {
+	page.MajorMajorCat = Cats.MajorMajorCats[cat.MajorMajorCode]
+	page.MajorCat = page.MajorMajorCat.MajorCats[cat.MajorCode]
+	page.MinorCat = page.MajorCat.MinorCats[cat.MinorCode]
 }
 
 func postAddMe(r render.Render, formSubmission ListingSubmission, s *Session, w http.ResponseWriter, req *http.Request) {
@@ -603,6 +605,7 @@ func review(r render.Render, params martini.Params, s *Session) {
 
 	d.Title = d.Listing.Name
 	d.Review = true
+	setListingPageCat(d.Listing.CatIds[0], &d)
 
 	r.HTML(200, "browse-listing", d)
 }
@@ -664,6 +667,33 @@ func canonicalListing(r render.Render, params martini.Params) {
 
 	d.Title = d.Listing.Name
 	d.CanonicalURL = "http://xyzzy.digitalwhanganui.org.nz/listing/" + params["listingId"]
+	setListingPageCat(d.Listing.CatIds[0], &d)
 
 	r.HTML(200, "browse-listing", d)
+}
+
+type Website struct {
+	Icon, URL string
+}
+
+func (l *Listing) EachWebsite() (ret []Website) {
+	for _, url := range strings.Split(strings.ToLower(l.Websites), "\n") {
+		url = strings.TrimSpace(url)
+
+		if !strings.Contains(url, "://") {
+			url = "http://" + url
+		}
+
+		var icon string
+		if strings.Contains(url, "//www.facebook.com/") {
+			icon = "headphones"
+		} else if strings.Contains(url, "//twitter.com/") {
+			icon = "flag"
+		} else {
+			icon = "tree-conifer"
+		}
+
+		ret = append(ret, Website{icon, url})
+	}
+	return
 }

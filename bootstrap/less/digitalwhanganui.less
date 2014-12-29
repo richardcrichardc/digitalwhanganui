@@ -228,11 +228,176 @@ form.search {
   }
 }
 
+.summaries-bread a {
+    color: @reversed-bg;
+}
+
 /* browse a-z */
 
 .browse-az {
   h3 {
-    border-top: 1px solid white;
     font-size:  ceil((@font-size-base * 1.7)); // ~24px
+    margin: 5px 0 0 0;
   }
+  h4 {
+    margin: 0;
+  }
+  h4.first {
+    padding-top: 10px;
+  }
+  .letter {
+    border-top: 1px solid white;
+    padding-bottom: 5px;
+  }
+}
+
+/* listing summaries page */
+
+.listing-summary {
+    border-top: 1px solid @reversed-bg;
+    padding-top: 15px;
+    margin-top: 15px;
+
+    h3 {
+        margin-top: 0;
+    }
+
+    .no-logo {
+        width: 150px;
+        height: 140px;
+        font-size: 50px;
+    }
+}
+
+.sub-categories {
+    a {
+        font-weight: bold;
+        color: @reversed-bg;
+    }
+}
+
+/* block to display when no image or logo has been uploaded */
+
+.no-logo {
+    background-color: @brand-info;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    display: table-cell;
+}
+
+/* listing detail page */
+
+.listing-bread {
+    border-top: 2px solid @reversed-bg;
+    border-bottom: 2px solid @reversed-bg;
+    padding: 10px 0;
+    a {
+        color: @reversed-bg;
+    }
+}
+
+.listing {
+
+  h3 {
+    margin-top: 0;
+  }
+
+  .no-logo {
+      width: 205px;
+      height: 190px;
+      font-size: 50px;
+  }
+
+  .logo { width: 205px; }
+
+  .label {
+    padding: .2em .6em;
+    font-size: 80%;
+    a {
+      color: white;
+    }
+  }
+
+  table.contact {
+    td {
+      vertical-align: top;
+    }
+
+    .glyphicon {
+      padding-right: 1em;
+    }
+  }
+
+}
+
+/* Addme page */
+
+.width-auto {
+    width: auto;
+}
+
+.remove-category {
+    font-size: 10px;
+    color: red;
+    cursor: pointer;
+}
+
+.modal-dialog {
+    width: 700px;
+}
+
+/* File upload */
+.fileinput-button {
+  position: relative;
+  overflow: hidden;
+}
+.fileinput-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  -ms-filter: 'alpha(opacity=0)';
+  font-size: 200px;
+  direction: ltr;
+  cursor: pointer;
+}
+
+/* Fixes for IE < 8
+Disabled because lessc generates a parse error
+
+@media screen\9 {
+  .fileinput-button input {
+    filter: alpha(opacity=0);
+    font-size: 100%;
+    height: 100%;
+  }
+}
+*/
+
+#addmeform .help-block {
+    margin-bottom: 0;
+}
+
+/* show gap between selected categories*/
+#addmeform #selected-categories .badge {
+    margin-right: 5px;
+}
+
+/* Put > between breadcrumbs */
+.breadcrumb > li + li:before {
+    content: ">";
+}
+
+
+
+/* utility */
+
+.no-left-pad {
+  padding-left: 0 !important;
+}
+
+.alert {
+  margin: 1em 0;
 }

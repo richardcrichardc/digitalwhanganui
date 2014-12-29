@@ -40,13 +40,14 @@ func (c *CategoryId) Name() (ret string) {
 	if !ok {
 		return
 	}
-	ret = majorMajorCat.Name
+	//ret = majorMajorCat.Name
 
 	majorCat, ok := majorMajorCat.MajorCats[c.MajorCode]
 	if !ok {
 		return
 	}
-	ret = ret + " > " + majorCat.Name
+	//ret = ret + " > " + majorCat.Name
+	ret = majorCat.Name
 
 	minorCat, ok := majorCat.MinorCats[c.MinorCode]
 	if !ok {

@@ -10,20 +10,22 @@
     </h2>
 
     <div class="row browse-az">
+        <div><div>
     {{range .ListingSummaries}}
       {{if .Sort}}
-        <div class="col-sm-3">
-          <h3>{{.Sort}}</h3>
-        </div>
-        <div class="col-sm-9">
-          <a href="/listing/{{.Id}}"><h4>{{.Name}}</h4></a>
-        </div>
+        </div></div>
+        <div class="row letter">
+          <div class="col-sm-3">
+            <h3>{{.Sort}}</h3>
+          </div>
+          <div class="col-sm-9">
+            <h4 class="first"><a href="/listing/{{.Id}}">{{.Name}}</a></h4>
+          </div>
+          <div class="col-sm-offset-3 col-sm-9">
       {{else}}
-        <div class="col-sm-offset-3 col-sm-9">
-          <a href="/listing/{{.Id}}"><h4>{{.Name}}</h4></a>
-        </div>
+            <h4><a href="/listing/{{.Id}}">{{.Name}}</a></h4>
       {{end}}
     {{end}}
-    </div>
+        </div>
   </div>
 </div>
