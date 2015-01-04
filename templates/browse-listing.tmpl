@@ -51,7 +51,7 @@
           {{if .Listing.Email}}
             <tr>
               <td class="icon"><span class="entypo" aria-hidden="true">&#9993;</span></td>
-              <td class="detail">{{.Listing.Email}}</td>
+              <td class="detail">{{obfEmail .Listing.Email ""}}</td>
             </tr>
           {{end}}
 

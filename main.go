@@ -47,7 +47,8 @@ func main() {
 	templateFuncs := []template.FuncMap{template.FuncMap{
 		"para":       para,
 		"shortDesc":  shortDesc,
-		"formatTime": formatTime}}
+		"formatTime": formatTime,
+		"obfEmail":   obfEmail}}
 
 	rendererOptions := render.Options{Layout: "base", Directory: templateDir, Funcs: templateFuncs}
 	m.Use(render.Renderer(rendererOptions))
@@ -98,11 +99,24 @@ func para(text string) template.HTML {
 	text = strings.Replace(text, "\r", "", -1)
 	text = strings.Replace(text, "\n\n", "</p><p>", -1)
 	text = strings.Replace(text, "\n", "<br>", -1)
-	return template.HTML("<p>" + text + "</p>")
+	return template.HTML(text)
 }
 
 func formatTime(t time.Time) string {
 	return t.In(auckland).Format("2-Feb-2006 3:04pm")
+}
+
+func obfEmail(email, label string) template.HTML {
+	// Assumes strings are ascii
+	emailBytes := []byte(email)
+	for i := 0; i < len(emailBytes); i++ {
+		emailBytes[i] = emailBytes[i] - 1
+	}
+
+	obfEmail := string(emailBytes)
+	return template.HTML("<a class=\"obf-email\" href=\"#\" data-obf-email=\"" +
+		html.EscapeString(obfEmail) + "\" data-obf-email-label=\"" +
+		html.EscapeString(label) + "\">&nbsp;</a>")
 }
 
 type page struct {
@@ -682,7 +696,9 @@ func displayListing(r render.Render, params martini.Params, majorMajorCatName st
 }
 
 type Website struct {
-	Icon, URL string
+	Font       string
+	Icon       template.HTML
+	URL, Label string
 }
 
 func (l *Listing) EachWebsite() (ret []Website) {
@@ -693,16 +709,22 @@ func (l *Listing) EachWebsite() (ret []Website) {
 			url = "http://" + url
 		}
 
-		var icon string
+		var font, icon, label string
 		if strings.Contains(url, "//www.facebook.com/") {
-			icon = "headphones"
+			font = "entypo-social"
+			icon = "&#62221;"
+			label = url
 		} else if strings.Contains(url, "//twitter.com/") {
-			icon = "flag"
+			font = "entypo-social"
+			icon = "&#62230;"
+			label = url
 		} else {
-			icon = "tree-conifer"
+			font = "entypo"
+			icon = "&#127758;"
+			label = url
 		}
 
-		ret = append(ret, Website{icon, url})
+		ret = append(ret, Website{font, template.HTML(icon), url, label})
 	}
 	return
 }
