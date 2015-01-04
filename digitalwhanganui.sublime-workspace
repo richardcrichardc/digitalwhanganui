@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"m",
+				"MajorMajorCat	*MajorMajorCat ν"
+			],
+			[
+				"C",
+				"CategoryId	struct ʈ"
+			],
+			[
 				"majorMajor",
 				"majorMajorCatCode"
 			],
@@ -186,10 +194,6 @@
 			[
 				"use",
 				"useWorkflow"
-			],
-			[
-				"m",
-				"message"
 			],
 			[
 				"se",
@@ -510,20 +514,136 @@
 			[
 				"fetc",
 				"fetch_user	function"
-			],
-			[
-				"fetch_",
-				"fetch_section	function"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
+			"file": "templates/az-summaries.tmpl",
+			"settings":
+			{
+				"buffer_size": 667,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "public/addme.js",
+			"settings":
+			{
+				"buffer_size": 5150,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/richardc/serve/private-sites/digitalwhanganui/nginx.conf",
+			"settings":
+			{
+				"buffer_size": 281,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "bootstrap/less/variables.less",
+			"settings":
+			{
+				"buffer_size": 27228,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "bootstrap/less/bootstrap.less",
+			"settings":
+			{
+				"buffer_size": 1201,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "bootstrap/less/icons.less",
+			"settings":
+			{
+				"buffer_size": 19683,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "main.go",
+			"settings":
+			{
+				"buffer_size": 16881,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "templates/browse.tmpl",
+			"settings":
+			{
+				"buffer_size": 7185,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/richardc/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+			"settings":
+			{
+				"buffer_size": 290,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "templates/major-major-cat-icon.tmpl",
+			"settings":
+			{
+				"buffer_size": 484,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "bootstrap/less/digitalwhanganui.less",
+			"settings":
+			{
+				"buffer_size": 5607,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "templates/browse-listing.tmpl",
 			"settings":
 			{
-				"buffer_size": 4529,
+				"buffer_size": 2528,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "templates/browse-summaries.tmpl",
+			"settings":
+			{
+				"buffer_size": 1725,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "templates/addmedone.tmpl",
+			"settings":
+			{
+				"buffer_size": 285,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "templates/updatedone.tmpl",
+			"settings":
+			{
+				"buffer_size": 113,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "templates/no-logo.tmpl",
+			"settings":
+			{
+				"buffer_size": 265,
 				"line_ending": "Unix"
 			}
 		}
@@ -607,46 +727,75 @@
 	"expanded_folders":
 	[
 		"/home/richardc/crit/digitalwhanganui",
-		"/home/richardc/crit/digitalwhanganui/templates"
+		"/home/richardc/crit/digitalwhanganui/bootstrap",
+		"/home/richardc/crit/digitalwhanganui/bootstrap/less",
+		"/home/richardc/crit/digitalwhanganui/zz",
+		"/home/richardc/crit/digitalwhanganui/zz/DW_stylesheet",
+		"/home/richardc/crit/digitalwhanganui/zz/DW_stylesheet/css",
+		"/home/richardc/crit/digitalwhanganui/zz/DW_stylesheet/fonts",
+		"/home/richardc/crit/digitalwhanganui/zz/Listings",
+		"/home/richardc/crit/digitalwhanganui/zz/ListingsAlpha",
+		"/home/richardc/crit/digitalwhanganui/zz/ListingsIndividual",
+		"/home/richardc/crit/digitalwhanganui/zz/ListingsSumarries",
+		"/home/richardc/crit/digitalwhanganui/zz/ServicesProductsIndex",
+		"/home/richardc/crit/digitalwhanganui/zz/Vars_logotype_22_12_2014",
+		"/home/richardc/crit/digitalwhanganui/zz/css",
+		"/home/richardc/crit/digitalwhanganui/zz/logotype"
 	],
 	"file_history":
 	[
-		"/home/richardc/crit/digitalwhanganui/custom.css",
+		"/home/richardc/crit/digitalwhanganui/database.go",
+		"/home/richardc/crit/digitalwhanganui/email-templates/accepted.tmpl",
 		"/home/richardc/crit/digitalwhanganui/main.go",
+		"/home/richardc/crit/digitalwhanganui/custom.css",
+		"/home/richardc/crit/digitalwhanganui/templates/addme.tmpl",
+		"/home/richardc/crit/digitalwhanganui/templates/az-summaries.tmpl",
+		"/home/richardc/crit/digitalwhanganui/templates/browse-summaries.tmpl",
+		"/home/richardc/crit/digitalwhanganui/templates/reviewList.tmpl",
+		"/home/richardc/crit/digitalwhanganui/templates/invalid-login-code.tmpl",
+		"/home/richardc/crit/digitalwhanganui/email-templates/pending.tmpl",
+		"/home/richardc/crit/digitalwhanganui/email-templates/newsubmission.tmpl",
+		"/home/richardc/crit/digitalwhanganui/templates/preview-review.tmpl",
+		"/home/richardc/crit/digitalwhanganui/templates/browse-listing.tmpl",
+		"/home/richardc/crit/digitalwhanganui/templates/browse-category.tmpl",
+		"/home/richardc/crit/digitalwhanganui/templates/major-major-cat-icon.tmpl",
+		"/home/richardc/crit/digitalwhanganui/image.go",
+		"/home/richardc/crit/digitalwhanganui/templates/browse.tmpl",
+		"/home/richardc/crit/digitalwhanganui/templates/bread.tmpl",
+		"/home/richardc/crit/digitalwhanganui/templates/subcats.tmpl",
+		"/home/richardc/crit/digitalwhanganui/templates/about.tmpl",
+		"/home/richardc/crit/digitalwhanganui/bootstrap/less/variables.less",
+		"/home/richardc/crit/digitalwhanganui/bootstrap/less/logo.less",
+		"/home/richardc/crit/digitalwhanganui/bootstrap/less/digitalwhanganui.less",
+		"/home/richardc/crit/digitalwhanganui/templates/base.tmpl",
+		"/home/richardc/crit/digitalwhanganui/bootstrap/less/bootstrap.less",
+		"/home/richardc/crit/digitalwhanganui/public/css/style.css",
+		"/home/richardc/crit/digitalwhanganui/bootstrap/docs/assets/js/vendor/autoprefixer.js",
+		"/home/richardc/crit/digitalwhanganui/start",
+		"/home/richardc/crit/digitalwhanganui/zz/Vars_logotype_22_12_2014/logotype.html",
 		"/home/richardc/crit/digitalwhanganui/email.go",
 		"/home/richardc/go/src/github.com/richardcrichardc/martini/logger.go",
 		"/home/richardc/go/src/github.com/richardcrichardc/martini/martini.go",
 		"/home/richardc/go/src/github.com/richardcrichardc/martini/env.go",
 		"/home/richardc/go/src/github.com/richardcrichardc/martini/recovery.go",
-		"/home/richardc/crit/digitalwhanganui/database.go",
-		"/home/richardc/crit/digitalwhanganui/templates/browse-summaries.tmpl",
-		"/home/richardc/crit/digitalwhanganui/templates/az-summaries.tmpl",
 		"/home/richardc/serve/private-sites/digitalwhanganui/start",
 		"/home/richardc/serve/private-sites/digitalwhanganui/Dockerfile",
 		"/home/richardc/serve/private-sites/digitalwhanganui/build",
 		"/home/richardc/crit/digitalwhanganui/dw-prod",
-		"/home/richardc/crit/digitalwhanganui/templates/browse-listing.tmpl",
 		"/home/richardc/crit/digitalwhanganui/public/addme.js",
 		"/home/richardc/crit/digitalwhanganui/digitalwhanganui.sql",
-		"/home/richardc/crit/digitalwhanganui/image.go",
-		"/home/richardc/crit/digitalwhanganui/templates/addme.tmpl",
 		"/home/richardc/crit/digitalwhanganui/prof.go",
 		"/home/richardc/business/therivermouth/src/client/s/scripts/util.coffee",
 		"/home/richardc/crit/digitalwhanganui/.gitignore",
 		"/home/richardc/crit/digitalwhanganui/DigitalWhanganui_stylesheet/style.css",
-		"/home/richardc/crit/digitalwhanganui/templates/base.tmpl",
-		"/home/richardc/crit/digitalwhanganui/start",
 		"/home/richardc/crit/digitalwhanganui/public/custom.css",
 		"/home/richardc/crit/digitalwhanganui/ignore",
 		"/home/richardc/crit/digitalwhanganui/public/bootstrap.css",
 		"/home/richardc/business/therivermouth3/src/server/anomareh_attr_list.py",
 		"/home/richardc/serve/site",
 		"/home/richardc/crit/digitalwhanganui/templates/addmedone.tmpl",
-		"/home/richardc/crit/digitalwhanganui/templates/browse.tmpl",
-		"/home/richardc/crit/digitalwhanganui/templates/browse-category.tmpl",
 		"/home/richardc/crit/digitalwhanganui/templates/category-modal.tmpl",
 		"/home/richardc/crit/digitalwhanganui/digitalwhanganui.sdb",
-		"/home/richardc/crit/digitalwhanganui/templates/about.tmpl",
 		"/home/richardc/crit/digitalwhanganui/templates/browse-major.tmpl",
 		"/home/richardc/crit/digitalwhanganui/Session.go",
 		"/home/richardc/crit/digitalwhanganui/validate/validate.go",
@@ -722,23 +871,7 @@
 		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/package.json",
 		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/scripts/jenkins-grunt-dist.sh",
 		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/AssignedToUserProgress.jsx",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/QuestionsPage.jsx",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/User.jsx",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/less/treeBox.less",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/display.js",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/Countdown.jsx",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/QuestionResponse.js",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/filter.js",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/ReactBrowserComponentMixin.js",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/node_modules/react/lib/ReactDefaultPerf.js",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/filteredResponses.js",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/UserRow.jsx",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/data/events.js",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/data/users.js",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/CommentBox.jsx",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/QuestionComments.jsx",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/SlideDownDiv.jsx",
-		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/Element.jsx"
+		"/home/richardc/business/supplier-select/ssjava/collab/slamprop/src/js/QuestionsPage.jsx"
 	],
 	"find":
 	{
@@ -754,9 +887,26 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
+			"setL",
+			"image",
+			"100%",
+			"addMePreview",
+			"preview",
+			"review",
+			"Listing",
+			"listingPage",
+			"browseListing",
+			" a {",
+			"h4",
+			"h3",
+			"push",
+			"hidden",
+			"button",
+			"done",
+			"2c3e50",
 			"adminEmail(",
 			"Dev",
 			"Classic",
@@ -867,24 +1017,7 @@
 			"data",
 			"TIMESTAMP",
 			"root",
-			"QUestionRes",
-			"login",
-			"emitter",
-			"on",
-			"events",
-			"connectedRef",
-			"treeBox",
-			"page",
-			"selectedSection",
-			"console.log",
-			"TICK",
-			"ReactTransitionEvents",
-			"noEv",
-			"exports.",
-			"}\n",
-			"handler",
-			"utils.",
-			"\n    "
+			"QUestionRes"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -931,24 +1064,24 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 5,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "templates/browse-listing.tmpl",
+					"file": "templates/az-summaries.tmpl",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4529,
+						"buffer_size": 667,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2176,
-								2176
+								212,
+								212
 							]
 						],
 						"settings":
@@ -959,7 +1092,432 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "public/addme.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5150,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4047,
+								4047
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1490.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/home/richardc/serve/private-sites/digitalwhanganui/nginx.conf",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 281,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								281,
+								281
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "bootstrap/less/variables.less",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 27228,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3259,
+								3259
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1077.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "bootstrap/less/bootstrap.less",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1201,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								162,
+								162
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "bootstrap/less/icons.less",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 19683,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								15720,
+								15720
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 4320.0,
+						"zoom_level": 1.0
+					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "main.go",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 16881,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								15983,
+								15983
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/GoSublime/syntax/GoSublime-Go.tmLanguage",
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 9672.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "templates/browse.tmpl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7185,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								719,
+								719
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2
+						},
+						"translation.x": 0.0,
+						"translation.y": 12.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/home/richardc/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 290,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								208,
+								208
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "templates/major-major-cat-icon.tmpl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 484,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								257,
+								257
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "bootstrap/less/digitalwhanganui.less",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5607,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3749,
+								3749
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "templates/browse-listing.tmpl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2528,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								552,
+								552
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "templates/browse-summaries.tmpl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1725,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								558,
+								558
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "templates/addmedone.tmpl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 285,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								285,
+								285
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "templates/updatedone.tmpl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 113,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								113,
+								113
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "templates/no-logo.tmpl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 265,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								265,
+								265
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
 					"type": "text"
 				}
 			]
