@@ -36,37 +36,37 @@
           <table class="contact">
           {{if .Listing.Phone}}
             <tr>
-              <td><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span></td>
-              <td>{{.Listing.Phone}}</td>
+              <td class="icon"><span class="entypo" aria-hidden="true">&#128222;</span></td>
+              <td class="detail">{{.Listing.Phone}}</td>
             </tr>
           {{end}}
 
           {{if .Listing.Mobile}}
             <tr>
-              <td><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span></td>
-              <td>{{.Listing.Mobile}}</td>
+              <td class="icon"><span class="entypo" aria-hidden="true">&#128241;</span></td>
+              <td class="detail">{{.Listing.Mobile}}</td>
             </tr>
           {{end}}
 
           {{if .Listing.Email}}
             <tr>
-              <td><span class="glyphicon glyphicon-tree-deciduous" aria-hidden="true"></span></td>
-              <td>{{.Listing.Email}}</td>
+              <td class="icon"><span class="entypo" aria-hidden="true">&#9993;</span></td>
+              <td class="detail">{{.Listing.Email}}</td>
             </tr>
           {{end}}
 
 
           {{range .Listing.EachWebsite}}
             <tr>
-              <td><span class="glyphicon glyphicon-{{.Icon}}" aria-hidden="true"></span></td>
-              <td><a href="{{.URL}}">{{.URL}}</a></td>
+              <td class="icon"><span class="{{.Font}}" aria-hidden="true">{{.Icon}}</span></td>
+              <td class="detail"><a href="{{.URL}}">{{.Label}}</a></td>
             </tr>
           {{end}}
 
           {{if .Listing.Address}}
             <tr>
-              <td><span class="glyphicon glyphicon-home" aria-hidden="true"></span></td>
-              <td>{{para .Listing.Address}}</td>
+              <td class="icon"><span class="entypo" aria-hidden="true">&#8962;</span></td>
+              <td class="detail">{{para .Listing.Address}}</td>
             </tr>
           {{end}}
           </table>
