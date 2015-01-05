@@ -18,6 +18,7 @@
 .dark-bg {
   background-color: @reversed-bg-darker;
   padding-top: 60px;
+  padding-bottom: 30px;
   color: white;
 
   h2 {
@@ -218,10 +219,9 @@ form.search {
 /* sponsors */
 
 .sponsors {
-  padding: 30px 0;
   h3 {
     text-align: center;
-    padding-top: 0px;
+    padding-top: 30px;
     padding-bottom: 20px;
   }
 }
@@ -272,16 +272,26 @@ form.search {
     }
 
     .no-logo {
-        width: 150px;
-        height: 140px;
+        width: 214px;
+        height: 187px;
         font-size: 50px;
     }
 }
 
 .sub-categories {
+    .row {
+      padding: 0px -15px;
+    }
     a {
         font-weight: bold;
         color: @reversed-bg;
+    }
+
+    .col-sm-6 {
+
+      @media (min-width: @screen-lg-min) {
+        width: 100%;
+      }
     }
 }
 
@@ -328,7 +338,7 @@ form.search {
 
   table.contact {
     table-layout: fixed;
-    width: 190px;
+    //width: 190px;
     td {
       vertical-align: top;
       text-overflow: ellipsis;
@@ -336,11 +346,11 @@ form.search {
     }
 
     .icon {
-      width: 20px;
+      width: 2em;
     }
 
     .detail {
-      width: 170px;
+      //width: 170px;
     }
   }
 
@@ -415,4 +425,23 @@ Disabled because lessc generates a parse error
 
 .alert {
   margin: 1em 0;
+}
+
+.btn-preview {
+  .button-variant(@brand-info; @body-bg; @body-bg);
+}
+
+.btn-preview-edit {
+  .button-variant(@brand-danger; @body-bg; @body-bg);
+}
+
+/* footer */
+
+.footer {
+  height: 50px;
+}
+
+h2 .entypo {
+  position: relative;
+  top: 0.08em;
 }

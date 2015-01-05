@@ -18,15 +18,13 @@
   {{ end}}
 
   <div class="row">
-      <div class="col-md-6">
-        <div class="col-sm-6 no-left-pad">
+      <div class="col-lg-4 col-sm-6">
           {{if .Listing.ImageId}}
             <img class="img-responsive" src="/image/{{.Listing.ImageId}}/large">
           {{else}}
               {{template "no-logo" .Listing.IsOrg}}
           {{end}}
-        </div>
-        <div class="col-sm-6">
+
           <h5>Categories</h5>
           {{range .Listing.CatIds}}
               <div><span class="label label-info"><a href="{{.URL}}">{{.Name}}</a></span></div>
@@ -70,10 +68,8 @@
             </tr>
           {{end}}
           </table>
-
-        </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-lg-8 col-sm-6">
         {{para .Listing.Desc1}}
 
         <h5>About {{.Listing.Name}}</h5>

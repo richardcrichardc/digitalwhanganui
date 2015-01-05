@@ -6,7 +6,7 @@
     {{range .MajorMajorCat.MajorCatKeys}}
         {{$majorCatCode := .}}
         {{$majorCat := index $.MajorMajorCat.MajorCats .}}
-        <div class="col-md-6">
+        <div class="col-sm-6">
           <div class="major">
             <a href="{{$majorCatCode}}/none/"><h5>{{$majorCat.Name}}</h5></a>
             {{range $majorCat.MinorCatKeys}}

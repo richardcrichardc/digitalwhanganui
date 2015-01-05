@@ -1,8 +1,10 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-3">
+    {{if and (not .MinorCat) (.MajorCat.MinorCats) }}
+    <div class="col-lg-3">
     </div>
-    <div class="col-md-9">
+    {{end}}
+    <div class="col-lg-{{if and (not .MinorCat) (.MajorCat.MinorCats) }}9{{ else }}12{{end}}">
       <h2 class="summaries-bread">
         {{/* These breadcrumbs are sublty different from the ones on the listing page */}}
         {{template "major-major-cat-icon" .MajorMajorCat.Name}} <a href="../..">{{ .MajorMajorCat.Name }}</a>
@@ -15,16 +17,17 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-3 sub-categories">
-      {{if and (not .MinorCat) (.MajorCat.MinorCats) }}
+    {{if and (not .MinorCat) (.MajorCat.MinorCats) }}
+    <div class="col-lg-3 sub-categories">
         <h3>Sub-categories</h3>
-        {{range .MajorCat.MinorCatKeys}}
-          <div><a href="../{{.}}/">{{with index $.MajorCat.MinorCats .}}{{.Name}}{{end}}</a></div>
-        {{end}}
-      {{end}}
-      TODO breakpoints
+        <div class="row">
+          {{range .MajorCat.MinorCatKeys}}
+            <div class="col-sm-6"><a href="../{{.}}/">{{with index $.MajorCat.MinorCats .}}{{.Name}}{{end}}</a></div>
+          {{end}}
+        </div>
     </div>
-    <div class="col-md-9">
+    {{end}}
+    <div class="col-lg-{{if and (not .MinorCat) (.MajorCat.MinorCats) }}9{{ else }}12{{end}}">
       <div>
         {{range .ListingSummaries}}
           <div class="row listing-summary">
