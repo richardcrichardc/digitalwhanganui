@@ -23,12 +23,14 @@ type MajorMajorCat struct {
 
 type MajorCat struct {
 	Name         string
+	ListingCount int
 	MinorCatKeys []string
 	MinorCats    map[string]*MinorCat
 }
 
 type MinorCat struct {
-	Name string
+	Name         string
+	ListingCount int
 }
 
 type CategoryId struct {
@@ -326,6 +328,52 @@ func setListingStatus(listingId, newStatus int) {
 	}
 }
 
+func updateCategoryCounts() {
+	q := `SELECT
+      mc.majormajorcatcode mmcc, mc.code mcc, NULL micc, count(l.id)
+    FROM
+      majorcat mc
+      LEFT JOIN categoryListing cl ON mc.majormajorcatcode = cl.majormajorcatcode AND mc.code = cl.majorcatcode
+      LEFT JOIN listing l ON cl.listingId = l.id AND l.status=1
+    GROUP BY mcc, mcc, micc
+
+    UNION
+
+    SELECT
+      mic.majormajorcatcode mmcc, mic.majorcatcode mcc, mic.code micc, count(l.id)
+    FROM
+      minorcat mic
+      LEFT JOIN categoryListing cl ON mic.majormajorcatcode = cl.majormajorcatcode AND mic.majorcatcode = cl.majorcatcode AND mic.code = cl.minorcatcode
+      LEFT JOIN listing l ON cl.listingId = l.id AND l.status=1
+    GROUP BY mcc, mcc, micc;`
+
+	rows, err := DB.Query(q)
+	if err != nil {
+		panic(err)
+	}
+	for rows.Next() {
+		var mmcc, mcc string
+		var mic sql.NullString
+		var count int
+
+		if err := rows.Scan(&mmcc, &mcc, &mic, &count); err != nil {
+			panic(err)
+		}
+
+		majorCat := Cats.MajorMajorCats[mmcc].MajorCats[mcc]
+		if !mic.Valid {
+			majorCat.ListingCount = count
+		} else {
+			minorCat := majorCat.MinorCats[mic.String]
+			minorCat.ListingCount = count
+		}
+
+	}
+	if err := rows.Err(); err != nil {
+		panic(err)
+	}
+}
+
 func init() {
 	var err error
 	DB, err = sql.Open("sqlite3", "./digitalwhanganui.sdb")
@@ -368,7 +416,7 @@ func init() {
 		}
 
 		majorMajorCat.MajorCatKeys = append(majorMajorCat.MajorCatKeys, code)
-		majorMajorCat.MajorCats[code] = &MajorCat{name, nil, make(map[string]*MinorCat)}
+		majorMajorCat.MajorCats[code] = &MajorCat{name, 0, nil, make(map[string]*MinorCat)}
 	}
 	if err := rows.Err(); err != nil {
 		panic(err)
@@ -396,11 +444,13 @@ func init() {
 		}
 
 		majorCat.MinorCatKeys = append(majorCat.MinorCatKeys, code)
-		majorCat.MinorCats[code] = &MinorCat{name}
+		majorCat.MinorCats[code] = &MinorCat{name, 0}
 	}
 	if err := rows.Err(); err != nil {
 		panic(err)
 	}
+
+	updateCategoryCounts()
 }
 
 func loginLink(email string) string {

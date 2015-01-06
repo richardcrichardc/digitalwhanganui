@@ -644,6 +644,7 @@ func postReview(r render.Render, params martini.Params, w http.ResponseWriter, r
 	switch action {
 	case "Accept":
 		setListingStatus(listingId, StatusAccepted)
+		updateCategoryCounts()
 		args := map[string]string{
 			"Id":        listingIdString,
 			"FirstName": listing.AdminFirstName,
@@ -652,6 +653,7 @@ func postReview(r render.Render, params martini.Params, w http.ResponseWriter, r
 		sendMail(listing.FullAdminEmail(), "Digital Whanganui Submission Accepted", "accepted.tmpl", args)
 	case "Reject":
 		setListingStatus(listingId, StatusRejected)
+		updateCategoryCounts()
 	default:
 		r.StatusText(400, "Bad action: "+action)
 	}
