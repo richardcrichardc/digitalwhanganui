@@ -20,7 +20,7 @@
     <div class="header">
       <div class="container">
         <div class="row">
-          <div class="col-sm-7">
+          <div class="col-sm-6">
             <div id="logo">
                 <a href="/">
                     <h1 class="logo-digital">Digital</h1>
@@ -31,7 +31,7 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-5">
+          <div class="col-sm-6">
             <form class="form-inline search-form pull-right hidden-xs" action="/search/">
               <div class="form-group">
                 <label class="sr-only" for="search">Search</label>
@@ -44,6 +44,7 @@
               <ul class="nav my-nav">
                 <li {{if eq .Section "browse" }}class="active"{{end}}><a href="/">Browse</a></li>
                 <li {{if eq .Section "addme" }}class="active"{{end}}><a href="/addme">Add Me</a></li>
+                <li><a href="/about#faq">FAQ</a></li>
                 <li {{if eq .Section "about" }}class="active"{{end}}><a href="/about">About</a></li>
               </ul>
             </div>
