@@ -126,7 +126,7 @@
         <button id="cancelUpload" type="button" class="btn btn-default btn-xs hidden">Cancel</button>
         <button id="removeImage" type="button" class="btn btn-default btn-xs" {{if not .Submission.Listing.ImageId}}disabled{{end}}>Remove</button>
        </p>
-       <span class="help-block">TODO Something will happen TODO. Whanganui has many <a href="#">Graphic Designers</a> who can assist. </span>
+       <span class="help-block">Images will automatically be scaled to the <a href="/about#faq-artwork">required sizes</a>.</span>
     </div>
   </div>
 
@@ -171,7 +171,7 @@
   </div>
 
   <h4>Service / Product Description</h4>
-  <p><small>Generally describe your offering to appear in your detailed listing. The first paragraph (up to ?400? characters) will be used as a summary.</small></p>
+  <p><small>Generally describe your offering to appear in your detailed listing. The first paragraph will be used as a summary.</small></p>
   <div class="form-group">
     <div class="col-sm-12">
       <textarea class="form-control" rows="10" id="desc1" name="desc1" placeholder="Service / Product Description">{{.Submission.Listing.Desc1}}</textarea>
