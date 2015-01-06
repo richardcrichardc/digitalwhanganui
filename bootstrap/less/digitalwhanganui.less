@@ -74,13 +74,13 @@
 
 /* increase gutter on left and right of container to 30px */
 .container {
-    padding-left: 30px;
-    padding-right: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 /* search form */
 
-form.search {
+form.search-form {
   padding-bottom: 6px;
 }
 
@@ -92,15 +92,54 @@ form.search {
   width: 165px;
 }
 
-.search-collapsed {
+a.search-collapsed {
   .visible-xs();
   .pull-right();
   padding: 10px 0px 10px 0px;
+  text-decoration: none;
 }
 
 .search-collapsed-form {
   margin-left: -15px;
   margin-right: -30px;
+  &.collapse.in {
+    @media (min-width: @screen-sm-min) {
+      display: none;
+    }
+  }
+}
+
+.search-large{
+  &.dark-bg {
+    padding: 45px 0 30px 0;
+  }
+
+  h2 {
+    margin: 6px 0;
+  }
+}
+
+
+// Browser specific styles must be on separate lines to work
+// So use a mixin to avoid repetition
+.search-input-style() {
+   font-family: 'EntypoRegular';
+   font-size: 2em;
+   line-height: 0.75em;
+}
+
+input.search-input {
+  &::-webkit-input-placeholder {
+    .search-input-style();
+  }
+
+  &::-moz-placeholder {
+     .search-input-style();
+  }
+
+  &:-ms-input-placeholder {
+    .search-input-style();
+  }
 }
 
 /* nav bar */

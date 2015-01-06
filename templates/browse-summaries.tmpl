@@ -28,28 +28,7 @@
     </div>
     {{end}}
     <div class="col-lg-{{if and (not .MinorCat) (.MajorCat.MinorCats) }}9{{ else }}12{{end}}">
-      <div>
-        {{range .ListingSummaries}}
-          <div class="row listing-summary">
-            <div class="col-xs-3">
-              <a href="{{.Id}}">
-                {{if .ImageId}}
-                  <img class="img-responsive" src="/image/{{.ImageId}}/small">
-                {{else}}
-                    {{template "no-logo" .IsOrg}}
-                {{end}}
-              </a>
-            </div>
-
-            <div class="col-xs-9">
-              <div class="pull-right">{{if .IsOrg}}Organisation{{else}}Individual{{end}}</div>
-              <h3><a href={{.Id}}>{{.Name}}</a></h3>
-              <p>{{shortDesc .ShortDesc}}</p>
-              <h5><a href={{.Id}}>View more..</a></h5>
-            </div>
-          </div>
-        {{end}}
-      </div>
+      {{template "summaries" .}}
     </div>
   </div>
 </div>

@@ -76,7 +76,8 @@ func main() {
 	r.Get("/image/:imageId/:size", downloadImage)
 	r.Get("/addmedone", addMeDone)
 	r.Get("/about", about)
-	r.Get("/search", search)
+	r.Get("/search/", search)
+	r.Get("/search/:listingId", searchListing)
 	r.Get("/login/:code", login)
 	r.Post("/login/:code", postLogin)
 	r.Get("/review/", reviewList)
@@ -664,6 +665,10 @@ func individualListing(r render.Render, params martini.Params) {
 
 func organisationListing(r render.Render, params martini.Params) {
 	displayListing(r, params, "Organisations")
+}
+
+func searchListing(r render.Render, params martini.Params) {
+	displayListing(r, params, "")
 }
 
 func canonicalListing(r render.Render, params martini.Params) {

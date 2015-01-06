@@ -26,4 +26,20 @@ function unobfusicateEmailLinks() {
 
 $( document ).ready(function() {
   setTimeout(unobfusicateEmailLinks, 25);
+
+  // copy input between the various search boxes
+  $(".search-input").keydown(function() {
+    var that=this;
+    // wait for the key to register in val()
+    setTimeout(function() {
+      var value = $(that).val();
+      $(".search-input").each(function() {
+        // only update if the value differs so as not to lose cursor position
+        if ($(this).val() != value) {
+          $(this).val(value);
+        }
+      })
+    }, 1);
+  });
+
 });

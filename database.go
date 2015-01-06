@@ -270,7 +270,7 @@ func fetchOrganisationSummaries() (summaries []ListingSummary) {
 }
 
 func fetchSearchSummaries(search string) (summaries []ListingSummary) {
-	rows, err := DB.Query("SELECT l.Id, l.Name, '', l.isOrg, '', imageId FROM listing l JOIN listing_fts s ON l.id = s.docid WHERE l.Status=1 AND s.listing_fts MATCH ?", search)
+	rows, err := DB.Query("SELECT l.Id, l.Name, substr(l.desc1, 0, 320), l.isOrg, '', imageId FROM listing l JOIN listing_fts s ON l.id = s.docid WHERE l.Status=1 AND s.listing_fts MATCH ?", search)
 	return fetchListingSummaries(rows, err)
 }
 

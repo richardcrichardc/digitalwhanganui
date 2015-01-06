@@ -1,22 +1,33 @@
-{{template "searchbox" .}}
-
-
-{{if .ListingSummaries}}
-  <div class="row">
-  {{range .ListingSummaries}}
-      <div class="media">
-        <a class="media-left" href="/listing/{{.Id}}">
-          <img data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PGRlZnMvPjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjEzLjQ2ODc1IiB5PSIzMiIgc3R5bGU9ImZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMHB0O2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjY0eDY0PC90ZXh0PjwvZz48L3N2Zz4=" data-holder-rendered="true" style="width: 64px; height: 64px;">
-        </a>
-        <div class="media-body">
-          <div class="pull-right">{{if .IsOrg}}Organisation{{else}}Individual{{end}}</div>
-          <h4 class="media-heading"><a href="/listing/{{.Id}}">{{.Name}}</a></h4>
-          {{shortDesc .ShortDesc}}
-        </div>
+<div class="dark-bg search-large">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <h2><span class="entypo" aria-hidden="true">&#128294;</span> Search</h2>
       </div>
-
-  {{end}}
+      <div class="col-sm-9">
+        <form class="form" role="form" action="/search/">
+          <div class="form-group col-sm-10">
+            <label class="sr-only" for="search3">Search</label>
+            <input id="search3" type="text" class="form-control search-input" name="q" value="{{.Q}}" placeholder="&#128269;">
+          </div>
+          <div class="form-group col-sm-2">
+            <button type="submit" class="form-control btn btn-default">Find</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
+</div>
+
+<div class="container">
+  <div class="row">
+{{if .ListingSummaries}}
+  {{template "summaries" .}}
 {{else}}
-  <p><i>No matches.</i></p>
+  <div class="col-xs-12">
+    <h3><i>No listings matching your search found.</i></h3>
+  </div>
 {{end}}
+
+  </div>
+</div>

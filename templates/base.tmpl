@@ -32,10 +32,10 @@
             </div>
           </div>
           <div class="col-sm-5">
-            <form class="form-inline search pull-right hidden-xs" action="/search">
+            <form class="form-inline search-form pull-right hidden-xs" action="/search/">
               <div class="form-group">
                 <label class="sr-only" for="search">Search</label>
-                <input type="text" class="form-control input-sm input-find" id="search" placeholder="Search">
+                <input type="text" class="form-control input-sm input-find search-input" id="search" placeholder="&#128269;">
                 <button type="submit" class="btn btn-default btn-sm btn-find">Find</button>
               </div>
             </form>
@@ -47,13 +47,13 @@
                 <li {{if eq .Section "about" }}class="active"{{end}}><a href="/about">About</a></li>
               </ul>
             </div>
-            <form class="form-inline search-collapsed-form collapse" action="/search">
+            <form class="form-inline search-collapsed-form collapse" action="/search/">
               <div class="form-group col-xs-10">
                 <label class="sr-only" for="search2">Search</label>
-                <input type="text" class="form-control input-sm" id="search2" placeholder="Search">
+                <input type="text" class="form-control input-sm search-input" id="search2" placeholder="&#128269;">
               </div>
               <div class="form-group cols-xs-2">
-                <button type="submit" class="btn btn-default btn-sm btn-find">Find</button>
+                <button type="submit" class="btn btn-default btn-sm btn-find search-input">Find</button>
               </div>
             </form>
           </div>
