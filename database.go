@@ -255,8 +255,13 @@ func listingIdForAdminEmail(email string) int {
 }
 
 func fetchCategorySummaries(majorMajorCatCode, majorCatCode, minorCatCode string) (summaries []ListingSummary) {
-	rows, err := DB.Query("SELECT l.Id, l.Name, substr(desc1, 0, 320), l.isOrg, '', imageId FROM categoryListing cl JOIN listing l ON cl.listingId = l.id WHERE Status=1 AND majorMajorCatCode = ? AND majorCatCode = ? AND minorCatCode = ?", majorMajorCatCode, majorCatCode, minorCatCode)
-	return fetchListingSummaries(rows, err)
+	if minorCatCode == "none" {
+		rows, err := DB.Query("SELECT DISTINCT l.Id, l.Name, substr(desc1, 0, 320), l.isOrg, '', imageId FROM categoryListing cl JOIN listing l ON cl.listingId = l.id WHERE Status=1 AND majorMajorCatCode = ? AND majorCatCode = ?", majorMajorCatCode, majorCatCode)
+		return fetchListingSummaries(rows, err)
+	} else {
+		rows, err := DB.Query("SELECT l.Id, l.Name, substr(desc1, 0, 320), l.isOrg, '', imageId FROM categoryListing cl JOIN listing l ON cl.listingId = l.id WHERE Status=1 AND majorMajorCatCode = ? AND majorCatCode = ? AND minorCatCode = ?", majorMajorCatCode, majorCatCode, minorCatCode)
+		return fetchListingSummaries(rows, err)
+	}
 }
 
 func fetchIndividualSummaries() (summaries []ListingSummary) {

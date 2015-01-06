@@ -710,6 +710,10 @@ func (l *Listing) EachWebsite() (ret []Website) {
 	for _, url := range strings.Split(strings.ToLower(l.Websites), "\n") {
 		url = strings.TrimSpace(url)
 
+		if url == "" {
+			continue
+		}
+
 		if !strings.Contains(url, "://") {
 			url = "http://" + url
 		}
