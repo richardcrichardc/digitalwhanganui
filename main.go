@@ -524,7 +524,7 @@ func about(r render.Render) {
 	d.Section = "about"
 	d.Cats = Cats
 	d.Name = "Bob"
-
+	r.HTML(200, "about", d)
 }
 
 func search(r render.Render, req *http.Request) {
