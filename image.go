@@ -28,8 +28,14 @@ func addImage(file multipart.File) (string, string) {
 		return "", "Image could not be understood. Please upload a PNG, GIF or JPEG."
 	}
 
-	small := encode(resize.Thumbnail(150, 133, orig_image, resize.Lanczos3), format)
-	large := encode(resize.Resize(350, 311, orig_image, resize.Lanczos3), format)
+	orig_size := orig_image.Bounds().Size()
+
+	if orig_size.X < 692 && orig_size.Y < 606 {
+		return "", "Image is too small. Please upload an image that is at least 692 pixels wide or 606 pixels high."
+	}
+
+	small := encode(resize.Thumbnail(255, 223, orig_image, resize.Lanczos3), format)
+	large := encode(resize.Resize(692, 606, orig_image, resize.Lanczos3), format)
 
 	id := randomIdString()
 
