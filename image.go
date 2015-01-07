@@ -28,8 +28,8 @@ func addImage(file multipart.File) (string, string) {
 		return "", "Image could not be understood. Please upload a PNG, GIF or JPEG."
 	}
 
-	small := encode(resize.Resize(160, 0, orig_image, resize.Lanczos3), format)
-	large := encode(resize.Resize(350, 0, orig_image, resize.Lanczos3), format)
+	small := encode(resize.Thumbnail(150, 133, orig_image, resize.Lanczos3), format)
+	large := encode(resize.Resize(350, 311, orig_image, resize.Lanczos3), format)
 
 	id := randomIdString()
 

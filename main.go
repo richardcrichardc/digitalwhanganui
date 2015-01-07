@@ -589,7 +589,7 @@ func postLogin(r render.Render, req *http.Request) {
 	email := strings.TrimSpace(strings.ToLower(req.FormValue("email")))
 
 	if email == shortAdministratorEmail() || listingIdForAdminEmail(email) != 0 {
-		args := map[string]string{"LoginLink": loginLink(shortAdministratorEmail())}
+		args := map[string]string{"LoginLink": loginLink(email)}
 		sendMail(email, "Digital Whanganui Login Link", "newloginlink.tmpl", args)
 
 		d.Title = "New Login Link"
