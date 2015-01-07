@@ -460,7 +460,7 @@ func loginLink(email string) string {
 		panic(err)
 	}
 
-	return "http://xyzzy.digitalwhanganui.org.nz/login/" + code
+	return siteURL() + "/login/" + code
 }
 
 func loginCodeToEmail(code string) string {

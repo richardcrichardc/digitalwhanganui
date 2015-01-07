@@ -48,7 +48,8 @@ func main() {
 		"para":       para,
 		"shortDesc":  shortDesc,
 		"formatTime": formatTime,
-		"obfEmail":   obfEmail}}
+		"obfEmail":   obfEmail,
+		"siteURL":    siteURL}}
 
 	rendererOptions := render.Options{Layout: "base", Directory: templateDir, Funcs: templateFuncs}
 	m.Use(render.Renderer(rendererOptions))
@@ -118,6 +119,14 @@ func obfEmail(email, label string) template.HTML {
 	return template.HTML("<a class=\"obf-email\" href=\"#\" data-obf-email=\"" +
 		html.EscapeString(obfEmail) + "\" data-obf-email-label=\"" +
 		html.EscapeString(label) + "\">&nbsp;</a>")
+}
+
+func siteURL() string {
+	if martini.Env == martini.Dev {
+		return "http://localhost:3000"
+	} else {
+		return "http://xyzzy.digitalwhanganui.org.nz"
+	}
 }
 
 type page struct {
@@ -229,7 +238,7 @@ func browseListing(r render.Render, params martini.Params) {
 	}
 
 	d.Title = d.Listing.Name
-	d.CanonicalURL = "http://xyzzy.digitalwhanganui.org.nz/listing/" + params["listingId"]
+	d.CanonicalURL = siteURL() + "/listing/" + params["listingId"]
 
 	r.HTML(200, "browse-listing", d)
 }
@@ -336,6 +345,9 @@ func postAddMe(r render.Render, formSubmission ListingSubmission, s *Session, w 
 	if !submission.Listing.IsOrg {
 		submission.Listing.Name = submission.Listing.AdminFirstName + " " + submission.Listing.AdminLastName
 	}
+
+	// coerce email address to lowercase
+	submission.Listing.AdminEmail = strings.ToLower(submission.Listing.AdminEmail)
 
 	errors := make(map[string]interface{})
 	validate.Required(submission.Listing.AdminFirstName, "AdminFirstName", "First Name", errors)
@@ -513,7 +525,6 @@ func about(r render.Render) {
 	d.Cats = Cats
 	d.Name = "Bob"
 
-	r.HTML(200, "about", d)
 }
 
 func search(r render.Render, req *http.Request) {
@@ -561,13 +572,32 @@ func invalidLoginCode(r render.Render, lost bool) {
 		page
 		Lost bool
 	}
-	d.Title = "Invalid Login Code"
+
+	if lost {
+		d.Title = "Lost Login Link"
+	} else {
+		d.Title = "Invalid Login Link"
+	}
+
 	d.Lost = lost
 	r.HTML(200, "invalid-login-code", d)
 }
 
-func postLogin(r render.Render) {
-	r.StatusText(500, "NOT IMPLEMENTED")
+func postLogin(r render.Render, req *http.Request) {
+	var d page
+
+	email := strings.TrimSpace(strings.ToLower(req.FormValue("email")))
+
+	if email == shortAdministratorEmail() || listingIdForAdminEmail(email) != 0 {
+		args := map[string]string{"LoginLink": loginLink(shortAdministratorEmail())}
+		sendMail(email, "Digital Whanganui Login Link", "newloginlink.tmpl", args)
+
+		d.Title = "New Login Link"
+		r.HTML(200, "new-login-code", d)
+	} else {
+		d.Title = "New Login Link Failed"
+		r.HTML(200, "new-login-code-failed", d)
+	}
 }
 
 func reviewList(r render.Render, params martini.Params, s *Session) {
@@ -646,10 +676,11 @@ func postReview(r render.Render, params martini.Params, w http.ResponseWriter, r
 		setListingStatus(listingId, StatusAccepted)
 		updateCategoryCounts()
 		args := map[string]string{
-			"Id":        listingIdString,
-			"FirstName": listing.AdminFirstName,
-			"Name":      listing.Name,
-			"LoginLink": loginLink(listing.AdminEmail)}
+			"Id":          listingIdString,
+			"FirstName":   listing.AdminFirstName,
+			"Name":        listing.Name,
+			"ListingLink": siteURL() + "/listing/" + listingIdString,
+			"LoginLink":   loginLink(listing.AdminEmail)}
 		sendMail(listing.FullAdminEmail(), "Digital Whanganui Submission Accepted", "accepted.tmpl", args)
 	case "Reject":
 		setListingStatus(listingId, StatusRejected)
@@ -695,7 +726,7 @@ func displayListing(r render.Render, params martini.Params, majorMajorCatName st
 	}
 
 	d.Title = d.Listing.Name
-	d.CanonicalURL = "http://xyzzy.digitalwhanganui.org.nz/listing/" + params["listingId"]
+	d.CanonicalURL = siteURL() + "/listing/" + params["listingId"]
 	d.MajorMajorCatName = majorMajorCatName
 	d.MajorMajorCatURL = "."
 
