@@ -1,7 +1,7 @@
 package validate
 
 import (
-	"strings"
+	"regexp"
 )
 
 func Required(field, key, label string, errors map[string]interface{}) {
@@ -11,7 +11,13 @@ func Required(field, key, label string, errors map[string]interface{}) {
 }
 
 func Email(field, key, label string, errors map[string]interface{}) {
-	if !strings.ContainsRune(field, '@') {
-		errors[key] = label + " does not look like a valid email address."
+	matched, err := regexp.MatchString("^(?i:[A-Z0-9._%+-]+@[A-Z0-9.-]+)$", field)
+
+	if err != nil {
+		panic(err)
+	}
+
+	if !matched {
+		errors[key] = label + " does not look like a valid email address. I am expecting to see something like: john.smith@example.com"
 	}
 }
