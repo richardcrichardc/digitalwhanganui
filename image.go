@@ -48,8 +48,7 @@ func encode(image image.Image, orig_format string) []byte {
 	switch orig_format {
 	case "jpeg":
 		err = jpeg.Encode(&buf, image, &jpeg.Options{90})
-	case "gif":
-	case "png":
+	case "gif", "png":
 		err = png.Encode(&buf, image)
 	default:
 		panic("Unsupported image format: " + orig_format)
