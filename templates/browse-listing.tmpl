@@ -25,6 +25,9 @@
               {{template "no-logo" .Listing.IsOrg}}
           {{end}}
 
+          <h5>Type</h5>
+          <div>{{if .Listing.IsOrg}}Organisation{{else}}Individual{{end}}</div>
+
           <h5>Categories</h5>
           {{range .Listing.CatIds}}
               <div><span class="label label-info"><a href="{{.URL}}">{{.Name}}</a></span></div>
