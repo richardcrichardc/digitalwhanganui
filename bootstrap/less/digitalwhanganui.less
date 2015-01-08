@@ -309,12 +309,6 @@ input.search-input {
     h3 {
         margin-top: 0;
     }
-
-    .no-logo {
-        width: 214px;
-        height: 187px;
-        font-size: 50px;
-    }
 }
 
 .sub-categories {
@@ -334,15 +328,38 @@ input.search-input {
     }
 }
 
-/* block to display when no image or logo has been uploaded */
+/*
+  block to display when no image or logo has been uploaded
+  uses css voodo to retain 8:7 aspect ratio when width changes
+*/
 
 .no-logo {
     background-color: @brand-info;
-    color: white;
-    text-align: center;
-    vertical-align: middle;
-    display: table-cell;
+    width: 100%;
+    display: inline-block;
+    position: relative;
 }
+
+.no-logo::after {
+  padding-top: 87.5%;
+  display: block;
+  content: '';
+}
+
+.no-logo2 {
+  position: absolute;
+  top: 0; bottom: 0; right: 0; left: 0;
+}
+
+.no-logo3 {
+  display: table-cell;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 50px;
+}
+
+
 
 /* listing detail page */
 
@@ -359,12 +376,6 @@ input.search-input {
 
   h3 {
     margin-top: 0;
-  }
-
-  .no-logo {
-      width: 205px;
-      height: 190px;
-      font-size: 50px;
   }
 
   .label {
