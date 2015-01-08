@@ -36,7 +36,7 @@
               <form class="form-inline search-form pull-right hidden-xs" action="/search/">
                 <div class="form-group">
                   <label class="sr-only" for="search">Search</label>
-                  <input type="text" class="form-control input-sm input-find search-input" id="search" placeholder="&#128269;">
+                  <input type="text" class="form-control input-sm input-find search-input" id="search" placeholder="&#128269;" name="q" value="{{.SearchQuery}}">
                   <button type="submit" class="btn btn-default btn-sm btn-find">Find</button>
                 </div>
               </form>
@@ -53,7 +53,7 @@
             <form class="form-inline search-collapsed-form collapse" action="/search/">
               <div class="form-group col-xs-10">
                 <label class="sr-only" for="search2">Search</label>
-                <input type="text" class="form-control input-sm search-input" id="search2" placeholder="&#128269;">
+                <input type="text" class="form-control input-sm search-input" id="search2" placeholder="&#128269;" name="q" value="{{.SearchQuery}}">
               </div>
               <div class="form-group cols-xs-2">
                 <button type="submit" class="btn btn-default btn-sm btn-find search-input">Find</button>

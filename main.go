@@ -134,6 +134,7 @@ type page struct {
 	CanonicalURL string
 	Section      string
 	JSFiles      []string
+	SearchQuery  string
 }
 
 type listingPage struct {
@@ -530,13 +531,12 @@ func about(r render.Render) {
 func search(r render.Render, req *http.Request) {
 	var d struct {
 		page
-		Q                string
 		ListingSummaries []ListingSummary
 	}
 
 	d.Title = "Search"
-	d.Q = req.FormValue("q")
-	d.ListingSummaries = fetchSearchSummaries(d.Q)
+	d.SearchQuery = req.FormValue("q")
+	d.ListingSummaries = fetchSearchSummaries(d.SearchQuery)
 
 	r.HTML(200, "search", d)
 }
