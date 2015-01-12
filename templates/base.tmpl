@@ -46,7 +46,7 @@
               <ul class="nav my-nav">
                 <li {{if eq .Section "browse" }}class="active"{{end}}><a href="/">Browse</a></li>
                 <li {{if eq .Section "addme" }}class="active"{{end}}><a href="/addme">Add Me</a></li>
-                <li><a href="/about#faq">FAQ</a></li>
+                <li {{if eq .Section "faq" }}class="active"{{end}}><a href="/faq">FAQ</a></li>
                 <li {{if eq .Section "about" }}class="active"{{end}}><a href="/about">About</a></li>
               </ul>
             </div>

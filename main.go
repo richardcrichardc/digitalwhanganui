@@ -76,6 +76,7 @@ func main() {
 	r.Post("/uploadImage", uploadImage)
 	r.Get("/image/:imageId/:size", downloadImage)
 	r.Get("/addmedone", addMeDone)
+	r.Get("/faq", faq)
 	r.Get("/about", about)
 	r.Get("/search/", search)
 	r.Get("/search/:listingId", searchListing)
@@ -514,17 +515,17 @@ func downloadImage(r render.Render, w http.ResponseWriter, req *http.Request, pa
 	http.ServeContent(w, req, "", *created, stream)
 }
 
-func about(r render.Render) {
-	var d struct {
-		page
-		Cats Categories
-		Name string
-	}
+func faq(r render.Render) {
+	var d page
+	d.Title = "Frequently Asked Questions"
+	d.Section = "faq"
+	r.HTML(200, "faq", d)
+}
 
+func about(r render.Render) {
+	var d page
 	d.Title = "About"
 	d.Section = "about"
-	d.Cats = Cats
-	d.Name = "Bob"
 	r.HTML(200, "about", d)
 }
 
