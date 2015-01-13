@@ -455,7 +455,7 @@ func init() {
 
 func loginLink(email string) string {
 	code := randomIdString()
-	_, err := DB.Exec(`INSERT INTO login(code, email, expires) VALUES(?,lower(?),datetime('now', '+30 days'))`, code, email)
+	_, err := DB.Exec(`INSERT INTO login(code, email, expires) VALUES(?,lower(?),datetime('now', '+365 days'))`, code, email)
 	if err != nil {
 		panic(err)
 	}
