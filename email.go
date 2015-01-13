@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"github.com/richardcrichardc/martini"
 	"gopkg.in/alexcesaro/quotedprintable.v1"
+	"log"
 	"net/smtp"
 	"path/filepath"
 	"text/template"
@@ -63,6 +64,16 @@ func (l *Listing) FullAdminEmail() string {
 
 func checkHeader(header string) {
 	// TODO
+}
+
+func emailErrorMsg(msg string, logger *log.Logger) {
+	defer func() {
+		if err := recover(); err != nil {
+			logger.Println("Panic when emailing error message:", err)
+		}
+	}()
+
+	sendMail("richardc+digitalwhanganui@richardc.net", "Digital Whanganui Error", "error.tmpl", map[string]string{"error": msg})
 }
 
 func init() {

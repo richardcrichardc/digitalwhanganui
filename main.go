@@ -36,7 +36,7 @@ func main() {
 	r := martini.NewRouter()
 	m := martini.New()
 	m.Use(martini.Logger())
-	m.Use(martini.Recovery())
+	m.Use(martini.Recovery(emailErrorMsg))
 	m.Use(martini.Static(publicDir))
 	m.MapTo(r, (*martini.Routes)(nil))
 	m.Action(r.Handle)
