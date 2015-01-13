@@ -126,7 +126,7 @@ func siteURL() string {
 	if martini.Env == martini.Dev {
 		return "http://localhost:3000"
 	} else {
-		return "http://xyzzy.digitalwhanganui.org.nz"
+		return "http://www.digitalwhanganui.org.nz"
 	}
 }
 
