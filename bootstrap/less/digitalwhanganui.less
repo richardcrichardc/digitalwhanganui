@@ -138,7 +138,8 @@ input.search-input {
   }
 
   &:-ms-input-placeholder {
-    .search-input-style();
+    // disable in IE because the positioning is stuffed
+    color: white;
   }
 }
 

@@ -101,6 +101,15 @@ $( document ).ready(function() {
 
     always: function (e, data) {
       var error;
+
+      /*console.log(JSON.stringify(data.result, null, 4));
+
+      var obj = data;
+      for (var prop in obj) {
+        console.log("o." + prop + " = " + obj[prop]);
+      }*/
+
+
       if (data.jqXHR && data.jqXHR.status && data.jqXHR.status == 413) {
         error = "File too big - please use a file smaller than 10MB.";
       } else if (data.textStatus === "error") {
