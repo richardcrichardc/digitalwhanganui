@@ -14,7 +14,7 @@
  * Author Joss Mackison
  * www.team9.com.au
 **/
- 
+
 @font-face {
 	font-family: 'EntypoRegular';
 	src: url('../fonts/entypo.eot');
@@ -23,7 +23,7 @@
 		 url('../fonts/entypo.ttf') format('truetype'),
 		 url('../fonts/entypo.svg#EntypoRegular') format('svg');
 }
- 
+
 @font-face {
 	font-family: 'EntypoSocial';
 	src: url('../fonts/entypo-social.eot');
@@ -36,30 +36,29 @@
 // Regular catchall
 .entypo {
 	display: inline-block;
-	line-height: 1;
 	font-family: 'EntypoRegular';
 	font-style: normal;
 	font-weight: normal;
 	position: relative;
 	text-decoration: inherit;
 	top: 1px;
-	
+
 	// silence screen readers
 	speak: none;
-	
+
 	// smooth iOS font
 	-webkit-font-smoothing: antialiased;
-	
+
 	/* reset parent styles, that can break glyph codes */
 	font-variant: normal;
 	text-transform: none;
-	
+
 	/* entypo is abnormally small */
 	font-size: 2em;
-	
+
 	/* offset font-size */
-	line-height: .5em;
-	
+	line-height: 0;
+
 	/*
 		Column icons
 		==============================
