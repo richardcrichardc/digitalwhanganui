@@ -161,7 +161,19 @@ input.search-input {
         background-color: @reversed-bg;
       }
     }
+
+    &.active > a {
+        &, &:hover, &:focus {
+          color: white;
+          text-decoration: none;
+        }
+      }
+
+
   }
+
+
+
 
   @media (min-width: @screen-sm-min) {
     .pull-right();
