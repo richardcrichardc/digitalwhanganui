@@ -272,7 +272,7 @@ func fetchIndividualSummaries() (summaries []ListingSummary) {
 }
 
 func fetchOrganisationSummaries() (summaries []ListingSummary) {
-	rows, err := DB.Query("SELECT Id, Name, '', isOrg, upper(substr(Name,1,1)), imageId FROM listing WHERE Status=1 AND isOrg=1 ORDER BY Name")
+	rows, err := DB.Query("SELECT Id, Name, '', isOrg, upper(substr(Name,1,1)), imageId FROM listing WHERE Status=1 AND isOrg=1 ORDER BY upper(Name)")
 	return fetchListingSummaries(rows, err)
 }
 
