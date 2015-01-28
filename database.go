@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	_ "github.com/mattn/go-sqlite3"
+	"log"
 	"time"
 )
 
@@ -451,6 +452,62 @@ func init() {
 	}
 
 	updateCategoryCounts()
+
+	// Check if the flag file rescaleImages exists, if it does rescale all images
+	// Images that have just been uploaded but the listing not saved will not be rescaled, so it is
+	// advisable to resize twice a day or so apart
+	if fileExists("rescaleImages") {
+
+		// New images will be created with new Ids. We don't want to rescale the images we have just
+		// created. So get all the Ids to process first.
+
+		var ids []string
+
+		rows, err = DB.Query("SELECT id FROM image")
+		if err != nil {
+			panic(err)
+		}
+		for rows.Next() {
+			var id string
+			if err := rows.Scan(&id); err != nil {
+				panic(err)
+			}
+
+			ids = append(ids, id)
+		}
+		if err := rows.Err(); err != nil {
+			panic(err)
+		}
+
+		// Create new image from each existing, update references
+		// We want the new image to have a new id so that the old image does not stay cached in browsers
+		// etc. However we cannot update references for listings the user is currently creating/editing
+
+		for _, id := range ids {
+			log.Println("Resizing image", id)
+			// fetch original
+			var orig []byte
+			row := DB.QueryRow(`SELECT original FROM image WHERE id = ?`, id)
+			err := row.Scan(&orig)
+			if err != nil {
+				panic(err)
+			}
+
+			// create new
+			newId, imgErr := addImage(orig)
+			if imgErr != "" {
+				panic(imgErr)
+			}
+
+			// update references
+			_, err = DB.Exec(`UPDATE listing SET ImageId=? WHERE ImageId = ?`, newId, id)
+			if err != nil {
+				panic(err)
+			}
+
+		}
+	}
+
 }
 
 func loginLink(email string) string {

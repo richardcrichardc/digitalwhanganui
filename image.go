@@ -9,19 +9,10 @@ import (
 	"image/jpeg"
 	"image/png"
 	"io"
-	"mime/multipart"
 	"time"
 )
 
-func addImage(file multipart.File) (string, string) {
-	var orig_buf bytes.Buffer
-
-	_, err := orig_buf.ReadFrom(file)
-	if err != nil {
-		panic(err)
-	}
-	file.Close()
-	orig := orig_buf.Bytes()
+func addImage(orig []byte) (string, string) {
 
 	orig_image, format, err := image.Decode(bytes.NewReader(orig))
 	if err != nil {
@@ -35,7 +26,7 @@ func addImage(file multipart.File) (string, string) {
 	}
 
 	small := encode(resize.Thumbnail(255, 223, orig_image, resize.Lanczos3), format)
-	large := encode(resize.Resize(692, 606, orig_image, resize.Lanczos3), format)
+	large := encode(resize.Thumbnail(692, 606, orig_image, resize.Lanczos3), format)
 
 	id := randomIdString()
 

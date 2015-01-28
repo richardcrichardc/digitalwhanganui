@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"digitalwhanganui/validate"
 	"github.com/richardcrichardc/binding"
 	"github.com/richardcrichardc/martini"
@@ -500,7 +501,16 @@ func uploadImage(r render.Render, req *http.Request) {
 		panic(err)
 	}
 
-	d.Id, d.Error = addImage(file)
+	// read file into byte array
+	var orig_buf bytes.Buffer
+	_, err = orig_buf.ReadFrom(file)
+	if err != nil {
+		panic(err)
+	}
+	file.Close()
+	orig := orig_buf.Bytes()
+
+	d.Id, d.Error = addImage(orig)
 
 	r.JSON(200, d)
 }
