@@ -1,4 +1,5 @@
 PRAGMA journal_mode=WAL;
+PRAGMA synchronous=NORMAL;
 
 CREATE TABLE IF NOT EXISTS majorMajorCat (
     code TEXT PRIMARY KEY,
