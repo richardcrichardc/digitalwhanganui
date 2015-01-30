@@ -14,7 +14,7 @@ while true; do
         digitalwhanganui &
     fi
     sleep 1
-    inotifywait -r -q -e attrib *
+    inotifywait -r -q -e attrib --exclude *sdb* *
     kill %digitalwhanganui
     wait %digitalwhanganui
 done

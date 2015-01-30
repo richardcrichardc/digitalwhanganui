@@ -9,11 +9,11 @@ import (
 	"image/jpeg"
 	"image/png"
 	"io"
+	"log"
 	"time"
 )
 
 func addImage(orig []byte) (string, string) {
-
 	orig_image, format, err := image.Decode(bytes.NewReader(orig))
 	if err != nil {
 		return "", "Image could not be understood. Please upload a PNG, GIF or JPEG."
@@ -80,5 +80,94 @@ func fetchImage(imageId, size string) (io.ReadSeeker, *time.Time) {
 		return nil, nil
 	default:
 		panic(err)
+	}
+}
+
+func rescaleImages() {
+	// New images will be created with new Ids. We don't want to rescale the images we have just
+	// created. So get all the Ids to process first.
+
+	var ids []string
+
+	rows, err := DB.Query("SELECT id FROM image")
+	if err != nil {
+		panic(err)
+	}
+	for rows.Next() {
+		var id string
+		if err := rows.Scan(&id); err != nil {
+			panic(err)
+		}
+
+		ids = append(ids, id)
+	}
+	if err := rows.Err(); err != nil {
+		panic(err)
+	}
+
+	// Create new image from each existing, update references
+	// We want the new image to have a new id so that the old image does not stay cached in browsers
+	// etc. However we cannot update references for listings the user is currently creating/editing
+
+	for _, id := range ids {
+		log.Println("Resizing image", id)
+		// fetch original
+		var orig []byte
+		row := DB.QueryRow(`SELECT original FROM image WHERE id = ?`, id)
+		err := row.Scan(&orig)
+		if err != nil {
+			panic(err)
+		}
+
+		// create new
+		newId, imgErr := addImage(orig)
+		if imgErr != "" {
+			panic(imgErr)
+		}
+
+		// update references
+		_, err = DB.Exec(`UPDATE listing SET ImageId=? WHERE ImageId = ?`, newId, id)
+		if err != nil {
+			panic(err)
+		}
+
+	}
+}
+
+func imageGC() {
+	// Every midnight (NZT) delete any images from database that are no longer in use, that is, images
+	// not referenced from the listing table. Images may have just been uploaded with the listing not
+	// yet saved, so don't delete images less than a day old.
+
+	NZT, err := time.LoadLocation("Pacific/Auckland")
+	if err != nil {
+		panic(err)
+	}
+
+	for {
+		now := time.Now().In(NZT)
+		tomorrow := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, NZT).Add(24 * time.Hour)
+		duration := tomorrow.Sub(now)
+
+		log.Println("Next ImageGC in", duration)
+		time.Sleep(duration)
+
+		log.Println("ImageGC start")
+		_, err := DB.Exec(`DELETE FROM image WHERE id IN (
+                        SELECT image.id
+                        FROM image LEFT JOIN listing ON image.id=listing.imageId
+                        WHERE listing.id IS NULL AND image.created < datetime('now', '-1 days')
+                       )`)
+		if err != nil {
+			panic(err)
+		}
+
+		// Vacuum the database to recover free space
+		// This locks the database for a few seconds
+		_, err = DB.Exec(`VACUUM`)
+		if err != nil {
+			panic(err)
+		}
+		log.Println("ImageGC finish")
 	}
 }

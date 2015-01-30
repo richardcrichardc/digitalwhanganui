@@ -18,6 +18,9 @@ import (
 var auckland *time.Location
 
 func main() {
+
+	initDB()
+
 	// Decide where to load templated from
 	var templateDir, publicDir string
 
@@ -32,6 +35,16 @@ func main() {
 	} else {
 		publicDir = "/usr/local/share/digitalwhanganui/public"
 	}
+
+	// Check if the flag file rescaleImages exists, if it does rescale all images
+	// Images that have just been uploaded but the listing not saved will not be rescaled, so it is
+	// advisable to resize twice a day or so apart
+	if fileExists("rescaleImages") {
+		rescaleImages()
+	}
+
+	// Start goroutine that deletes images that have been uploaded but are not used
+	go imageGC()
 
 	// Martini Classic with parametric publicDir
 	r := martini.NewRouter()
@@ -87,6 +100,7 @@ func main() {
 	r.Get("/review/:listingId", review)
 	r.Post("/review/:listingId", postReview)
 	m.Run()
+
 }
 
 func fileExists(name string) bool {
