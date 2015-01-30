@@ -1,3 +1,5 @@
+PRAGMA journal_mode=WAL;
+
 CREATE TABLE IF NOT EXISTS majorMajorCat (
     code TEXT PRIMARY KEY,
     name TEXT,
