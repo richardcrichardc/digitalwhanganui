@@ -96,7 +96,7 @@
         {{$majorMajorCat := index $.Cats.MajorMajorCats .MajorMajorCode}}
         {{$majorCat := index $majorMajorCat.MajorCats .MajorCode}}
         {{$minorCat := index $majorCat.MinorCats .MinorCode}}
-        <span class="badge" id="{{.MajorMajorCode}}.{{.MajorCode}}.{{.MinorCode}}">{{$majorMajorCat.Name}} > {{$majorCat.Name}} {{if $minorCat}}> {{$minorCat.Name}} {{end}}<span class="glyphicon glyphicon-remove remove-category"></span></span>
+        <span class="badge" id="{{.MajorMajorCode}}.{{.MajorCode}}.{{.MinorCode}}">{{$majorMajorCat.Name}} > {{$majorCat.Name}} {{if $minorCat}}> {{$minorCat.Name}} {{end}}<span class="entypo entypo-cross remove-category"></span></span>
       {{end}}
       </div>
       <div id="add-at-least-one" class="form-control-static {{if .Submission.Listing.CatIds}}hidden{{end}}"><small>Please add at least one category.</small></div>

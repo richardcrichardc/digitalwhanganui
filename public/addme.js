@@ -47,7 +47,7 @@ $( document ).ready(function() {
       return;
     }
 
-    var catEl = $('<span class="badge" id="' + cat + '">' + catName + ' <span class="glyphicon glyphicon-remove remove-category"></span></span>');
+    var catEl = $('<span class="badge" id="' + cat + '">' + catName + ' <span class="entypo entypo-cross remove-category"></span></span>');
 
     $("#add-at-least-one").addClass("hidden");
     $("#selected-categories").append(catEl).removeClass("hidden");
