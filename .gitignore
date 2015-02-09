@@ -1,4 +1,6 @@
-digitalwhanganui.sdb
+digitalwhanganui.sdb*
+.digitalwhanganui.sdb.*
 **/node_modules/
 /bootstrap/dist/
 /public/css/style.css
+digitalwhanganui.sublime-workspace
