@@ -53,27 +53,15 @@ REPLACE INTO majorCat(majorMajorCatCode, code, name, sort) VALUES
 ('services','electron','Electronics Repairs / Servicing',29),
 ('services','edu','Education & Training ',30),
 ('services','design','Graphic Design',32),
-('services','anim','Animation',33),
-('services','interact','Interactive Design',34),
-('services','photo','Photos',35),
-('services','video','Digital Video',39),
-('services','fab','Digital Fabrication / Making',40),
-('services','coach','Digital Futures / Innovation Coaching',44),
-('services','governance','Governance',45),
-('services','ip','Intellectual Property / Rights Advice',46),
-('products','comp','Computers',1),
-('products','comp-acc','Computer Accessories',2),
-('products','software','Software',3),
-('products','tablets','Tablets',4),
-('products','phones','Phones',5),
-('products','phone-acc','Phone Accessories',6),
-('products','camera','Cameras, Digital',7),
-('products','video','Video Cameras, Digital',8),
-('products','games','Games',9),
-('products','console','Gaming systems',10),
-('products','drones','Drones / Multicopters',11),
-('products','fab','Digital Fabrication Tools',12),
-('products','electronics','Electronics Supplies',13);
+('services','digprint','Digital Printing',33),
+('services','anim','Animation',34),
+('services','interact','Interactive Design',35),
+('services','photo','Photos',36),
+('services','video','Digital Video',40),
+('services','fab','Digital Fabrication / Making',41),
+('services','coach','Digital Futures / Innovation Coaching',45),
+('services','governance','Governance',46),
+('services','ip','Intellectual Property / Rights Advice',47);
 
 REPLACE INTO minorCat(majorMajorCatCode, majorCatCode, code, name, sort) VALUES
 ('services','web','site','Site Development',2),
@@ -85,12 +73,14 @@ REPLACE INTO minorCat(majorMajorCatCode, majorCatCode, code, name, sort) VALUES
 ('services','telco','telcoplan','System Planning',25),
 ('services','telco','telcosupport','System Support',26),
 ('services','edu','courseware','Courseware Design',31),
-('services','photo','printing','Photography',36),
-('services','photo','3dtours','3D Tours',37),
-('services','photo','3dtours','Digital Photo Printing',38),
-('services','fab','3dmodel','3D Modelling',41),
-('services','fab','3dscan','3D Scanning',42),
-('services','fab','3dprinting','3D Printing',43);
+('services','photo','printing','Photography',37),
+('services','photo','3dtours','3D Tours',38),
+('services','photo','3dtours','Digital Photo Printing',39),
+('services','fab','3dmodel','3D Modelling',42),
+('services','fab','3dscan','3D Scanning',43),
+('services','fab','3dprinting','3D Printing',44);
+
+
 
 CREATE TABLE IF NOT EXISTS listing (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
