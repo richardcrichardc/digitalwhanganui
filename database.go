@@ -2,8 +2,9 @@ package main
 
 import (
 	"database/sql"
-	_ "github.com/mattn/go-sqlite3"
 	"time"
+
+	_ "github.com/mattn/go-sqlite3"
 )
 
 var DB *sql.DB
@@ -258,10 +259,10 @@ func listingIdForAdminEmail(email string) int {
 
 func fetchCategorySummaries(majorMajorCatCode, majorCatCode, minorCatCode string) (summaries []ListingSummary) {
 	if minorCatCode == "none" {
-		rows, err := DB.Query("SELECT DISTINCT l.Id, l.Name, substr(desc1, 0, 320), l.isOrg, '', imageId FROM categoryListing cl JOIN listing l ON cl.listingId = l.id WHERE Status=1 AND majorMajorCatCode = ? AND majorCatCode = ?", majorMajorCatCode, majorCatCode)
+		rows, err := DB.Query("SELECT DISTINCT l.Id, l.Name, substr(desc1, 0, 320), l.isOrg, '', imageId FROM categoryListing cl JOIN listing l ON cl.listingId = l.id WHERE Status=1 AND majorMajorCatCode = ? AND majorCatCode = ? ORDER BY lower(Name)", majorMajorCatCode, majorCatCode)
 		return fetchListingSummaries(rows, err)
 	} else {
-		rows, err := DB.Query("SELECT l.Id, l.Name, substr(desc1, 0, 320), l.isOrg, '', imageId FROM categoryListing cl JOIN listing l ON cl.listingId = l.id WHERE Status=1 AND majorMajorCatCode = ? AND majorCatCode = ? AND minorCatCode = ?", majorMajorCatCode, majorCatCode, minorCatCode)
+		rows, err := DB.Query("SELECT l.Id, l.Name, substr(desc1, 0, 320), l.isOrg, '', imageId FROM categoryListing cl JOIN listing l ON cl.listingId = l.id WHERE Status=1 AND majorMajorCatCode = ? AND majorCatCode = ? AND minorCatCode = ? ORDER BY lower(Name)", majorMajorCatCode, majorCatCode, minorCatCode)
 		return fetchListingSummaries(rows, err)
 	}
 }
