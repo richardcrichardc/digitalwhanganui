@@ -2,12 +2,13 @@ package main
 
 import (
 	"bytes"
-	"github.com/richardcrichardc/martini"
-	"gopkg.in/alexcesaro/quotedprintable.v1"
 	"log"
 	"net/smtp"
 	"path/filepath"
 	"text/template"
+
+	"github.com/richardcrichardc/digitalwhanganui/martini"
+	"gopkg.in/alexcesaro/quotedprintable.v1"
 )
 
 var shortFromEmail = "digitalwhanganui@digitalwhanganui.org.nz"

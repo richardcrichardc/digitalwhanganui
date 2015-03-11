@@ -3,7 +3,7 @@
 trap "{ kill %digitalwhanganui ; exit; }" EXIT
 
 while true; do
-    go install digitalwhanganui &
+    go install github.com/richardcrichardc/digitalwhanganui &
     grunt --gruntfile bootstrap/Gruntfile.js less:compileCore &
     wait %go
     GO_RESULT=$?

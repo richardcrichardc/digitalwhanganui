@@ -2,10 +2,6 @@ package main
 
 import (
 	"bytes"
-	"digitalwhanganui/validate"
-	"github.com/richardcrichardc/binding"
-	"github.com/richardcrichardc/martini"
-	"github.com/richardcrichardc/render"
 	"html"
 	"html/template"
 	"net/http"
@@ -13,6 +9,11 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/richardcrichardc/digitalwhanganui/binding"
+	"github.com/richardcrichardc/digitalwhanganui/martini"
+	"github.com/richardcrichardc/digitalwhanganui/render"
+	"github.com/richardcrichardc/digitalwhanganui/validate"
 )
 
 var auckland *time.Location

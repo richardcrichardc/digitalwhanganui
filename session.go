@@ -6,10 +6,11 @@ import (
 	"database/sql"
 	"encoding/base64"
 	"encoding/gob"
-	"github.com/richardcrichardc/martini"
 	"html/template"
 	"net/http"
 	"time"
+
+	"github.com/richardcrichardc/digitalwhanganui/martini"
 )
 
 type Session struct {
