@@ -75,17 +75,33 @@ func Static(directory string, staticOpt ...StaticOptions) Handler {
 				return
 			}
 		}
-		f, err := dir.Open(file)
-		if err != nil {
-			// try any fallback before giving up
-			if opt.Fallback != "" {
-				file = opt.Fallback // so that logging stays true
-				f, err = dir.Open(opt.Fallback)
-			}
 
+		var f http.File
+		var err error
+
+		// Send gzipped version if client accepts gzipped encoding and gzipped version exists
+		// Use of ServeContent to send file will probably cause problems if content type cannot
+		// be guessed from requested filename
+		if requestAcceptsGzipEncoding(req) {
+			f, _ = dir.Open(file + ".gz")
+			if f != nil {
+				res.Header().Set("Content-Encoding", "gzip")
+			}
+		}
+
+		if f == nil {
+			f, err = dir.Open(file)
 			if err != nil {
-				// discard the error?
-				return
+				// try any fallback before giving up
+				if opt.Fallback != "" {
+					file = opt.Fallback // so that logging stays true
+					f, err = dir.Open(opt.Fallback)
+				}
+
+				if err != nil {
+					// discard the error?
+					return
+				}
 			}
 		}
 		defer f.Close()
@@ -132,4 +148,16 @@ func Static(directory string, staticOpt ...StaticOptions) Handler {
 
 		http.ServeContent(res, req, file, fi.ModTime(), f)
 	}
+}
+
+func requestAcceptsGzipEncoding(req *http.Request) bool {
+	for _, encodings := range req.Header["Accept-Encoding"] {
+		for _, encoding := range strings.Split(encodings, ",") {
+			encoding = strings.TrimSpace(encoding)
+			if encoding == "gzip" {
+				return true
+			}
+		}
+	}
+	return false
 }

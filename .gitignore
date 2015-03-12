@@ -3,4 +3,6 @@ digitalwhanganui.sdb*
 **/node_modules/
 /bootstrap/dist/
 /public/css/style.css
+/public/css/style.css.gz
+/public/*.gz
 digitalwhanganui.sublime-workspace

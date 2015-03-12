@@ -11,6 +11,8 @@ while true; do
     GRUNT_RESULT=$?
     if [[ $GO_RESULT == 0 && $GRUNT_RESULT == 0 ]] ; then
         cp bootstrap/dist/css/bootstrap.css public/css/style.css
+        gzip -f --keep public/css/style.css
+        gzip -f --keep public/*.js
         digitalwhanganui &
     fi
     sleep 1
