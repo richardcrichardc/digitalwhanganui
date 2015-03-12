@@ -16,7 +16,8 @@ while true; do
         digitalwhanganui &
     fi
     sleep 1
-    inotifywait -r -q -e attrib --exclude *sdb* *
+    # different editors generate different events
+    inotifywait -r -q -e modify -e attrib --exclude *sdb* *
     kill %digitalwhanganui
     wait %digitalwhanganui
 done
