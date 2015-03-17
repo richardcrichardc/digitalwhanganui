@@ -19,23 +19,9 @@ import (
 var auckland *time.Location
 
 func main() {
-
+	loadConfig()
+	initEmail()
 	initDB()
-
-	// Decide where to load templated from
-	var templateDir, publicDir string
-
-	if fileExists("templates") {
-		templateDir = "templates"
-	} else {
-		templateDir = "/usr/local/share/digitalwhanganui/templates"
-	}
-
-	if fileExists("public") {
-		publicDir = "public"
-	} else {
-		publicDir = "/usr/local/share/digitalwhanganui/public"
-	}
 
 	// Check if the flag file rescaleImages exists, if it does rescale all images
 	// Images that have just been uploaded but the listing not saved will not be rescaled, so it is
@@ -52,7 +38,7 @@ func main() {
 	m := martini.New()
 	m.Use(martini.Logger())
 	m.Use(martini.Recovery(emailErrorMsg))
-	m.Use(martini.Static(publicDir))
+	m.Use(martini.Static(Config.PublicDir))
 	m.MapTo(r, (*martini.Routes)(nil))
 	m.Action(r.Handle)
 	// Sessions in database
@@ -66,7 +52,7 @@ func main() {
 		"obfEmail":   obfEmail,
 		"siteURL":    siteURL}}
 
-	rendererOptions := render.Options{Layout: "base", Directory: templateDir, Funcs: templateFuncs}
+	rendererOptions := render.Options{Layout: "base", Directory: Config.TemplateDir, Funcs: templateFuncs}
 	m.Use(render.Renderer(rendererOptions))
 
 	// Timezone for date formatting
@@ -139,11 +125,7 @@ func obfEmail(email, label string) template.HTML {
 }
 
 func siteURL() string {
-	if martini.Env == martini.Dev {
-		return "http://localhost:3000"
-	} else {
-		return "http://www.digitalwhanganui.org.nz"
-	}
+	return Config.SiteURL
 }
 
 type page struct {
@@ -319,14 +301,14 @@ func addMeForm(r render.Render, s *Session) {
 		"/jquery.fileupload.js",
 		"/addme.js"}
 
-	d.Submission, _ = s.Values["addme"].(ListingSubmission)
+	d.Submission, _ = s.Get("addme").(ListingSubmission)
 	r.HTML(200, "addme", d)
 }
 
 func addMePreview(r render.Render, s *Session) {
 	var d listingPage
 
-	submission, ok := s.Values["addme"].(ListingSubmission)
+	submission, ok := s.Get("addme").(ListingSubmission)
 
 	if !ok {
 		r.Redirect("/addme", 302)
@@ -344,7 +326,7 @@ func addMePreview(r render.Render, s *Session) {
 func postAddMe(r render.Render, formSubmission ListingSubmission, s *Session, w http.ResponseWriter, req *http.Request) {
 	var submission ListingSubmission
 
-	sessionListingSubmission, _ := s.Values["addme"].(ListingSubmission)
+	sessionListingSubmission, _ := s.Get("addme").(ListingSubmission)
 
 	if formSubmission.FromPreview != "" {
 		// Button pushed on Preview Page
@@ -400,7 +382,7 @@ func postAddMe(r render.Render, formSubmission ListingSubmission, s *Session, w 
 	}
 
 	submission.Errors = errors
-	s.Values["addme"] = submission
+	s.Set("addme", submission)
 
 	switch submission.Submit {
 	case "preview":
@@ -422,22 +404,22 @@ func postAddMe(r render.Render, formSubmission ListingSubmission, s *Session, w 
 				args := map[string]string{
 					"FirstName": submission.Listing.AdminFirstName,
 					"Name":      submission.Listing.Name,
-					"LoginLink": loginLink(shortAdministratorEmail())}
+					"LoginLink": loginLink(Config.AdminEmailAddress)}
 				sendMail(administratorEmail(), "New Listing", "newsubmission.tmpl", args)
 
 				args["LoginLink"] = loginLink(submission.Listing.AdminEmail)
 				sendMail(submission.Listing.FullAdminEmail(), "Digital Whanganui Submission", "pending.tmpl", args)
 
-				s.Values["addMeDoneNewListing"] = true
+				s.Set("addMeDoneNewListing", true)
 				http.Redirect(w, req, "/addmedone", 302)
 			case StatusAccepted:
-				s.Values["addMeDoneNewListing"] = false
+				s.Set("addMeDoneNewListing", false)
 				http.Redirect(w, req, "/addmedone", 302)
 			default:
 				panic("Bad Status")
 			}
 
-			delete(s.Values, "addme")
+			s.Delete("addme")
 
 		}
 	case "edit":
@@ -451,7 +433,7 @@ func postAddMe(r render.Render, formSubmission ListingSubmission, s *Session, w 
 func addMeDone(r render.Render, s *Session) {
 	var d page
 
-	newListing, ok := s.Values["addMeDoneNewListing"]
+	newListing, ok := s.GetOK("addMeDoneNewListing")
 	if !ok {
 		r.StatusText(400, "No Submission")
 		return
@@ -575,8 +557,8 @@ func login(r render.Render, params martini.Params, s *Session, w http.ResponseWr
 		return
 	}
 
-	if email == shortAdministratorEmail() {
-		s.Values["review"] = true
+	if email == Config.AdminEmailAddress {
+		s.Set("review", true)
 		http.Redirect(w, req, "/review/", 302)
 		return
 	}
@@ -589,7 +571,7 @@ func login(r render.Render, params martini.Params, s *Session, w http.ResponseWr
 
 	var submission ListingSubmission
 	submission.Listing = *fetchListing(listingId)
-	s.Values["addme"] = submission
+	s.Set("addme", submission)
 	http.Redirect(w, req, "/addme", 302)
 }
 
@@ -614,7 +596,7 @@ func postLogin(r render.Render, req *http.Request) {
 
 	email := strings.TrimSpace(strings.ToLower(req.FormValue("email")))
 
-	if email == shortAdministratorEmail() || listingIdForAdminEmail(email) != 0 {
+	if email == Config.AdminEmailAddress || listingIdForAdminEmail(email) != 0 {
 		args := map[string]string{"LoginLink": loginLink(email)}
 		sendMail(email, "Digital Whanganui Login Link", "newloginlink.tmpl", args)
 
@@ -627,7 +609,7 @@ func postLogin(r render.Render, req *http.Request) {
 }
 
 func reviewList(r render.Render, params martini.Params, s *Session) {
-	if s.Values["review"] == nil {
+	if s.Get("review") == nil {
 		r.Status(403)
 		return
 	}
@@ -652,7 +634,7 @@ func reviewList(r render.Render, params martini.Params, s *Session) {
 }
 
 func review(r render.Render, params martini.Params, s *Session) {
-	if s.Values["review"] == nil {
+	if s.Get("review") == nil {
 		r.Status(403)
 		return
 	}
@@ -678,7 +660,7 @@ func review(r render.Render, params martini.Params, s *Session) {
 }
 
 func postReview(r render.Render, params martini.Params, w http.ResponseWriter, req *http.Request, s *Session) {
-	if s.Values["review"] == nil {
+	if s.Get("review") == nil {
 		r.Status(403)
 		return
 	}

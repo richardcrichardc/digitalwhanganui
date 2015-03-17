@@ -15,8 +15,27 @@ import (
 
 type Session struct {
 	Id      string
-	Values  map[string]interface{}
 	Expires time.Time
+	values  map[string]interface{}
+	dirty   bool
+}
+
+func (s *Session) Get(key string) interface{} {
+	return s.values[key]
+}
+
+func (s *Session) GetOK(key string) (interface{}, bool) {
+	value, ok := s.values[key]
+	return value, ok
+}
+
+func (s *Session) Set(key string, value interface{}) {
+	s.values[key] = value
+	s.dirty = true
+}
+
+func (s *Session) Delete(key string) {
+	delete(s.values, key)
 }
 
 func SQLiteSession(c martini.Context, req *http.Request, res http.ResponseWriter) {
@@ -26,24 +45,27 @@ func SQLiteSession(c martini.Context, req *http.Request, res http.ResponseWriter
 	cookie, err := req.Cookie("session")
 	if err == nil {
 		session.Id = cookie.Value
-		session.Values = fetchSession(session.Id)
+		session.values, session.Expires = fetchSession(session.Id)
 	}
 
-	if session.Values == nil {
+	if session.values == nil {
 		// Session restore failed, create new session
 		session.Id = randomIdString()
-		session.Values = make(map[string]interface{})
+		session.values = make(map[string]interface{})
 	}
 
-	// Update expiry
-	session.Expires = time.Now().Add(time.Hour * 3)
+	// Calculate expiry
+	// Truncated to 10 minutes so we do not need to update the database for
+	// every request
+	// Convert to UTC so comparision with date read in from database works
+	expires := time.Now().Add(time.Hour * 3).Truncate(time.Minute * 10).UTC()
 
 	// Write session cookie
 	http.SetCookie(res, &http.Cookie{
 		Name:     "session",
 		Value:    session.Id,
 		Path:     "/",
-		Expires:  session.Expires,
+		Expires:  expires,
 		HttpOnly: true})
 
 	// Tell martini about session
@@ -52,8 +74,11 @@ func SQLiteSession(c martini.Context, req *http.Request, res http.ResponseWriter
 	// Yield to next handler
 	c.Next()
 
-	// Save session to database
-	storeSession(&session)
+	// Save session to database when needed
+	if session.dirty || expires != session.Expires {
+		session.Expires = expires
+		storeSession(&session)
+	}
 }
 
 func randomIdString() string {
@@ -71,7 +96,7 @@ func storeSession(session *Session) {
 	// Marshall values to GOB
 	var buf bytes.Buffer
 	enc := gob.NewEncoder(&buf)
-	err := enc.Encode(session.Values)
+	err := enc.Encode(session.values)
 	if err != nil {
 		panic(err)
 	}
@@ -86,17 +111,18 @@ func storeSession(session *Session) {
 	}
 }
 
-func fetchSession(sessionId string) map[string]interface{} {
+func fetchSession(sessionId string) (map[string]interface{}, time.Time) {
 	var data []byte
+	var expiresString string
 
-	row := DB.QueryRow("SELECT data FROM session WHERE id=?", sessionId)
-	err := row.Scan(&data)
+	row := DB.QueryRow("SELECT data, expires FROM session WHERE id=?", sessionId)
+	err := row.Scan(&data, &expiresString)
 
 	switch err {
 	case nil:
 		break
 	case sql.ErrNoRows:
-		return nil
+		return nil, time.Time{}
 	default:
 		panic(err)
 	}
@@ -109,7 +135,12 @@ func fetchSession(sessionId string) map[string]interface{} {
 		panic(err)
 	}
 
-	return values
+	expires, err := time.Parse("2006-01-02 15:04:05", expiresString)
+	if err != nil {
+		panic(err)
+	}
+
+	return values, expires
 }
 
 func init() {

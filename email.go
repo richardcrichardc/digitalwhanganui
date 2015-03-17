@@ -7,28 +7,17 @@ import (
 	"path/filepath"
 	"text/template"
 
-	"github.com/richardcrichardc/digitalwhanganui/martini"
 	"gopkg.in/alexcesaro/quotedprintable.v1"
 )
 
-var shortFromEmail = "digitalwhanganui@digitalwhanganui.org.nz"
-var fromEmail = "DigitalWhanganui <" + shortFromEmail + ">"
-
-var server = "bakerloo.richardc.net:587"
-var auth = smtp.CRAMMD5Auth("digitalwhanganui@digitalwhanganui.org.nz", "apodacaGritz")
-
 var emailTemplates *template.Template
 
-func shortAdministratorEmail() string {
-	if martini.Env == martini.Dev {
-		return "richardc+digitalwhanganui@richardc.net"
-	} else {
-		return "digitalwhanganui@digitalwhanganui.org.nz"
-	}
+func administratorEmail() string {
+	return "DigitalWhanganui <" + Config.AdminEmailAddress + ">"
 }
 
-func administratorEmail() string {
-	return "DigitalWhanganui <" + shortAdministratorEmail() + ">"
+func fromEmail() string {
+	return "DigitalWhanganui <" + Config.FromEmailAddress + ">"
 }
 
 func sendMail(to, subject, template string, data map[string]string) {
@@ -36,7 +25,7 @@ func sendMail(to, subject, template string, data map[string]string) {
 	checkHeader(subject)
 
 	var buf bytes.Buffer
-	buf.WriteString("From: " + fromEmail + "\r\n")
+	buf.WriteString("From: " + fromEmail() + "\r\n")
 	buf.WriteString("To: " + to + "\r\n")
 	buf.WriteString("Subject: " + subject + "\r\n")
 	buf.WriteString("Content-Type: text/html; charset=UTF-8\r\n")
@@ -51,8 +40,8 @@ func sendMail(to, subject, template string, data map[string]string) {
 	}
 	msg := buf.Bytes()
 
-	// TODO Fix email args - almost certainly wrong but works
-	err = smtp.SendMail(server, auth, fromEmail, []string{to}, msg)
+	auth := smtp.CRAMMD5Auth(Config.SMTPUser, Config.SMTPPassword)
+	err = smtp.SendMail(Config.SMTPServer, auth, Config.FromEmailAddress, []string{to}, msg)
 	if err != nil {
 		panic(err)
 	}
@@ -77,15 +66,8 @@ func emailErrorMsg(msg string, logger *log.Logger) {
 	sendMail("richardc+digitalwhanganui@richardc.net", "Digital Whanganui Error", "error.tmpl", map[string]string{"error": msg})
 }
 
-func init() {
-	var dir string
-	if fileExists("email-templates") {
-		dir = "email-templates"
-	} else {
-		dir = "/usr/local/share/digitalwhanganui/email-templates"
-	}
-
-	pattern := filepath.Join(dir, "*.tmpl")
+func initEmail() {
+	pattern := filepath.Join(Config.EmailTemplateDir, "*.tmpl")
 	emailTemplates = template.Must(template.ParseGlob(pattern))
 
 }

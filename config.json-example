@@ -1,0 +1,14 @@
+{
+  "SiteURL": "http://localhost:3000",
+
+  "TemplateDir": "templates",
+  "EmailTemplateDir": "email-templates",
+  "PublicDir": "public",
+
+  "SMTPServer": "host:port",
+  "SMTPUser": "digitalwhanganui",
+  "SMTPPassword": "topsecret",
+
+  "FromEmailAddress": "digitalwhanganui@digitalwhanganui.org.nz",
+  "AdminEmailAddress": "administrator@digitalwhanganui.org.nz"
+}
