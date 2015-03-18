@@ -6,11 +6,11 @@ import (
 )
 
 var Config struct {
-	SiteURL                                  string
-	Debug                                    bool
-	TemplateDir, EmailTemplateDir, PublicDir string
-	SMTPServer, SMTPUser, SMTPPassword       string
-	AdminEmailAddress, FromEmailAddress      string
+	SiteURL                                                string
+	Debug                                                  bool
+	TemplateDir, EmailTemplateDir, PublicDir               string
+	SMTPServer, SMTPUser, SMTPPassword                     string
+	AdminEmailAddress, ErrorEmailAddress, FromEmailAddress string
 }
 
 func loadConfig() {
@@ -23,20 +23,3 @@ func loadConfig() {
 		panic(err)
 	}
 }
-
-/*
-// Decide where to load templates from
-var templateDir, publicDir string
-
-if fileExists("templates") {
-  templateDir = "templates"
-} else {
-  templateDir = "/usr/local/share/digitalwhanganui/templates"
-}
-
-if fileExists("public") {
-  publicDir = "public"
-} else {
-  publicDir = "/usr/local/share/digitalwhanganui/public"
-}
-*/

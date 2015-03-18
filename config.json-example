@@ -9,6 +9,7 @@
   "SMTPUser": "digitalwhanganui",
   "SMTPPassword": "topsecret",
 
-  "FromEmailAddress": "digitalwhanganui@digitalwhanganui.org.nz",
-  "AdminEmailAddress": "administrator@digitalwhanganui.org.nz"
+  "FromEmailAddress": "noreply@digitalwhanganui.org.nz",
+  "AdminEmailAddress": "administrator@digitalwhanganui.org.nz",
+  "ErrorEmailAddress": "errors@digitalwhanganui.org.nz",
 }

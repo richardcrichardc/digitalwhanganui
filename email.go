@@ -42,7 +42,7 @@ func sendMail(to, subject, template string, data map[string]string) {
 	msg := buf.Bytes()
 
 	auth := smtp.CRAMMD5Auth(Config.SMTPUser, Config.SMTPPassword)
-	err = smtp.SendMail(Config.SMTPServer, auth, Config.FromEmailAddress, []string{to}, msg)
+	err = smtp.SendMail(Config.SMTPServer, auth, Config.AdminEmailAddress, []string{to}, msg)
 	if err != nil {
 		panic(err)
 	}
@@ -67,7 +67,7 @@ func emailErrorMsg(msg string, logger *log.Logger) {
 		}
 	}()
 
-	sendMail("richardc+digitalwhanganui@richardc.net", "Digital Whanganui Error", "error.tmpl", map[string]string{"error": msg})
+	sendMail(Config.ErrorEmailAddress, "Digital Whanganui Error", "error.tmpl", map[string]string{"error": msg})
 }
 
 func initEmail() {
