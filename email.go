@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/smtp"
 	"path/filepath"
+	"strings"
 	"text/template"
 
 	"gopkg.in/alexcesaro/quotedprintable.v1"
@@ -21,8 +22,8 @@ func fromEmail() string {
 }
 
 func sendMail(to, subject, template string, data map[string]string) {
-	checkHeader(to)
-	checkHeader(subject)
+	checkHeaderText(to)
+	checkHeaderText(subject)
 
 	var buf bytes.Buffer
 	buf.WriteString("From: " + fromEmail() + "\r\n")
@@ -52,8 +53,11 @@ func (l *Listing) FullAdminEmail() string {
 	return l.AdminFirstName + " " + l.AdminLastName + " <" + l.AdminEmail + ">"
 }
 
-func checkHeader(header string) {
-	// TODO
+// Ensure headerText is not being used to inject additional email headers
+func checkHeaderText(headerText string) {
+	if strings.ContainsAny(headerText, "\n\r") {
+		panic("Possible Email header injection: " + headerText)
+	}
 }
 
 func emailErrorMsg(msg string, logger *log.Logger) {
