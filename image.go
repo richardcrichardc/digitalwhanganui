@@ -3,15 +3,57 @@ package main
 import (
 	"bytes"
 	"database/sql"
-	"github.com/nfnt/resize"
 	"image"
 	_ "image/gif"
 	"image/jpeg"
 	"image/png"
 	"io"
 	"log"
+	"net/http"
 	"time"
+
+	"github.com/nfnt/resize"
+	"github.com/richardcrichardc/digitalwhanganui/martini"
+	"github.com/richardcrichardc/digitalwhanganui/render"
 )
+
+func uploadImage(r render.Render, req *http.Request) {
+	//r.Status(500)
+	//return
+
+	var d struct {
+		Id    string
+		Error string
+	}
+
+	file, _, err := req.FormFile("file")
+	if err != nil {
+		panic(err)
+	}
+
+	// read file into byte array
+	var orig_buf bytes.Buffer
+	_, err = orig_buf.ReadFrom(file)
+	if err != nil {
+		panic(err)
+	}
+	file.Close()
+	orig := orig_buf.Bytes()
+
+	d.Id, d.Error = addImage(orig)
+
+	r.JSON(200, d)
+}
+
+func downloadImage(r render.Render, w http.ResponseWriter, req *http.Request, params martini.Params) {
+	stream, created := fetchImage(params["imageId"], params["size"])
+	if stream == nil {
+		r.Status(404)
+		return
+	}
+
+	http.ServeContent(w, req, "", *created, stream)
+}
 
 func addImage(orig []byte) (string, string) {
 	orig_image, format, err := image.Decode(bytes.NewReader(orig))
