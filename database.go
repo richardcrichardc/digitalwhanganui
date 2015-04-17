@@ -329,6 +329,35 @@ func setListingStatus(listingId, newStatus int) {
 	}
 }
 
+func fetchExportData() (exportNotOKCount, exportOKCount int, exportData [][]string) {
+
+	row := DB.QueryRow(`SELECT count(id) FROM Listing WHERE NOT WCCExportOK`)
+	err := row.Scan(&exportNotOKCount)
+	if err != nil {
+		panic(err)
+	}
+
+	rows, err := DB.Query("SELECT id, adminEmail, adminFirstName, adminLastName, adminPhone, isOrg, name FROM listing WHERE WCCExportOK ORDER BY id")
+	if err != nil {
+		panic(err)
+	}
+
+	for rows.Next() {
+		var id, adminEmail, adminFirstName, adminLastName, adminPhone, isOrg, name string
+
+		if err := rows.Scan(&id, &adminEmail, &adminFirstName, &adminLastName, &adminPhone, &isOrg, &name); err != nil {
+			panic(err)
+		}
+		exportData = append(exportData, []string{id, adminEmail, adminFirstName, adminLastName, adminPhone, isOrg, name})
+	}
+	if err := rows.Err(); err != nil {
+		panic(err)
+	}
+
+	exportOKCount = len(exportData)
+	return
+}
+
 func updateCategoryCounts() {
 	q := `SELECT
       mc.majormajorcatcode mmcc, mc.code mcc, NULL micc, count(l.id)

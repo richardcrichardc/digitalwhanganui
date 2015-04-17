@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/csv"
 	"net/http"
 	"strconv"
 
@@ -98,4 +99,30 @@ func postReview(r render.Render, params martini.Params, w http.ResponseWriter, r
 	}
 
 	http.Redirect(w, req, "/review/"+listingIdString, 302)
+}
+
+func export(r render.Render, w http.ResponseWriter, req *http.Request, s *Session) {
+	if s.Get("review") == nil {
+		r.Status(403)
+		return
+	}
+
+	exportNotOKCount, exportOKCount, data := fetchExportData()
+
+	header := [][]string{
+		{"DigitalWhanganui WRC Export"},
+		{},
+		{strconv.Itoa(exportOKCount), "Marked WRC Export OK"},
+		{strconv.Itoa(exportNotOKCount), "Marked WRC Export Not OK"},
+		{},
+		{"ID", "Email", "First Name", "Last Name", "Phone", "Is Organisation", "Listing Name"},
+	}
+
+	w.Header().Add("Content-Type", "text/csv")
+	w.Header().Add("Content-Disposition", `attachment; filename="export.csv"`)
+
+	cw := csv.NewWriter(w)
+	cw.WriteAll(header)
+	cw.WriteAll(data)
+	cw.Flush()
 }

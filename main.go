@@ -80,6 +80,8 @@ func main() {
 	r.Get("/review/", reviewList)
 	r.Get("/review/:listingId", review)
 	r.Post("/review/:listingId", postReview)
+	r.Get("/export", export)
+
 	m.Run()
 
 }
