@@ -15,7 +15,7 @@ while true; do
         gzip -f --keep public/*.js
         digitalwhanganui &
     fi
-    sleep 1
+    sleep 5
     # different editors generate different events
     inotifywait -r -q -e modify -e attrib --exclude *sdb* *
     kill %digitalwhanganui
