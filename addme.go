@@ -1,12 +1,11 @@
 package main
 
 import (
+	"github.com/richardcrichardc/digitalwhanganui/render"
+	"github.com/richardcrichardc/digitalwhanganui/validate"
 	"html/template"
 	"net/http"
 	"strings"
-
-	"github.com/richardcrichardc/digitalwhanganui/render"
-	"github.com/richardcrichardc/digitalwhanganui/validate"
 )
 
 func addMe(r render.Render, s *Session, req *http.Request) {
@@ -124,6 +123,11 @@ func postAddMe(r render.Render, formSubmission ListingSubmission, s *Session, w 
 	s.Set("addme", submission)
 
 	switch submission.Submit {
+	case "remove":
+		removeListing(&submission.Listing)
+		s.Set("addMeDoneStatus", StatusRemoved)
+		http.Redirect(w, req, "/addmedone", 302)
+		s.Delete("addme")
 	case "preview":
 		if len(errors) > 0 {
 			http.Redirect(w, req, "/addme", 302)
@@ -149,15 +153,14 @@ func postAddMe(r render.Render, formSubmission ListingSubmission, s *Session, w 
 				args["LoginLink"] = loginLink(submission.Listing.AdminEmail)
 				sendMail(submission.Listing.FullAdminEmail(), "Digital Whanganui Submission", "pending.tmpl", args)
 
-				s.Set("addMeDoneNewListing", true)
 				http.Redirect(w, req, "/addmedone", 302)
 			case StatusAccepted:
-				s.Set("addMeDoneNewListing", false)
 				http.Redirect(w, req, "/addmedone", 302)
 			default:
 				panic("Bad Status")
 			}
 
+			s.Set("addMeDoneStatus", submission.Listing.Status)
 			s.Delete("addme")
 
 		}
@@ -172,20 +175,25 @@ func postAddMe(r render.Render, formSubmission ListingSubmission, s *Session, w 
 func addMeDone(r render.Render, s *Session) {
 	var d page
 
-	newListing, ok := s.GetOK("addMeDoneNewListing")
+	listingStatus, ok := s.GetOK("addMeDoneStatus")
 	if !ok {
 		r.StatusText(400, "No Submission")
 		return
 	}
 
-	if newListing.(bool) {
+	switch listingStatus {
+	case StatusNew:
 		d.Title = "Listing Submitted"
 		d.Section = "addme"
-		r.HTML(200, "addmedone", d)
-	} else {
+		r.HTML(200, "updatedone", d)
+	case StatusAccepted:
 		d.Title = "Listing Updated"
 		d.Section = "addme"
 		r.HTML(200, "updatedone", d)
+	case StatusRemoved:
+		d.Title = "Listing Removed"
+		d.Section = "addme"
+		r.HTML(200, "removedone", d)
 	}
 }
 

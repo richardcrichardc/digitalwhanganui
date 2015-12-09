@@ -126,3 +126,7 @@ func export(r render.Render, w http.ResponseWriter, req *http.Request, s *Sessio
 	cw.WriteAll(data)
 	cw.Flush()
 }
+
+func fiveHundred(r render.Render, w http.ResponseWriter, req *http.Request, s *Session) {
+	panic("The sky is falling")
+}

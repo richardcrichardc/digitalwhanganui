@@ -116,6 +116,7 @@ const (
 	StatusAccepted = 1
 	StatusRejected = 2
 	StatusExpired  = 3
+	StatusRemoved  = 4
 )
 
 func storeListing(listing *Listing) {
@@ -184,6 +185,30 @@ func storeListing(listing *Listing) {
 			tx.Rollback()
 			panic(err)
 		}
+	}
+
+	tx.Commit()
+}
+
+func removeListing(listing *Listing) {
+	tx, err := DB.Begin()
+	if err != nil {
+		panic(err)
+	}
+
+	// Ensure delete triggers fire
+	_, err = tx.Exec(`PRAGMA recursive_triggers = 1`)
+
+	if err != nil {
+		tx.Rollback()
+		panic(err)
+	}
+
+	_, err = tx.Exec(`UPDATE listing SET status=4 WHERE id=?`, listing.Id)
+
+	if err != nil {
+		tx.Rollback()
+		panic(err)
 	}
 
 	tx.Commit()
@@ -337,7 +362,7 @@ func fetchExportData() (exportNotOKCount, exportOKCount int, exportData [][]stri
 		panic(err)
 	}
 
-	rows, err := DB.Query("SELECT id, adminEmail, adminFirstName, adminLastName, adminPhone, isOrg, name FROM listing WHERE WCCExportOK ORDER BY id")
+	rows, err := DB.Query("SELECT id, adminEmail, adminFirstName, adminLastName, adminPhone, isOrg, name FROM listing WHERE status=1 AND WCCExportOK ORDER BY id")
 	if err != nil {
 		panic(err)
 	}

@@ -193,6 +193,9 @@
     <div class="col-sm-12">
       <button type="submit" name="submit" value="preview" class="btn btn-default">Preview</button>
       <button type="submit" name="submit" value="submit" class="btn btn-default">Submit to Directory</button>
+      {{if eq .Submission.Listing.Status 1 }}
+          <button type="submit" name="submit" value="remove" class="btn btn-default">Remove from Directory</button>
+      {{end}}
     </div>
   </div>
 
