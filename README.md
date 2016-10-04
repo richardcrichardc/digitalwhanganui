@@ -1,6 +1,6 @@
 # digitalwhanganui
 
-This is the sourcecode for http://www.digitalwhanganui.org.nz, a directory of things digital in
+This is the source code for https://www.digitalwhanganui.org.nz, a directory of things digital in
 [Whanganui, New Zealand](https://www.google.co.nz/maps/@-39.9259578,175.0293892,13z).
 
-You will be able to read about the production on my [blog](http://blog.richardc.net), when I write it up.
+Code by <a href="https://richardc.net">Richard Collins, design by <a href="http://josephsalmon.co.nz/">Joe Salmon</a>, ‘moving and shaking’ by <a href="http://www.e-govwatch.org.nz/">Shane Middlemiss</a>.
