@@ -101,10 +101,15 @@ func storeSession(session *Session) {
 		panic(err)
 	}
 
+	expires, err :=	session.Expires.MarshalText()
+	if err != nil {
+		panic(err)
+	}
+
 	_, err = DB.Exec("REPLACE INTO session(id, data, expires) VALUES(?,?,?)",
 		session.Id,
 		buf.Bytes(),
-		session.Expires)
+		expires)
 
 	if err != nil {
 		panic(err)
@@ -135,7 +140,7 @@ func fetchSession(sessionId string) (map[string]interface{}, time.Time) {
 		panic(err)
 	}
 
-	expires, err := time.Parse("2006-01-02 15:04:05", expiresString)
+	expires, err := time.Parse(time.RFC3339, expiresString)
 	if err != nil {
 		panic(err)
 	}
