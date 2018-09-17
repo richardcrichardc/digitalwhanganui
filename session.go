@@ -10,7 +10,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/richardcrichardc/digitalwhanganui/martini"
+	"github.com/go-martini/martini"
 )
 
 type Session struct {

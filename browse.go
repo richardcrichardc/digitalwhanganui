@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/richardcrichardc/digitalwhanganui/martini"
-	"github.com/richardcrichardc/digitalwhanganui/render"
+	"github.com/go-martini/martini"
+	"github.com/martini-contrib/render"
 )
 
 type page struct {

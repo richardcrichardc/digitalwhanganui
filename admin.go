@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/richardcrichardc/digitalwhanganui/martini"
-	"github.com/richardcrichardc/digitalwhanganui/render"
+	"github.com/go-martini/martini"
+	"github.com/martini-contrib/render"
 )
 
 func reviewList(r render.Render, params martini.Params, s *Session) {

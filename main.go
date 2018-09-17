@@ -5,9 +5,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/richardcrichardc/digitalwhanganui/binding"
-	"github.com/richardcrichardc/digitalwhanganui/martini"
-	"github.com/richardcrichardc/digitalwhanganui/render"
+	"github.com/martini-contrib/binding"
+	"github.com/go-martini/martini"
+	"github.com/martini-contrib/render"
 )
 
 var auckland *time.Location

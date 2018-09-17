@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/richardcrichardc/digitalwhanganui/render"
+	"github.com/martini-contrib/render"
 	"github.com/richardcrichardc/digitalwhanganui/validate"
 	"html/template"
 	"net/http"

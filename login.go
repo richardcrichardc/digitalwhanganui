@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/richardcrichardc/digitalwhanganui/martini"
-	"github.com/richardcrichardc/digitalwhanganui/render"
+	"github.com/go-martini/martini"
+	"github.com/martini-contrib/render"
 )
 
 func login(r render.Render, params martini.Params, s *Session, w http.ResponseWriter, req *http.Request) {

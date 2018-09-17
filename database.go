@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"time"
 
-	_ "github.com/richardcrichardc/digitalwhanganui/go-sqlite3"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 var DB *sql.DB

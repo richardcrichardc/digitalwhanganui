@@ -13,8 +13,8 @@ import (
 	"time"
 
 	"github.com/nfnt/resize"
-	"github.com/richardcrichardc/digitalwhanganui/martini"
-	"github.com/richardcrichardc/digitalwhanganui/render"
+	"github.com/go-martini/martini"
+	"github.com/martini-contrib/render"
 )
 
 func uploadImage(r render.Render, req *http.Request) {
